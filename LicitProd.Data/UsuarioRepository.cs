@@ -26,8 +26,8 @@ namespace LicitProd.Data
              .Add("Nombre", log.Nombre)
              .Add("Descripcion", log.Descripcion)
              .Add("Type", log.Type.ToString())
-             .Add("Fecha", log.Fecha.ToString())
-             .Add("Usuario_Id", userId.ToString())
+             .Add("Fecha", log.Fecha)
+             .Add("Usuario_Id", userId)
              .Send());
         }
     }
@@ -58,7 +58,7 @@ namespace LicitProd.Data
 
         private void UpdateLastLoginDate(string email) => SqlAccessService.UpdateData("Usuarios",
                  new Parameters()
-                    .Add("LastLogin", DateTime.Now.ToString())
+                    .Add("LastLogin", DateTime.Now)
                     .Send(),
                  new Parameters()
                     .Add("Email", email)

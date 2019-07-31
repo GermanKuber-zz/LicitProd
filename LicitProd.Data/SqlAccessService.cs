@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
@@ -7,9 +8,9 @@ namespace LicitProd.Data
 {
     public class SqlAccessService
     {
-        string connectionString = "Data Source=DESKTOP-L51S99M;Initial Catalog=LicitProd;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+        string connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=LicitProd;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
 
-        public DataTable SelectData(string table, Dictionary<string, string> parameters = null, List<string> selectColumns = null)
+        public DataTable SelectData(string table, List<Parameter> parameters = null, List<string> selectColumns = null)
         {
             string query = "SELECT ";
 
@@ -24,7 +25,7 @@ namespace LicitProd.Data
             {
                 query = string.Concat(query, " WHERE ", string.Join(" AND ", parameters.Select(value =>
                 {
-                    return $" {value.Key}=@{value.Key}";
+                    return $" {value.ColumnName}=@{value.ColumnName}";
                 }).ToList()));
             }
 
@@ -33,7 +34,7 @@ namespace LicitProd.Data
             if (parameters != null)
                 command.Parameters.AddRange(parameters.Select(parameter =>
                 {
-                    return new SqlParameter($"@{parameter.Key}", parameter.Value);
+                    return new SqlParameter($"@{parameter.ColumnName}", parameter.Value);
                 }).ToArray());
             conn.Open();
 
@@ -46,33 +47,49 @@ namespace LicitProd.Data
             return dataTable;
 
         }
-        public void InsertData(string table, Dictionary<string, string> parameters) =>
-            ExcecuteQuery(table, $"INSERT INTO dbo.{table} ({string.Join(",", parameters.Keys.ToList())}) " +
-                           $"VALUES ({string.Join(",", parameters.Keys.Select(key => $"@{key}").ToList())}) ", parameters);
+        public void InsertData(string table, List<Parameter> parameters) =>
+            ExcecuteQuery(table, $"INSERT INTO dbo.{table} ({string.Join(",", parameters.Select(x=> x.ColumnName).ToList())}) " +
+                           $"VALUES ({string.Join(",", parameters.Select(key => $"@{key.ColumnName}").ToList())}) ", parameters);
 
-        public void UpdateData(string table, Dictionary<string, string> parameters, Dictionary<string, string> where = default)
+        public void UpdateData(string table, List<Parameter> parameters, List<Parameter> where = default)
         {
-            string query = $"UPDATE  dbo.{table} SET {string.Join(",", parameters.Select(value => $"{value.Key} = @{value.Key}").ToList())}";
+            string query = $"UPDATE  dbo.{table} SET {string.Join(",", parameters.Select(value => $"{value.ColumnName} = @{value.ColumnName}").ToList())}";
 
             if (where != null)
-                query = string.Concat(query, " WHERE ", string.Join(" AND ", where.Select(x => $"{x.Key}=@{x.Key}")));
-
-            ExcecuteQuery(table, query, parameters.Union(where).ToDictionary(k => k.Key, v => v.Value));
+                query = string.Concat(query, " WHERE ", string.Join(" AND ", where.Select(x => $"{x.ColumnName}=@{x.ColumnName}")));
+            parameters.AddRange(where);
+            ExcecuteQuery(table, query, parameters);
         }
-        private void ExcecuteQuery(string table, string query, Dictionary<string, string> parameters)
+        private void ExcecuteQuery(string table, string query, List<Parameter> parameters)
         {
             using (SqlConnection cn = new SqlConnection(connectionString))
             using (SqlCommand cmd = new SqlCommand(query, cn))
             {
                 cmd.Parameters.AddRange(parameters.Select(parameter =>
                 {
-                    return new SqlParameter($"@{parameter.Key}", parameter.Value);
+                    return new SqlParameter($"@{parameter.ColumnName}", parameter.Value)
+                    {
+                        SqlDbType = parameter.Type
+                    };
                 }).ToArray());
 
                 cn.Open();
                 cmd.ExecuteNonQuery();
                 cn.Close();
             }
+        }
+    }
+    public class Parameter
+    {
+        public string ColumnName { get; }
+        public string Value { get; }
+        public SqlDbType Type { get; }
+
+        public Parameter(string columnName, string value, SqlDbType type)
+        {
+            ColumnName = columnName ?? throw new ArgumentNullException(nameof(columnName));
+            Value = value ?? throw new ArgumentNullException(nameof(value));
+            Type = type;
         }
     }
 }
