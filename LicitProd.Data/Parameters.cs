@@ -24,7 +24,7 @@ namespace LicitProd.Data
         }
         public Parameters Add(string key, DateTime value )
         {
-            parameters.Add(new Parameter(key, value.ToShortDateString(), SqlDbType.DateTime));
+            parameters.Add(new Parameter(key, value.ToString(), SqlDbType.DateTime));
             return new Parameters(parameters); ;
         }
         public Parameters Add(string key, int value)

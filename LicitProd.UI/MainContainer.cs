@@ -20,6 +20,8 @@ namespace LicitProd.UI
 
         private void LogoutToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            new LogManager().LogInformacion("Logout");
+
             new UsuarioService().Logout();
             this.Hide();
             new Login().Show();
