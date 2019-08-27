@@ -29,6 +29,10 @@ namespace LicitProd.UI
 
         private void Button1_Click(object sender, EventArgs e)
         {
+
+            var log = new LogRepository();
+            var logs = log.Get();
+
             var pass = CryptographyService.Encrypt(this.txtEmail.Text);
             var de = CryptographyService.Decrypt(pass);
             if (!validEmailRegex.IsMatch(this.txtEmail.Text))

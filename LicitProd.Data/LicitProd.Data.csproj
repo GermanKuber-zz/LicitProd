@@ -41,6 +41,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BaseRepository.cs" />
+    <Compile Include="LogRepository.cs" />
     <Compile Include="Parameters.cs" />
     <Compile Include="SqlAccessService.cs" />
     <Compile Include="UsuarioRepository.cs" />

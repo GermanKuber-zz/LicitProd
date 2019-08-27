@@ -1,17 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LicitProd.Entities
 {
     public class Usuario
     {
-        public int Id { get; }
-        public string Email { get; }
-        public string HashPassword { get; }
+        public int Id { get; protected set; }
+        public string Email { get; protected set; }
+        [DbColumnAttribute("Password")]
+        public string HashPassword { get; protected set; }
 
+        public Usuario()
+        {
+
+        }
         public Usuario(int id, string email, string hashPassword)
         {
             Id = id;
@@ -25,4 +26,7 @@ namespace LicitProd.Entities
             HashPassword = hashPassword ?? throw new ArgumentNullException(nameof(hashPassword));
         }
     }
+  
 }
+
+

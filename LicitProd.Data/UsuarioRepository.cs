@@ -2,36 +2,9 @@
 using LicitProd.Mappers;
 using LicitProd.Services;
 using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LicitProd.Data
 {
-    public class BaseRepository
-    {
-        protected readonly SqlAccessService SqlAccessService;
-
-        public BaseRepository()
-        {
-            SqlAccessService = new SqlAccessService();
-
-        }
-    }
-    public class LogRepository : BaseRepository
-    {
-        public void Insertar(Log log, int userId)
-        {
-            SqlAccessService.InsertData("Logs",
-              new Parameters()
-             .Add("Nombre", log.Nombre)
-             .Add("Descripcion", log.Descripcion)
-             .Add("Type", log.Type.ToString())
-             .Add("Fecha", log.Fecha)
-             .Add("Usuario_Id", userId)
-             .Send());
-        }
-    }
     public class UsuarioRepository : BaseRepository
     {
 
@@ -55,16 +28,12 @@ namespace LicitProd.Data
             if (dataTable.Rows.Count == 0)
                 return Response<Usuario>.Error();
 
-            var usuario = UsuarioMapper.Map(dataTable);
-
-            UpdateLastLoginDate(usuario.Email);
-
-            return Response<Usuario>.Ok(usuario);
+            return Response<Usuario>.Ok(UsuarioMapper.Map(dataTable));
         }
 
-        private void UpdateLastLoginDate(string email) => SqlAccessService.UpdateData("Usuarios",
+        public void UpdateLastLoginDate(string email, DateTime date) => SqlAccessService.UpdateData("Usuarios",
                  new Parameters()
-                    .Add("LastLogin", DateTime.Now)
+                    .Add("LastLogin", date)
                     .Send(),
                  new Parameters()
                     .Add("Email", email)

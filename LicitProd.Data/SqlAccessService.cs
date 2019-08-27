@@ -6,11 +6,16 @@ using System.Linq;
 
 namespace LicitProd.Data
 {
+
     public class SqlAccessService
     {
         string connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=LicitProd;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+        public DataTable SelectData(string table, List<string> selectColumns = null) =>
+            SelectData(table, null, selectColumns);
+        public DataTable SelectData(string table, List<Parameter> parameters) =>
+            SelectData(table, parameters, null);
 
-        public DataTable SelectData(string table, List<Parameter> parameters = null, List<string> selectColumns = null)
+        public DataTable SelectData(string table, List<Parameter> parameters , List<string> selectColumns)
         {
             string query = "SELECT ";
 
@@ -48,7 +53,7 @@ namespace LicitProd.Data
 
         }
         public void InsertData(string table, List<Parameter> parameters) =>
-            ExcecuteQuery(table, $"INSERT INTO dbo.{table} ({string.Join(",", parameters.Select(x=> x.ColumnName).ToList())}) " +
+            ExcecuteQuery(table, $"INSERT INTO dbo.{table} ({string.Join(",", parameters.Select(x => x.ColumnName).ToList())}) " +
                            $"VALUES ({string.Join(",", parameters.Select(key => $"@{key.ColumnName}").ToList())}) ", parameters);
 
         public void UpdateData(string table, List<Parameter> parameters, List<Parameter> where = default)
@@ -92,8 +97,9 @@ namespace LicitProd.Data
             Type = type;
         }
     }
-    public class Column {
-        public string Name { get;  }
+    public class Column
+    {
+        public string Name { get; }
 
         public Column(string name)
         {

@@ -4,12 +4,15 @@ namespace LicitProd.Entities
 {
     public class Log
     {
-        public int Id { get; }
-        public string Nombre { get; }
-        public string Descripcion { get; }
-        public LogType Type { get; }
-        public DateTime Fecha { get; } = DateTime.Now;
+        public int Id { get; protected set; }
+        public string Nombre { get; protected set; }
+        public string Descripcion { get; protected set; }
+        public LogType Type { get; protected set; }
+        public DateTime Fecha { get; protected set; } = DateTime.Now;
+        public Log()
+        {
 
+        }
         public Log(string nombre, string descripcion, LogType type)
         {
             Nombre = nombre ?? throw new ArgumentNullException(nameof(nombre));
