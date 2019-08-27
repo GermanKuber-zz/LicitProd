@@ -7,7 +7,7 @@ namespace LicitProd.Mappers
 {
     public static class MapHelper
     {
-        public static TEntityType FillObject<TEntityType>(TEntityType entity, DataRow row)=>
+        public static TEntityType FillObject<TEntityType>(TEntityType entity, DataRow row) =>
             ParseObject(row, entity);
         public static TEntityType FillObject<TEntityType>(DataRow row) where TEntityType : new() =>
             ParseObject(row, new TEntityType());
@@ -26,7 +26,11 @@ namespace LicitProd.Mappers
 
                 try
                 {
-                    prop.SetValue(entity, Convert.ChangeType(row[columnName].ToString(), prop.PropertyType), null);
+                    var value = row[columnName].ToString();
+                    if (prop.PropertyType.IsEnum)
+                        prop.SetValue(entity, Enum.Parse(prop.PropertyType, value));
+                    else
+                        prop.SetValue(entity, Convert.ChangeType(value, prop.PropertyType), null);
                 }
                 catch (ArgumentException ex)
                 {

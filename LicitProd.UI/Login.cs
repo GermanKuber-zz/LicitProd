@@ -29,27 +29,21 @@ namespace LicitProd.UI
 
         private void Button1_Click(object sender, EventArgs e)
         {
-
-            var log = new LogRepository();
-            var logs = log.Get();
-
-            var pass = CryptographyService.Encrypt(this.txtEmail.Text);
-            var de = CryptographyService.Decrypt(pass);
-            if (!validEmailRegex.IsMatch(this.txtEmail.Text))
+            if (validEmailRegex.IsMatch(txtEmail.Text))
             {
-                MessageBox.Show("No ingreso un email valido", "Error!");
-                return;
+                new UsuarioService()
+                 .Login(this.txtEmail.Text, this.txtPassword.Text)
+                 .Success(usuario =>
+                 {
+                     Hide();
+                     new MainContainer().Show();
+                 })
+                 .Error(errors => MessageBox.Show("Los datos ingresados no son correctos.", "Error!"));            
             }
             else
             {
-                new UsuarioService()
-                    .Login(this.txtEmail.Text, this.txtPassword.Text)
-                    .Success(usuario =>
-                    {
-                        Hide();
-                        new MainContainer().Show();
-                    })
-                    .Error(errors => MessageBox.Show("Los datos ingresados no son correctos.", "Error!"));
+                MessageBox.Show("No ingreso un email valido", "Error!");
+                return;
             }
         }
 
