@@ -1,4 +1,5 @@
 ﻿using LicitProd.Data;
+using LicitProd.Entities;
 using LicitProd.Services;
 using System;
 using System.Text.RegularExpressions;
@@ -10,6 +11,23 @@ namespace LicitProd.UI
     {
         public Login()
         {
+            var rolLogs = new Rol("LogsAdministrator");
+            rolLogs.Add(new SinglePermission("ReadLogs"));
+            rolLogs.Add(new SinglePermission("DeleteLogs"));
+            var rolConcurso = new Rol("ConcursoAdministrator");
+            rolConcurso.Add(new SinglePermission("ReadConcurso"));
+            rolConcurso.Add(new SinglePermission("DeleteConcurso"));
+            rolConcurso.Add(new SinglePermission("EditConcurso"));
+
+
+            var rolAdminitrador = new Rol("Administrador");
+            rolAdminitrador.Add(rolConcurso);
+            rolAdminitrador.Add(rolLogs);
+
+            var access = rolAdminitrador.HasAccess(PermissionsEnum.DeleteConcurso);
+            var acscess = rolAdminitrador.HasAccess(PermissionsEnum.DeleteProveedor);
+
+
             InitializeComponent();
         }
         private readonly Regex validEmailRegex = new Regex(
@@ -22,8 +40,6 @@ namespace LicitProd.UI
 
         private void Button1_Click(object sender, EventArgs e)
         {
-            var logs = new LogRepository().Get();
-
             if (validEmailRegex.IsMatch(txtEmail.Text))
             {
                 new UsuarioService()
