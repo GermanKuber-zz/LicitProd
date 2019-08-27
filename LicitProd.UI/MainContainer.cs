@@ -26,5 +26,12 @@ namespace LicitProd.UI
             this.Hide();
             new Login().Show();
         }
+
+        private void LogsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var logs = new Logs();
+            logs.MdiParent = this;
+            logs.Show();
+        }
     }
 }
