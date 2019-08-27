@@ -7,10 +7,8 @@ namespace LicitProd.Mappers
 {
     public static class MapHelper
     {
-        public static TEntityType FillObject<TEntityType>(TEntityType entity, DataRow row)
-        {
-            return ParseObject(row, entity);
-        }
+        public static TEntityType FillObject<TEntityType>(TEntityType entity, DataRow row)=>
+            ParseObject(row, entity);
         public static TEntityType FillObject<TEntityType>(DataRow row) where TEntityType : new() =>
             ParseObject(row, new TEntityType());
 
