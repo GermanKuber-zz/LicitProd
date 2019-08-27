@@ -24,7 +24,7 @@ namespace LicitProd.Data
             if (dataTable.Rows.Count == 0)
                 return Response<Usuario>.Error();
 
-            return Response<Usuario>.Ok(UsuarioMapper.Map(dataTable));
+            return Response<Usuario>.Ok(new UsuarioMapper().Map(dataTable));
         }
 
         public void UpdateLastLoginDate(string email, DateTime date) => SqlAccessService.UpdateData("Usuarios",

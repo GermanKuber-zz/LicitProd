@@ -2,6 +2,7 @@
 
 namespace LicitProd.Entities
 {
+    [DbTableAttribute("Logs")]
     public class Log : IEntityToDb
     {
         public int Id { get; protected set; }

@@ -56,6 +56,10 @@
       <Project>{0F7CB9FC-B7D8-4167-BF35-EB971DA7D312}</Project>
       <Name>LicitProd.Entities</Name>
     </ProjectReference>
+    <ProjectReference Include="..\LicitProd.Infraestructure\LicitProd.Infraestructure.csproj">
+      <Project>{2C672D89-8B0F-4C0C-857F-2586E68FAE5F}</Project>
+      <Name>LicitProd.Infraestructure</Name>
+    </ProjectReference>
     <ProjectReference Include="..\LicitProd.Mappers\LicitProd.Mappers.csproj">
       <Project>{94280DFA-51D2-4D59-8688-1ED7B6F86457}</Project>
       <Name>LicitProd.Mappers</Name>

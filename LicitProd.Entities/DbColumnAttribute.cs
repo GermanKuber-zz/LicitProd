@@ -12,7 +12,17 @@ namespace LicitProd.Entities
             Column = column;
         }
     }
-  
+
+    [AttributeUsage(AttributeTargets.Class, Inherited = false, AllowMultiple = true)]
+    public sealed class DbTableAttribute : Attribute
+    {
+        public string TableName { get; }
+
+        public DbTableAttribute(string tableName)
+        {
+            TableName = tableName;
+        }
+    }
 }
 
 

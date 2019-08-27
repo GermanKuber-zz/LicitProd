@@ -42,4 +42,5 @@ namespace LicitProd.Mappers
             return entity;
         }
     }
+
 }
