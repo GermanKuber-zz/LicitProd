@@ -5,7 +5,7 @@ using System;
 
 namespace LicitProd.Data
 {
-    public class UsuarioRepository : BaseRepository
+    public class UsuarioRepository : BaseRepository<Usuario>
     {
 
         public UsuarioRepository()

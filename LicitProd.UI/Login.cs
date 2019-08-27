@@ -1,4 +1,5 @@
-﻿using LicitProd.Services;
+﻿using LicitProd.Data;
+using LicitProd.Services;
 using System;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
@@ -21,6 +22,8 @@ namespace LicitProd.UI
 
         private void Button1_Click(object sender, EventArgs e)
         {
+            var logs = new LogRepository().Get();
+
             if (validEmailRegex.IsMatch(txtEmail.Text))
             {
                 new UsuarioService()
