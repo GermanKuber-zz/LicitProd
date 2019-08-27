@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{3F861C85-F80A-4DAE-8FDA-DAE5F3E0E18B}</ProjectGuid>
+    <ProjectGuid>{94280DFA-51D2-4D59-8688-1ED7B6F86457}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>LicitProd.Data</RootNamespace>
-    <AssemblyName>LicitProd.Data</AssemblyName>
+    <RootNamespace>LicitProd.Mappers</RootNamespace>
+    <AssemblyName>LicitProd.Mappers</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -41,23 +41,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Parameters.cs" />
-    <Compile Include="SqlAccessService.cs" />
-    <Compile Include="UsuarioRepository.cs" />
+    <Compile Include="Class1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\LicitProd.Entities\LicitProd.Entities.csproj">
       <Project>{0F7CB9FC-B7D8-4167-BF35-EB971DA7D312}</Project>
       <Name>LicitProd.Entities</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\LicitProd.Mappers\LicitProd.Mappers.csproj">
-      <Project>{94280DFA-51D2-4D59-8688-1ED7B6F86457}</Project>
-      <Name>LicitProd.Mappers</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\LicitProd.Seguridad\LicitProd.Seguridad.csproj">
-      <Project>{e23c9b28-892f-407e-acfe-471990eac91c}</Project>
-      <Name>LicitProd.Seguridad</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -1,4 +1,5 @@
 ﻿using LicitProd.Entities;
+using LicitProd.Mappers;
 using LicitProd.Services;
 using System;
 using System.Collections.Generic;
@@ -44,16 +45,21 @@ namespace LicitProd.Data
                 .Add("Email", email)
                 .Add("Password", password)
                 .Send(),
-                new List<string> { "Email", "Password", "Id" });
+                new Columns()
+                .Add("Email")
+                .Add("Password")
+                .Add("Id")
+                .Send());
+                
 
             if (dataTable.Rows.Count == 0)
                 return Response<Usuario>.Error();
 
-            UpdateLastLoginDate(dataTable.Rows[0]["Email"].ToString());
+            var usuario = UsuarioMapper.Map(dataTable);
 
-            return Response<Usuario>.Ok(new Usuario(int.Parse(dataTable.Rows[0]["Id"].ToString()),
-                                                     dataTable.Rows[0]["Email"].ToString(),
-                                                    dataTable.Rows[0]["Password"].ToString()));
+            UpdateLastLoginDate(usuario.Email);
+
+            return Response<Usuario>.Ok(usuario);
         }
 
         private void UpdateLastLoginDate(string email) => SqlAccessService.UpdateData("Usuarios",
