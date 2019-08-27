@@ -30,6 +30,7 @@ namespace LicitProd.Mappers
                 }
                 catch (ArgumentException ex)
                 {
+                    //TODO : Extrae el try catch
                     Console.WriteLine(ex);
                 }
             }
