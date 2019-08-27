@@ -19,11 +19,7 @@ namespace LicitProd.Data
         }
         public List<Log> Get()=>
             LogMapper.MapList(SqlAccessService.SelectData("Logs",
-                new Columns()
-                .Add("Nombre")
-                .Add("Descripcion")
-                .Add("Fecha")
-                .Add("Id")
+                 EntityToColumns<Log>.Map()
                 .Send()));
 
 

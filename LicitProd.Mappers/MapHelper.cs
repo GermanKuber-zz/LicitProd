@@ -33,6 +33,7 @@ namespace LicitProd.Mappers
                     //TODO : Extrae el try catch
                     Console.WriteLine(ex);
                 }
+                catch (Exception) { }
             }
             return entity;
         }

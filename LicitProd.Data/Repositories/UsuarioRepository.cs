@@ -18,11 +18,7 @@ namespace LicitProd.Data
                 .Add("Email", email)
                 .Add("Password", password)
                 .Send(),
-                new Columns()
-                .Add("Email")
-                .Add("Password")
-                .Add("Id")
-                .Send());
+                EntityToColumns<Usuario>.Map().Send());
                 
 
             if (dataTable.Rows.Count == 0)

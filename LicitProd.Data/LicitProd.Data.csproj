@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="Repositories\BaseRepository.cs" />
     <Compile Include="Infraestructure\Column.cs" />
+    <Compile Include="Repositories\EntityToColumns.cs" />
     <Compile Include="Repositories\LogRepository.cs" />
     <Compile Include="Infraestructure\Parameter.cs" />
     <Compile Include="Infraestructure\Parameters.cs" />
