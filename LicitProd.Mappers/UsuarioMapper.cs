@@ -8,26 +8,12 @@ namespace LicitProd.Mappers
 {
     public static class UsuarioMapper
     {
+        public static List<Usuario> MapList(DataTable dataTable) =>
+                      dataTable.Rows.ListOfRows().Select(row => MapHelper.FillObject<Usuario>(row))
+                            .ToList();
         public static Usuario Map(DataTable dataTable) =>
-            MapHelper.FillObject<Usuario>(dataTable.Rows[0]);
-    }
-    public static class LogMapper
-    {
-        public static List<Log> Map(DataTable dataTable) =>
-            dataTable.Rows.ListOfRows().Select(row => MapHelper.FillObject<Log>(row))
-                .ToList();
-            
-    }
+                 MapHelper.FillObject<Usuario>(dataTable.Rows[0]);
 
-    public static class DataRowCollectionExtensions
-    {
-        public static List<DataRow> ListOfRows(this DataRowCollection dataRow)
-        {
-            var listToReturn = new List<DataRow>();
-            foreach (DataRow item in dataRow)
-                listToReturn.Add(item);
-            return listToReturn;
-        }
     }
 
 }

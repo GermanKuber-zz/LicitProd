@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
@@ -82,28 +81,6 @@ namespace LicitProd.Data
                 cmd.ExecuteNonQuery();
                 cn.Close();
             }
-        }
-    }
-    public class Parameter
-    {
-        public string ColumnName { get; }
-        public string Value { get; }
-        public SqlDbType Type { get; }
-
-        public Parameter(string columnName, string value, SqlDbType type)
-        {
-            ColumnName = columnName ?? throw new ArgumentNullException(nameof(columnName));
-            Value = value ?? throw new ArgumentNullException(nameof(value));
-            Type = type;
-        }
-    }
-    public class Column
-    {
-        public string Name { get; }
-
-        public Column(string name)
-        {
-            Name = name ?? throw new ArgumentNullException(nameof(name));
         }
     }
 }

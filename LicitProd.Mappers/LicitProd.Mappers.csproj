@@ -41,6 +41,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataRowCollectionExtensions.cs" />
+    <Compile Include="LogMapper.cs" />
     <Compile Include="MapHelper.cs" />
     <Compile Include="UsuarioMapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -41,11 +41,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BaseRepository.cs" />
-    <Compile Include="LogRepository.cs" />
-    <Compile Include="Parameters.cs" />
-    <Compile Include="SqlAccessService.cs" />
-    <Compile Include="UsuarioRepository.cs" />
+    <Compile Include="Repositories\BaseRepository.cs" />
+    <Compile Include="Infraestructure\Column.cs" />
+    <Compile Include="Repositories\LogRepository.cs" />
+    <Compile Include="Infraestructure\Parameter.cs" />
+    <Compile Include="Infraestructure\Parameters.cs" />
+    <Compile Include="Infraestructure\SqlAccessService.cs" />
+    <Compile Include="Repositories\UsuarioRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
