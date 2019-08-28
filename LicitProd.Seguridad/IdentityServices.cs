@@ -11,7 +11,7 @@ namespace LicitProd.Services
         {
             _usuarioLogueado = usuario;
         }
-        public static void RemoveUserLogged( )
+        public static void RemoveUserLogged()
         {
             _usuarioLogueado = null;
         }

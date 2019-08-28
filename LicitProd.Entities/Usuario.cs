@@ -2,12 +2,12 @@
 
 namespace LicitProd.Entities
 {
-    [DbTableAttribute("Usuarios")]
-    public class Usuario: IEntityToDb
+    [DbTable("Usuarios")]
+    public class Usuario : IEntityToDb
     {
         public int Id { get; protected set; }
         public string Email { get; protected set; }
-        [DbColumnAttribute("Password")]
+        [DbColumn("Password")]
         public string HashPassword { get; protected set; }
 
         public Usuario()
@@ -27,7 +27,7 @@ namespace LicitProd.Entities
             HashPassword = hashPassword ?? throw new ArgumentNullException(nameof(hashPassword));
         }
     }
-  
+
 }
 
 
