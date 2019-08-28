@@ -16,16 +16,16 @@ namespace LicitProd.Data
             CreateMapper().MapList(SqlAccessService.SelectData(EntityToColumns<TEntity>.Map()
                 .Send()));
 
-        private DbMapper<TEntity> CreateMapper()
+        private DbToObjectMapper<TEntity> CreateMapper()
         {
             var dc = new Default();
-            var loadableTypes = ReflectionHelper.GetClassesImplementingAnInterface(dc.GetType().Assembly, typeof(DbMapper<TEntity>)).Item2;
+            var loadableTypes = ReflectionHelper.GetClassesImplementingAnInterface(dc.GetType().Assembly, typeof(DbToObjectMapper<TEntity>)).Item2;
 
             var type = loadableTypes.FirstOrDefault(x => x.Name.Contains(typeof(TEntity).Name));
 
             if (type == null)
                 throw new Exception("El mapper requerido no existe : " + type.ToString());
-            return (DbMapper<TEntity>)Activator.CreateInstance(type);
+            return (DbToObjectMapper<TEntity>)Activator.CreateInstance(type);
         }
 
         private DbTableAttribute GetDbTableAttribute()

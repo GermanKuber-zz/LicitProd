@@ -4,7 +4,7 @@ using System.Data;
 using System.Linq;
 namespace LicitProd.Mappers
 {
-    public  class LogMapper : DbMapper<Log>
+    public  class LogMapper : DbToObjectMapper<Log>
     {
         public Log Map(DataTable dataTable)
         {

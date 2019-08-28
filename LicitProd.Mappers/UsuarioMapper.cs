@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace LicitProd.Mappers
 {
-    public  class UsuarioMapper : DbMapper<Usuario>
+    public  class UsuarioMapper : DbToObjectMapper<Usuario>
     {
         public  List<Usuario> MapList(DataTable dataTable) =>
                       dataTable.Rows.ListOfRows().Select(row => MapHelper.FillObject<Usuario>(row))

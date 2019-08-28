@@ -46,6 +46,7 @@
     <Compile Include="DbMapperSetContainer.cs" />
     <Compile Include="IDbMapper2.cs" />
     <Compile Include="IEntityToDb.cs" />
+    <Compile Include="ObjectToDbMapper.cs" />
     <Compile Include="Usuario.cs" />
     <Compile Include="Log.cs" />
     <Compile Include="LogType.cs" />

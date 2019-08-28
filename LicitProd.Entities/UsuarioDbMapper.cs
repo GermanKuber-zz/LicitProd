@@ -1,6 +1,6 @@
 ﻿namespace LicitProd.Entities
 {
-    public class UsuarioDbMapper : DbMapper2<Usuario>
+    public class UsuarioDbMapper : ObjectToDbMapper<Usuario>
     {
 
 
@@ -11,7 +11,7 @@
         }
     }
 
-    public class LogDbMapper : DbMapper2<Log>
+    public class LogDbMapper : ObjectToDbMapper<Log>
     {
 
         protected override void Map()
