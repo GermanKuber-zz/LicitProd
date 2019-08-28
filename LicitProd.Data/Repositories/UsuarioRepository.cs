@@ -13,13 +13,12 @@ namespace LicitProd.Data
         }
         public Response<Usuario> GetUsuario(string email, string password)
         {
-            var dataTable = SqlAccessService.SelectData("Usuarios",
-                new Parameters()
+            var dataTable = SqlAccessService.SelectData(new Parameters()
                 .Add("Email", email)
                 .Add("Password", password)
                 .Send(),
                 EntityToColumns<Usuario>.Map().Send());
-                
+
 
             if (dataTable.Rows.Count == 0)
                 return Response<Usuario>.Error();
@@ -27,8 +26,7 @@ namespace LicitProd.Data
             return Response<Usuario>.Ok(new UsuarioMapper().Map(dataTable));
         }
 
-        public void UpdateLastLoginDate(string email, DateTime date) => SqlAccessService.UpdateData("Usuarios",
-                 new Parameters()
+        public void UpdateLastLoginDate(string email, DateTime date) => SqlAccessService.UpdateData(new Parameters()
                     .Add("LastLogin", date)
                     .Send(),
                  new Parameters()
@@ -36,8 +34,7 @@ namespace LicitProd.Data
                     .Send());
 
         public void InsertUsuario(Usuario usuario) =>
-            SqlAccessService.InsertData("Usuarios",
-                 new Parameters()
+            SqlAccessService.InsertData(new Parameters()
                 .Add("Email", usuario.Email)
                 .Add("Password", usuario.HashPassword)
                 .Send());

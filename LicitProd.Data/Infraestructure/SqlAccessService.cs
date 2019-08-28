@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using LicitProd.Entities;
+using LicitProd.Mappers;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
@@ -6,15 +8,21 @@ using System.Linq;
 namespace LicitProd.Data
 {
 
-    public class SqlAccessService
+    public class SqlAccessService<TEntity> where TEntity : IEntityToDb
     {
         string connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=LicitProd;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
-        public DataTable SelectData(string table, List<string> selectColumns = null) =>
-            SelectData(table, null, selectColumns);
-        public DataTable SelectData(string table, List<Parameter> parameters) =>
-            SelectData(table, parameters, null);
+        private string _dataTableName;
 
-        public DataTable SelectData(string table, List<Parameter> parameters , List<string> selectColumns)
+        public SqlAccessService()
+        {
+            _dataTableName = AttributeExtensions<DbTableAttribute, TEntity>.GetAttribute().TableName;
+        }
+        public DataTable SelectData(List<string> selectColumns) =>
+            SelectData(null, selectColumns);
+        public DataTable SelectData(List<Parameter> parameters) =>
+            SelectData(parameters, null);
+
+        public DataTable SelectData(List<Parameter> parameters, List<string> selectColumns)
         {
             string query = "SELECT ";
 
@@ -23,7 +31,7 @@ namespace LicitProd.Data
             else
                 query = string.Concat(query, "*", " ");
 
-            query = string.Concat(query, $"FROM {table}", " ");
+            query = string.Concat(query, $"FROM {_dataTableName}", " ");
 
             if (parameters != null)
             {
@@ -51,20 +59,20 @@ namespace LicitProd.Data
             return dataTable;
 
         }
-        public void InsertData(string table, List<Parameter> parameters) =>
-            ExcecuteQuery(table, $"INSERT INTO dbo.{table} ({string.Join(",", parameters.Select(x => x.ColumnName).ToList())}) " +
+        public void InsertData(List<Parameter> parameters) =>
+            ExcecuteQuery($"INSERT INTO dbo.{_dataTableName} ({string.Join(",", parameters.Select(x => x.ColumnName).ToList())}) " +
                            $"VALUES ({string.Join(",", parameters.Select(key => $"@{key.ColumnName}").ToList())}) ", parameters);
 
-        public void UpdateData(string table, List<Parameter> parameters, List<Parameter> where = default)
+        public void UpdateData( List<Parameter> parameters, List<Parameter> where = default)
         {
-            string query = $"UPDATE  dbo.{table} SET {string.Join(",", parameters.Select(value => $"{value.ColumnName} = @{value.ColumnName}").ToList())}";
+            string query = $"UPDATE  dbo.{_dataTableName} SET {string.Join(",", parameters.Select(value => $"{value.ColumnName} = @{value.ColumnName}").ToList())}";
 
             if (where != null)
                 query = string.Concat(query, " WHERE ", string.Join(" AND ", where.Select(x => $"{x.ColumnName}=@{x.ColumnName}")));
             parameters.AddRange(where);
-            ExcecuteQuery(table, query, parameters);
+            ExcecuteQuery(query, parameters);
         }
-        private void ExcecuteQuery(string table, string query, List<Parameter> parameters)
+        private void ExcecuteQuery(string query, List<Parameter> parameters)
         {
             using (SqlConnection cn = new SqlConnection(connectionString))
             using (SqlCommand cmd = new SqlCommand(query, cn))

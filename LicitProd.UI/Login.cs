@@ -26,7 +26,7 @@ namespace LicitProd.UI
 
             var access = rolAdminitrador.HasAccess(PermissionsEnum.DeleteConcurso);
             var acscess = rolAdminitrador.HasAccess(PermissionsEnum.DeleteProveedor);
-
+            var logs = new LogRepository().Get();
 
             InitializeComponent();
         }

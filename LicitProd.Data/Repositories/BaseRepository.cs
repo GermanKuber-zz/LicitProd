@@ -10,16 +10,10 @@ namespace LicitProd.Data
 {
     public class BaseRepository<TEntity> where TEntity : IEntityToDb
     {
-        protected readonly SqlAccessService SqlAccessService;
+        protected readonly SqlAccessService<TEntity> SqlAccessService = new SqlAccessService<TEntity>();
 
-        public BaseRepository()
-        {
-            SqlAccessService = new SqlAccessService();
-
-        }
-        public List<TEntity> Get()=>
-            CreateMapper().MapList(SqlAccessService.SelectData(GetDbTableAttribute().TableName,
-                 EntityToColumns<TEntity>.Map()
+        public List<TEntity> Get() =>
+            CreateMapper().MapList(SqlAccessService.SelectData(EntityToColumns<TEntity>.Map()
                 .Send()));
 
         private DbMapper<TEntity> CreateMapper()
@@ -42,4 +36,5 @@ namespace LicitProd.Data
             return dbTableAttribute;
         }
     }
+
 }
