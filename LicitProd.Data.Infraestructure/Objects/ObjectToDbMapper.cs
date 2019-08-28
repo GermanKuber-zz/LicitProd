@@ -29,7 +29,7 @@ namespace LicitProd.Entities
             _dbMapperContainer.Add(container);
             return container;
         }
-        protected abstract void Map();
+        protected virtual void Map() { }
         private MemberInfo getMemberInfo<TObject, TProperty>(Expression<Func<TObject, TProperty>> expression)
         {
             var member = expression.Body as MemberExpression;

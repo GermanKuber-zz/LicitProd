@@ -2,13 +2,8 @@
 {
     public class LogDbMapper : ObjectToDbMapper<Log>
     {
-        public LogDbMapper( ) : base("Logs")
+        public LogDbMapper() : base("Logs")
         {
-        }
-
-        protected override void Map()
-        {
-
         }
     }
 }

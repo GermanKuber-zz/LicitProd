@@ -34,7 +34,13 @@ namespace LicitProd.Data
             var type = loadableTypes.FirstOrDefault(x => x.Name.Contains(typeof(TEntity).Name));
 
             if (type == null)
-                throw new Exception("El mapper requerido no existe : " + type.ToString());
+            {
+                type = loadableTypes.FirstOrDefault(x => x.Name.Contains("All"));
+                if (type == null)
+                    throw new Exception("El mapper requerido no existe : " + type.ToString());
+                Type[] typeArgs = { typeof(TEntity) };
+                return (DbToObjectMapper<TEntity>)Activator.CreateInstance(type.MakeGenericType(typeArgs));
+            }
             return (DbToObjectMapper<TEntity>)Activator.CreateInstance(type);
         }
     }

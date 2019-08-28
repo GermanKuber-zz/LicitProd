@@ -2,9 +2,8 @@
 
 namespace LicitProd.Entities
 {
-    public class Usuario : IEntityToDb
+    public class Usuario : Entity
     {
-        public int Id { get; protected set; }
         public string Email { get; protected set; }
         public string HashPassword { get; protected set; }
 

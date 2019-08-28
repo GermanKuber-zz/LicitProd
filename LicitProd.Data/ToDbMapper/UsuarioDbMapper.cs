@@ -2,7 +2,7 @@
 {
     public class UsuarioDbMapper : ObjectToDbMapper<Usuario>
     {
-        public UsuarioDbMapper( ) : base("Usuarios")
+        public UsuarioDbMapper() : base("Usuarios")
         {
         }
 

@@ -33,5 +33,12 @@ namespace LicitProd.UI
             logs.MdiParent = this;
             logs.Show();
         }
+
+        private void ProveedoresToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var logs = new DashboardProveedores();
+            logs.MdiParent = this;
+            logs.Show();
+        }
     }
 }

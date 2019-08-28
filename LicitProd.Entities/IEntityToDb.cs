@@ -1,7 +1,10 @@
 ﻿namespace LicitProd.Entities
 {
-    public interface IEntityToDb { }
-  
+    public interface IEntityToDb
+    {
+        int Id { get; }
+    }
+
 }
 
 

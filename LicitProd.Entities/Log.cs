@@ -2,9 +2,8 @@
 
 namespace LicitProd.Entities
 {
-    public class Log : IEntityToDb
+    public class Log : Entity
     {
-        public int Id { get; protected set; }
         public string Nombre { get; protected set; }
         public string Descripcion { get; protected set; }
         public LogType Type { get; protected set; }
