@@ -7,7 +7,6 @@ namespace LicitProd.Entities
     {
         public int Id { get; protected set; }
         public string Email { get; protected set; }
-        [DbColumn("Password")]
         public string HashPassword { get; protected set; }
 
         public Usuario()

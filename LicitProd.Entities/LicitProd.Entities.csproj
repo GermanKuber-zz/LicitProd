@@ -41,18 +41,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DbColumnAttribute.cs" />
-    <Compile Include="DbMapper2.cs" />
-    <Compile Include="DbMapperSetContainer.cs" />
-    <Compile Include="IDbMapper2.cs" />
-    <Compile Include="IEntityToDb.cs" />
-    <Compile Include="ObjectToDbMapper.cs" />
     <Compile Include="Usuario.cs" />
     <Compile Include="Log.cs" />
     <Compile Include="LogType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Response.cs" />
-    <Compile Include="UsuarioDbMapper.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\LicitProd.Data.Infraestructure\LicitProd.Data.Infraestructure.csproj">
+      <Project>{e871d420-5591-4b55-ac43-c30ed8001bd8}</Project>
+      <Name>LicitProd.Data.Infraestructure</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

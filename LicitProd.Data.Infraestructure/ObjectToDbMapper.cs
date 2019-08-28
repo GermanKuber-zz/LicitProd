@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 
 namespace LicitProd.Entities
 {
-    public abstract class ObjectToDbMapper<TEntity> : IDbMapper2<TEntity> where TEntity : new()
+    public abstract class ObjectToDbMapper<TEntity> : IObjectToDbMapper<TEntity> where TEntity : new()
     {
+        public string TableName { get; private set; }
         private Dictionary<string, DbMapperSetContainer> _toMap = new Dictionary<string, DbMapperSetContainer>();
         private TEntity _entity;
         public List<DbMapperContainer> _dbMapperContainer = new List<DbMapperContainer>();
@@ -14,6 +16,10 @@ namespace LicitProd.Entities
         {
             _entity = new TEntity();
             Map();
+        }
+        public void SetTableName(string tableName)
+        {
+            TableName = tableName;
         }
         public DbMapperContainer Set<TProperty>(Expression<Func<TEntity, TProperty>> dataValueField)
         {
@@ -33,6 +39,15 @@ namespace LicitProd.Entities
             }
             throw new ArgumentException("Member does not exist.");
         }
+
+        public string GetColumnName(string propertyName)
+        {
+            var result = _dbMapperContainer.Where(x => x.PropertyName == propertyName).FirstOrDefault();
+            if (result != null)
+                return result.ColumnName;
+            return string.Empty;
+        }
+        public bool ExistPropertySettings(string propertyName) => _dbMapperContainer.Any(x => x.PropertyName == propertyName);
     }
 
 }

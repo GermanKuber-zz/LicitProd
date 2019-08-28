@@ -41,7 +41,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DbToObjectMapper.cs" />
     <Compile Include="Default.cs" />
     <Compile Include="LogMapper.cs" />
     <Compile Include="MapHelper.cs" />
@@ -49,6 +48,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\LicitProd.Data.Infraestructure\LicitProd.Data.Infraestructure.csproj">
+      <Project>{e871d420-5591-4b55-ac43-c30ed8001bd8}</Project>
+      <Name>LicitProd.Data.Infraestructure</Name>
+    </ProjectReference>
     <ProjectReference Include="..\LicitProd.Entities\LicitProd.Entities.csproj">
       <Project>{0F7CB9FC-B7D8-4167-BF35-EB971DA7D312}</Project>
       <Name>LicitProd.Entities</Name>
