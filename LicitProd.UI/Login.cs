@@ -28,8 +28,7 @@ namespace LicitProd.UI
             var acscess = rolAdminitrador.HasAccess(PermissionsEnum.DeleteProveedor);
             var logs = new LogRepository().Get();
 
-
-            var aa = new UsuarioDb();
+            var us = new UsuarioRepository().GetUsuario("aa", "a");
             InitializeComponent();
         }
         private readonly Regex validEmailRegex = new Regex(

@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Infraestructure\Columns.cs" />
     <Compile Include="Repositories\BaseRepository.cs" />
     <Compile Include="Infraestructure\Column.cs" />
     <Compile Include="Repositories\EntityToColumns.cs" />

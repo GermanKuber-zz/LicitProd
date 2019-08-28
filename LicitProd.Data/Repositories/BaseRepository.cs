@@ -8,7 +8,7 @@ using System.Reflection;
 
 namespace LicitProd.Data
 {
-    public class BaseRepository<TEntity> where TEntity : IEntityToDb
+    public class BaseRepository<TEntity> where TEntity : IEntityToDb, new()
     {
         protected readonly SqlAccessService<TEntity> SqlAccessService = new SqlAccessService<TEntity>();
 

@@ -42,12 +42,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DbColumnAttribute.cs" />
+    <Compile Include="DbMapper2.cs" />
+    <Compile Include="DbMapperSetContainer.cs" />
+    <Compile Include="IDbMapper2.cs" />
     <Compile Include="IEntityToDb.cs" />
     <Compile Include="Usuario.cs" />
     <Compile Include="Log.cs" />
     <Compile Include="LogType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Response.cs" />
+    <Compile Include="UsuarioDbMapper.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
