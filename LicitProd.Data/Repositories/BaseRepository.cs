@@ -1,10 +1,8 @@
 ﻿using LicitProd.Entities;
-using LicitProd.Infraestructure;
 using LicitProd.Mappers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 
 namespace LicitProd.Data
 {
@@ -26,14 +24,6 @@ namespace LicitProd.Data
             if (type == null)
                 throw new Exception("El mapper requerido no existe : " + type.ToString());
             return (DbToObjectMapper<TEntity>)Activator.CreateInstance(type);
-        }
-
-        private DbTableAttribute GetDbTableAttribute()
-        {
-            var dbTableAttribute = typeof(TEntity).GetCustomAttribute<DbTableAttribute>(false);
-            if (dbTableAttribute == null)
-                throw new Exception($"La clase {typeof(TEntity).Name} no tiene un atributo DbTableAttribute.");
-            return dbTableAttribute;
         }
     }
 

@@ -2,9 +2,12 @@
 {
     public class UsuarioDbMapper : ObjectToDbMapper<Usuario>
     {
+        public UsuarioDbMapper( ) : base("Usuarios")
+        {
+        }
+
         protected override void Map()
         {
-            SetTableName("Usuarios");
             Set(x => x.HashPassword)
                 .Column("Password");
         }

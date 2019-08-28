@@ -14,12 +14,12 @@ namespace LicitProd.Services
             .Success(usuario => LoginSuccess(usuario));
 
         public void Logout() =>
-               IdentityServices.RemoveUserLogged();
+               IdentityServices.Instance.RemoveUserLogged();
 
         private void LoginSuccess(Usuario usuario)
         {
             _usuarioRepository.UpdateLastLoginDate(usuario.Email, DateTime.Now);
-            IdentityServices.SetUserLogged(usuario);
+            IdentityServices.Instance.SetUserLogged(usuario);
             LogManager.LogInformacion("Login", $"{usuario.Email}");
         }
     }

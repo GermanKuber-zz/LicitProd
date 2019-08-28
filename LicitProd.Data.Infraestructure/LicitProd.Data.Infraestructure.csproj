@@ -41,15 +41,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataRowCollectionExtensions.cs" />
-    <Compile Include="DbColumnAttribute.cs" />
-    <Compile Include="DbMapperContainer.cs" />
-    <Compile Include="DbMapperSetContainer.cs" />
-    <Compile Include="DbToObjectMapper.cs" />
-    <Compile Include="IObjectToDbMapper.cs" />
-    <Compile Include="IEntityToDb.cs" />
-    <Compile Include="ObjectToDbMapper.cs" />
+    <Compile Include="Extensions\DataRowCollectionExtensions.cs" />
+    <Compile Include="Objects\DbMapperContainer.cs" />
+    <Compile Include="Objects\DbToObjectMapper.cs" />
+    <Compile Include="Objects\IObjectToDbMapper.cs" />
+    <Compile Include="Objects\ObjectToDbMapper.cs" />
+    <Compile Include="ObjectToDbMapperFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="DataBase\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\LicitProd.Entities\LicitProd.Entities.csproj">
+      <Project>{0F7CB9FC-B7D8-4167-BF35-EB971DA7D312}</Project>
+      <Name>LicitProd.Entities</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

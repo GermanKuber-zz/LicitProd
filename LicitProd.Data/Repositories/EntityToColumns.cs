@@ -1,6 +1,8 @@
 ﻿using LicitProd.Entities;
 using LicitProd.Infraestructure;
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
@@ -9,27 +11,34 @@ namespace LicitProd.Data
     public static class EntityToColumns<TEntity> where TEntity : IEntityToDb, new()
     {
 
-        
-        public static Columns Map() {
+        private static ObjectToDbMapper<TEntity> CreateMapper()
+        {
+            var types = new List<Type>();
+            Assembly[] assemblies = AppDomain.CurrentDomain.GetAssemblies();
+            assemblies.Select(assembly => ReflectionHelper.GetClassesImplementingAnInterface(assembly.GetType().Assembly, typeof(ObjectToDbMapper<TEntity>)).Item2)
+                                ?.ToList()
+                                .ForEach(x => x.ToList().ForEach(xType => types.Add(xType)));
 
-            var loadableTypes = ReflectionHelper.GetClassesImplementingAnInterface(new LogDbMapper().GetType().Assembly, typeof(IObjectToDbMapper<TEntity>)).Item2;
-            var type = loadableTypes.FirstOrDefault(x => x.Name.Contains(typeof(TEntity).Name));
+            var type = types.FirstOrDefault(x => x.FullName.Contains(typeof(TEntity).Name));
 
             if (type == null)
-                throw new Exception("El DbMapper requerido no existe : " + type.ToString());
-
-            var objectToDbMapper = (IObjectToDbMapper<TEntity>)Activator.CreateInstance(type);
+                throw new Exception("El mapper requerido no existe : " + type.ToString());
+            return (ObjectToDbMapper<TEntity>)Activator.CreateInstance(type);
+        }
+        public static Columns Map()
+        {
             var columns = new Columns();
             var props = typeof(TEntity).GetProperties(BindingFlags.Public | BindingFlags.Instance);
+            var objectToDbMapper = ObjectToDbMapperFactory<TEntity>.Create();
 
             foreach (var prop in props)
             {
                 var columnName = prop.Name;
 
-                if (objectToDbMapper.ExistPropertySettings(prop.Name))
-                    columnName = objectToDbMapper.GetColumnName(prop.Name);
+                objectToDbMapper.GetColumnName(prop.Name)
+                    .Success(x => columnName = x);
 
-                    columns.Add(columnName);
+                columns.Add(columnName);
             }
             return columns;
         }

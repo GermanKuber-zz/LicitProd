@@ -1,28 +1,30 @@
-﻿using LicitProd.Entities;
+﻿using LicitProd.Data;
+using LicitProd.Entities;
 using System;
 using System.Data;
 using System.Reflection;
 
 namespace LicitProd.Mappers
 {
-    public static class MapHelper
+    public static class MapHelper<TEntityType> where TEntityType : IEntityToDb, new()
     {
-        public static TEntityType FillObject<TEntityType>(TEntityType entity, DataRow row) =>
+        public static TEntityType FillObject(TEntityType entity, DataRow row) =>
             ParseObject(row, entity);
-        public static TEntityType FillObject<TEntityType>(DataRow row) where TEntityType : new() =>
+        public static TEntityType FillObject(DataRow row) =>
             ParseObject(row, new TEntityType());
 
-        private static TEntityType ParseObject<TEntityType>(DataRow row, TEntityType entity)
+        private static TEntityType ParseObject(DataRow row, TEntityType entity)
         {
             var props = entity.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance);
 
+
+            var mapper = ObjectToDbMapperFactory<TEntityType>.Create();
+
             foreach (var prop in props)
             {
-                var attribute = prop.GetCustomAttribute<DbColumnAttribute>();
                 var columnName = prop.Name;
-
-                if (attribute != null)
-                    columnName = attribute.Column;
+                mapper.GetColumnName(prop.Name)
+                    .Success(x => columnName = x);
 
                 try
                 {

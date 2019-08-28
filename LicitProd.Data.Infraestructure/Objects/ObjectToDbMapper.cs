@@ -3,28 +3,28 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
+using LicitProd.Services;
 
 namespace LicitProd.Entities
 {
     public abstract class ObjectToDbMapper<TEntity> : IObjectToDbMapper<TEntity> where TEntity : new()
     {
         public string TableName { get; private set; }
-        private Dictionary<string, DbMapperSetContainer> _toMap = new Dictionary<string, DbMapperSetContainer>();
-        private TEntity _entity;
+        private readonly TEntity _entity;
         public List<DbMapperContainer> _dbMapperContainer = new List<DbMapperContainer>();
-        public ObjectToDbMapper()
+        public ObjectToDbMapper(string tableName)
         {
             _entity = new TEntity();
             Map();
-        }
-        public void SetTableName(string tableName)
-        {
             TableName = tableName;
+        }
+        public ObjectToDbMapper()
+        {
+
         }
         public DbMapperContainer Set<TProperty>(Expression<Func<TEntity, TProperty>> dataValueField)
         {
             var property = getMemberInfo(dataValueField);
-            //_toMap.Add(property.Name, dbMapperSetContainer);
             var container = new DbMapperContainer(property);
             _dbMapperContainer.Add(container);
             return container;
@@ -40,14 +40,14 @@ namespace LicitProd.Entities
             throw new ArgumentException("Member does not exist.");
         }
 
-        public string GetColumnName(string propertyName)
+        public Response<string> GetColumnName(string propertyName)
         {
             var result = _dbMapperContainer.Where(x => x.PropertyName == propertyName).FirstOrDefault();
             if (result != null)
-                return result.ColumnName;
-            return string.Empty;
+                return Response<string>.Ok(result.ColumnName);
+
+            return Response<string>.Error();
         }
-        public bool ExistPropertySettings(string propertyName) => _dbMapperContainer.Any(x => x.PropertyName == propertyName);
     }
 
 }

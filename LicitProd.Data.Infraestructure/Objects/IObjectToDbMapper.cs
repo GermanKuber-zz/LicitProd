@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LicitProd.Services;
+using System;
 using System.Linq.Expressions;
 
 namespace LicitProd.Entities
@@ -6,7 +7,7 @@ namespace LicitProd.Entities
     public interface IObjectToDbMapper<TEntity> where TEntity : new()
     {
         DbMapperContainer Set<TProperty>(Expression<Func<TEntity, TProperty>> dataValueField);
-        string GetColumnName(string propertyName);
-        bool ExistPropertySettings(string propertyName);
+        Response<string> GetColumnName(string propertyName);
+        string TableName { get; }
     }
 }

@@ -2,7 +2,6 @@
 
 namespace LicitProd.Entities
 {
-    [DbTable("Usuarios")]
     public class Usuario : IEntityToDb
     {
         public int Id { get; protected set; }

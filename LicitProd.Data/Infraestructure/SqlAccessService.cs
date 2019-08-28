@@ -8,14 +8,15 @@ using System.Linq;
 namespace LicitProd.Data
 {
 
-    public class SqlAccessService<TEntity> where TEntity : IEntityToDb
+    public class SqlAccessService<TEntity> where TEntity : IEntityToDb, new()
     {
         string connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=LicitProd;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
         private string _dataTableName;
 
         public SqlAccessService()
         {
-            _dataTableName = AttributeExtensions<DbTableAttribute, TEntity>.GetAttribute().TableName;
+            var objectToDbMapper = ObjectToDbMapperFactory<TEntity>.Create();
+            _dataTableName = objectToDbMapper.TableName;
         }
         public DataTable SelectData(List<string> selectColumns) =>
             SelectData(null, selectColumns);
@@ -63,7 +64,7 @@ namespace LicitProd.Data
             ExcecuteQuery($"INSERT INTO dbo.{_dataTableName} ({string.Join(",", parameters.Select(x => x.ColumnName).ToList())}) " +
                            $"VALUES ({string.Join(",", parameters.Select(key => $"@{key.ColumnName}").ToList())}) ", parameters);
 
-        public void UpdateData( List<Parameter> parameters, List<Parameter> where = default)
+        public void UpdateData(List<Parameter> parameters, List<Parameter> where = default)
         {
             string query = $"UPDATE  dbo.{_dataTableName} SET {string.Join(",", parameters.Select(value => $"{value.ColumnName} = @{value.ColumnName}").ToList())}";
 

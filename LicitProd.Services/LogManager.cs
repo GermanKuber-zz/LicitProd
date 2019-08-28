@@ -11,6 +11,6 @@ namespace LicitProd.Services
             _logRepository = new LogRepository();
         }
         public void LogInformacion(string nombre, string descripcion = "") =>
-            _logRepository.Insertar(new Entities.Log(nombre, descripcion, LogType.Informacion), IdentityServices.GetUserLogged().Id);
+            _logRepository.Insertar(new Entities.Log(nombre, descripcion, LogType.Informacion), IdentityServices.Instance.GetUserLogged().Id);
     }
 }

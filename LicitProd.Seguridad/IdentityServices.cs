@@ -3,18 +3,30 @@
 namespace LicitProd.Services
 {
 
-    public static class IdentityServices
+    public sealed class IdentityServices
     {
+        private readonly static IdentityServices _instance = new IdentityServices();
 
         private static Usuario _usuarioLogueado;
-        public static void SetUserLogged(Usuario usuario)
+        public static IdentityServices Instance
+        {
+            get
+            {
+                return _instance;
+            }
+        }
+        private IdentityServices()
+        {
+
+        }
+        public void SetUserLogged(Usuario usuario)
         {
             _usuarioLogueado = usuario;
         }
-        public static void RemoveUserLogged()
+        public void RemoveUserLogged()
         {
             _usuarioLogueado = null;
         }
-        public static Usuario GetUserLogged() => _usuarioLogueado;
+        public Usuario GetUserLogged() => _usuarioLogueado;
     }
 }
