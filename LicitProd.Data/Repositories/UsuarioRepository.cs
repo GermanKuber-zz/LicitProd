@@ -2,6 +2,7 @@
 using LicitProd.Mappers;
 using LicitProd.Services;
 using System;
+using System.Linq;
 
 namespace LicitProd.Data
 {
@@ -13,17 +14,16 @@ namespace LicitProd.Data
         }
         public Response<Usuario> GetUsuario(string email, string password)
         {
-            var dataTable = SqlAccessService.SelectData(new Parameters()
+            var user = Get(new Parameters()
                 .Add("Email", email)
                 .Add("Password", password)
-                .Send(),
-                EntityToColumns<Usuario>.Map().Send());
+                .Send());
 
 
-            if (dataTable.Rows.Count == 0)
+            if (!user.SuccessResult)
                 return Response<Usuario>.Error();
 
-            return Response<Usuario>.Ok(new UsuarioMapper().Map(dataTable));
+            return Response<Usuario>.Ok(user.Result.First());
         }
 
         public void UpdateLastLoginDate(string email, DateTime date) => SqlAccessService.UpdateData(new Parameters()

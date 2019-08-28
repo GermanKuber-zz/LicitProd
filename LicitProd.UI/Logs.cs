@@ -25,11 +25,15 @@ namespace LicitProd.UI
 
         private void Logs_Load(object sender, EventArgs e)
         {
-            var logs = new LogRepository().Get();
-            var source = new BindingSource();
-            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            source.DataSource = logs;
-            dataGridView1.DataSource = source;
+            new LogRepository().Get()
+               .Success(logs =>
+               {
+                   var source = new BindingSource();
+                   dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+                   source.DataSource = logs;
+                   dataGridView1.DataSource = source;
+               })
+               .Error(x => MessageBox.Show("No hay logs"));
         }
     }
 }

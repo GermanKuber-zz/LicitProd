@@ -1,5 +1,5 @@
 ﻿using LicitProd.Entities;
-using LicitProd.Mappers;
+using LicitProd.Services;
 using System.Collections.Generic;
 
 namespace LicitProd.Data
@@ -18,7 +18,7 @@ namespace LicitProd.Data
                  .Send());
         }
 
-        public List<Log> Get()=>
+        public new Response<List<Log>> Get()=>
             base.Get();
     }
 }
