@@ -43,10 +43,17 @@ namespace LicitProd.Entities
         public Response<string> GetColumnName(string propertyName)
         {
             var result = _dbMapperContainer.Where(x => x.PropertyName == propertyName).FirstOrDefault();
-            if (result != null)
+            if (result != null && result.HasColumnName)
                 return Response<string>.Ok(result.ColumnName);
 
             return Response<string>.Error();
+        }
+        public Response<string> GetPk()
+        {
+            var pk = _dbMapperContainer.FirstOrDefault(x => x.IsPrimaryKey);
+            if (pk == null)
+                return Response<string>.Error();
+            return Response<string>.Ok(string.IsNullOrWhiteSpace(pk.ColumnName) ? pk.PropertyName: pk.ColumnName);
         }
     }
 

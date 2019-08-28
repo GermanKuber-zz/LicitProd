@@ -9,5 +9,6 @@ namespace LicitProd.Entities
         DbMapperContainer Set<TProperty>(Expression<Func<TEntity, TProperty>> dataValueField);
         Response<string> GetColumnName(string propertyName);
         string TableName { get; }
+        Response<string> GetPk();
     }
 }

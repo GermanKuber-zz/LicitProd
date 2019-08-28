@@ -7,6 +7,8 @@ namespace LicitProd.Entities
     {
         public MemberInfo MemberInfo { get; }
         public string ColumnName { get; private set; }
+        public bool HasColumnName { get; private set; }
+        public bool IsPrimaryKey { get; private set; }
         public string PropertyName => MemberInfo.Name;
 
         public DbMapperContainer(MemberInfo memberInfo)
@@ -16,13 +18,15 @@ namespace LicitProd.Entities
         public DbMapperContainer Column(string colName)
         {
             ColumnName = colName;
+            HasColumnName = true;
+            return this;
+        }
+        public DbMapperContainer PrimaryKey()
+        {
+            IsPrimaryKey = true;
             return this;
         }
     }
-
-   
-    
-
 }
 
 

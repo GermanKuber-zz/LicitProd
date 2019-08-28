@@ -28,6 +28,12 @@ namespace LicitProd.Services
                 return callback(Result).Result;
             return default(TResult);
         }
+        public TResult Success<TResult>(Func<TResponse, TResult> callback)
+        {
+            if (SuccessResult)
+                return callback(Result);
+            return default(TResult);
+        }
 
         public Response<TResponse> Error(Func<List<string>, Task> callback)
         {

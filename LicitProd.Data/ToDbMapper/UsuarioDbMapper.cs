@@ -8,6 +8,8 @@
 
         protected override void Map()
         {
+            Set(x => x.Id)
+                .PrimaryKey();
             Set(x => x.HashPassword)
                 .Column("Password");
         }

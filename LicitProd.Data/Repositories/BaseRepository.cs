@@ -17,7 +17,23 @@ namespace LicitProd.Data
         protected Response<List<TEntity>> Get(List<Parameter> parameters) =>
             ReturnResult(CreateMapper().MapList(SqlAccessService.SelectData(parameters, EntityToColumns<TEntity>.Map()
                  .Send())));
-
+        public Response<TEntity> GetById(string id)
+        {
+            var mapper = ObjectToDbMapperFactory<TEntity>.Create();
+            var value = mapper.GetPk()
+                 .Success<Response<TEntity>>(x =>
+                 {
+                     var result = CreateMapper().Map(SqlAccessService.SelectData(new Parameters()
+                         .Add(x, id)
+                         .Send(),
+                         EntityToColumns<TEntity>.Map().Send()));
+                     if (result != null)
+                         return Response<TEntity>.Ok(result);
+                     return Response<TEntity>.Error();
+                 })
+                 .Error(x => Response<TEntity>.Error());
+            return value;
+        }
         private static Response<List<TEntity>> ReturnResult(List<TEntity> result)
         {
             if (!result.Any())

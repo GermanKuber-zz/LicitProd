@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Extensions\AttributeExtensions.cs" />
     <Compile Include="Extensions\DataRowCollectionExtensions.cs" />
     <Compile Include="Objects\DbMapperContainer.cs" />
     <Compile Include="Objects\DbToObjectMapper.cs" />
