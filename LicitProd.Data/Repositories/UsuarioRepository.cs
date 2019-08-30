@@ -12,19 +12,14 @@ namespace LicitProd.Data
         public UsuarioRepository()
         {
         }
-        public Response<Usuario> GetUsuario(string email, string password)
-        {
-            var user = Get(new Parameters()
+        public Response<Usuario> GetUsuario(string email, string password) =>
+            Get(new Parameters()
                 .Add("Email", email)
                 .Add("Password", password)
-                .Send());
+                .Send())
+                .Map(result => Response<Usuario>.Ok(result.First()),
+                     errors => Response<Usuario>.Error(errors));
 
-
-            if (!user.SuccessResult)
-                return Response<Usuario>.Error();
-
-            return Response<Usuario>.Ok(user.Result.First());
-        }
 
         public void UpdateLastLoginDate(string email, DateTime date) => SqlAccessService.UpdateData(new Parameters()
                     .Add("LastLogin", date)

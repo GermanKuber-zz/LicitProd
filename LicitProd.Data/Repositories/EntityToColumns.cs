@@ -1,7 +1,5 @@
 ﻿using LicitProd.Entities;
-using LicitProd.Infraestructure;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -30,8 +28,7 @@ namespace LicitProd.Data
             var columns = new Columns();
             var props = typeof(TEntity).GetProperties(BindingFlags.Public | BindingFlags.Instance);
             var objectToDbMapper = ObjectToDbMapperFactory<TEntity>.Create();
-
-            foreach (var prop in props)
+            props.ToList()?.ForEach(prop =>
             {
                 var columnName = prop.Name;
 
@@ -39,7 +36,7 @@ namespace LicitProd.Data
                     .Success(x => columnName = x);
 
                 columns.Add(columnName);
-            }
+            });
             return columns;
         }
     }

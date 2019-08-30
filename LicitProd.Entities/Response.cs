@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace LicitProd.Services
@@ -15,6 +16,18 @@ namespace LicitProd.Services
             if (SuccessResult)
                 callback(Result).Wait();
             return this;
+        }
+        public static Response<List<TResponse>> From(List<TResponse> values)
+        {
+            if (!values.Any())
+                return new Response<List<TResponse>>(new List<string>());
+            return new Response<List<TResponse>>(values);
+        }
+        public static Response<TResponse> From(TResponse value)
+        {
+            if (value == null)
+                return new Response<TResponse>(new List<string>());
+            return new Response<TResponse>(value);
         }
         public Response<TResponse> Success(Action<TResponse> callback)
         {
@@ -33,6 +46,12 @@ namespace LicitProd.Services
             if (SuccessResult)
                 return callback(Result);
             return default(TResult);
+        }
+        public TResult Map<TResult>(Func<TResponse, TResult> callbackSuccess, Func<List<string>, TResult> callbackError)
+        {
+            if (SuccessResult)
+                return callbackSuccess(Result);
+            return callbackError(Errors);
         }
 
         public Response<TResponse> Error(Func<List<string>, Task> callback)

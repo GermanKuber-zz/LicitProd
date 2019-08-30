@@ -14,33 +14,22 @@ namespace LicitProd.Data
         protected Response<List<TEntity>> Get() =>
             ReturnResult(CreateMapper().MapList(SqlAccessService.SelectData(EntityToColumns<TEntity>.Map()
                  .Send())));
+
         protected Response<List<TEntity>> Get(List<Parameter> parameters) =>
             ReturnResult(CreateMapper().MapList(SqlAccessService.SelectData(parameters, EntityToColumns<TEntity>.Map()
                  .Send())));
-        public Response<TEntity> GetById(string id)
-        {
-            var mapper = ObjectToDbMapperFactory<TEntity>.Create();
-            var value = mapper.GetPk()
-                 .Success<Response<TEntity>>(x =>
-                 {
-                     var result = CreateMapper().Map(SqlAccessService.SelectData(new Parameters()
-                         .Add(x, id)
-                         .Send(),
-                         EntityToColumns<TEntity>.Map().Send()));
-                     if (result != null)
-                         return Response<TEntity>.Ok(result);
-                     return Response<TEntity>.Error();
-                 })
-                 .Error(x => Response<TEntity>.Error());
-            return value;
-        }
-        private static Response<List<TEntity>> ReturnResult(List<TEntity> result)
-        {
-            if (!result.Any())
-                return Response<List<TEntity>>.Error();
 
-            return Response<List<TEntity>>.Ok(result);
-        }
+        public Response<TEntity> GetById(string id)=>
+                    ObjectToDbMapperFactory<TEntity>.Create().GetPk()
+                             .Success(x =>
+                             Response<TEntity>.From(CreateMapper().Map(SqlAccessService.SelectData(new Parameters()
+                                     .Add(x, id)
+                                     .Send(),
+                                     EntityToColumns<TEntity>.Map().Send()))))
+                             .Error(x => Response<TEntity>.Error());
+
+        private static Response<List<TEntity>> ReturnResult(List<TEntity> result) =>
+            Response<TEntity>.From(result);
 
         private DbToObjectMapper<TEntity> CreateMapper()
         {
