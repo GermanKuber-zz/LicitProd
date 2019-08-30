@@ -34,7 +34,7 @@
             this.Apellido = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Direccion = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Email = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.lblTituloPrinciapal = new System.Windows.Forms.Label();
+            this.DashboardProveedoresLabelTituloPrincipal = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -77,21 +77,21 @@
             this.Email.HeaderText = "Email";
             this.Email.Name = "Email";
             // 
-            // lblTituloPrinciapal
+            // DashboardProveedoresLabelTituloPrincipal
             // 
-            this.lblTituloPrinciapal.AutoSize = true;
-            this.lblTituloPrinciapal.Location = new System.Drawing.Point(12, 33);
-            this.lblTituloPrinciapal.Name = "lblTituloPrinciapal";
-            this.lblTituloPrinciapal.Size = new System.Drawing.Size(67, 13);
-            this.lblTituloPrinciapal.TabIndex = 1;
-            this.lblTituloPrinciapal.Text = "Proveedores";
+            this.DashboardProveedoresLabelTituloPrincipal.AutoSize = true;
+            this.DashboardProveedoresLabelTituloPrincipal.Location = new System.Drawing.Point(12, 33);
+            this.DashboardProveedoresLabelTituloPrincipal.Name = "DashboardProveedoresLabelTituloPrincipal";
+            this.DashboardProveedoresLabelTituloPrincipal.Size = new System.Drawing.Size(67, 13);
+            this.DashboardProveedoresLabelTituloPrincipal.TabIndex = 1;
+            this.DashboardProveedoresLabelTituloPrincipal.Text = "Proveedores";
             // 
             // DashboardProveedores
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(571, 271);
-            this.Controls.Add(this.lblTituloPrinciapal);
+            this.Controls.Add(this.DashboardProveedoresLabelTituloPrincipal);
             this.Controls.Add(this.dataGridView1);
             this.Name = "DashboardProveedores";
             this.Text = "DashboardProveedores";
@@ -109,6 +109,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Apellido;
         private System.Windows.Forms.DataGridViewTextBoxColumn Direccion;
         private System.Windows.Forms.DataGridViewTextBoxColumn Email;
-        private System.Windows.Forms.Label lblTituloPrinciapal;
+        private System.Windows.Forms.Label DashboardProveedoresLabelTituloPrincipal;
     }
 }

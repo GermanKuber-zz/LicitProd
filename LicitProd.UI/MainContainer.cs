@@ -1,6 +1,7 @@
 ﻿using LicitProd.Entities;
 using LicitProd.Services;
 using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 
 namespace LicitProd.UI
@@ -12,7 +13,7 @@ namespace LicitProd.UI
             InitializeComponent();
         }
 
-        
+
 
         private void LogoutToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -39,18 +40,23 @@ namespace LicitProd.UI
 
         private void InglesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            TranslationService.ChangeLanguage(new Translation
-            {
-                DashboardProveedoresLabelTituloPrincipal = "Dashboard Providers"
-            });
+            TranslationService.ChangeLanguage(new Translations(new List<Services.Translation> {
+                new Services.Translation("DashboardProveedoresLabelTituloPrincipal", "Dashboard Providers"),
+                new Services.Translation("DashboardProveedoresTitle", "Dashboard Providers"),
+                new Services.Translation("LogsTitle", "List of Logs"),
+                new Services.Translation("LogsBtnBuscar", "Search")
+
+            }));
         }
 
         private void EspañolToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            TranslationService.ChangeLanguage(new Translation
-            {
-                DashboardProveedoresLabelTituloPrincipal = "Dashboard Proveedores"
-            });
+            TranslationService.ChangeLanguage(new Translations(new List<Services.Translation> {
+                new Services.Translation("DashboardProveedoresLabelTituloPrincipal", "Dashboard Proveedores"),
+                new Services.Translation("DashboardProveedoresTitle", "Dashboard Proveedores"),
+                new Services.Translation("LogsTitle", "Lista de Logs"),
+                new Services.Translation("LogsBtnBuscar", "Buscar")                
+            }));
         }
     }
 }

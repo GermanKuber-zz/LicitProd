@@ -11,7 +11,7 @@ using System.Windows.Forms;
 
 namespace LicitProd.UI
 {
-    public partial class Logs : Form
+    public partial class Logs : BaseForm
     {
         public Logs()
         {
