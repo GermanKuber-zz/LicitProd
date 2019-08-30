@@ -34,7 +34,7 @@
             this.Apellido = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Direccion = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Email = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.label1 = new System.Windows.Forms.Label();
+            this.lblTituloPrinciapal = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -77,21 +77,21 @@
             this.Email.HeaderText = "Email";
             this.Email.Name = "Email";
             // 
-            // label1
+            // lblTituloPrinciapal
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 33);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(67, 13);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Proveedores";
+            this.lblTituloPrinciapal.AutoSize = true;
+            this.lblTituloPrinciapal.Location = new System.Drawing.Point(12, 33);
+            this.lblTituloPrinciapal.Name = "lblTituloPrinciapal";
+            this.lblTituloPrinciapal.Size = new System.Drawing.Size(67, 13);
+            this.lblTituloPrinciapal.TabIndex = 1;
+            this.lblTituloPrinciapal.Text = "Proveedores";
             // 
             // DashboardProveedores
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(571, 271);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.lblTituloPrinciapal);
             this.Controls.Add(this.dataGridView1);
             this.Name = "DashboardProveedores";
             this.Text = "DashboardProveedores";
@@ -109,6 +109,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Apellido;
         private System.Windows.Forms.DataGridViewTextBoxColumn Direccion;
         private System.Windows.Forms.DataGridViewTextBoxColumn Email;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblTituloPrinciapal;
     }
 }

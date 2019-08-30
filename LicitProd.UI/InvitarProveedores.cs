@@ -1,20 +1,30 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using LicitProd.Entities;
+using LicitProd.Services;
 using System.Windows.Forms;
 
 namespace LicitProd.UI
 {
-    public partial class InvitarProveedores : Form
+    public abstract class BaseForm<TLanguage> : Form where TLanguage : ILanguage
+    {
+        public BaseForm()
+        {
+            TranslationService.Subscribe(x =>
+            {
+                ChangeLanguage((TLanguage)x);
+            });
+        }
+        public abstract void ChangeLanguage(TLanguage translation);
+
+    }
+    public partial class InvitarProveedores : BaseForm<IInvitarProveedoresForm>
     {
         public InvitarProveedores()
         {
             InitializeComponent();
         }
+        public override void ChangeLanguage(IInvitarProveedoresForm translation)
+        {
+        }
+
     }
 }

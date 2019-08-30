@@ -1,12 +1,6 @@
-﻿using LicitProd.Services;
+﻿using LicitProd.Entities;
+using LicitProd.Services;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace LicitProd.UI
@@ -17,6 +11,8 @@ namespace LicitProd.UI
         {
             InitializeComponent();
         }
+
+        
 
         private void LogoutToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -39,6 +35,22 @@ namespace LicitProd.UI
             var logs = new DashboardProveedores();
             logs.MdiParent = this;
             logs.Show();
+        }
+
+        private void InglesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            TranslationService.ChangeLanguage(new Translation
+            {
+                DashboardProveedoresLabelTituloPrincipal = "Dashboard Providers"
+            });
+        }
+
+        private void EspañolToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            TranslationService.ChangeLanguage(new Translation
+            {
+                DashboardProveedoresLabelTituloPrincipal = "Dashboard Proveedores"
+            });
         }
     }
 }

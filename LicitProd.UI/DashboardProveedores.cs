@@ -1,16 +1,21 @@
 ﻿using LicitProd.Data;
+using LicitProd.Entities;
+using LicitProd.Services;
 using System.Windows.Forms;
 
 namespace LicitProd.UI
 {
-    public partial class DashboardProveedores : Form
+    public partial class DashboardProveedores : BaseForm<IDashboardProveedoresForm>
     {
         public DashboardProveedores()
         {
             InitializeComponent();
 
-            var proveedoresRepository = new ProveedoresRepository();
-            var a = proveedoresRepository.Get();
+        }
+
+        public override void ChangeLanguage(IDashboardProveedoresForm translation)
+        {
+            lblTituloPrinciapal.Text = translation.DashboardProveedoresLabelTituloPrincipal;
         }
     }
 }
