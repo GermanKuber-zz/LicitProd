@@ -1,7 +1,4 @@
-﻿using LicitProd.Data;
-using LicitProd.Entities;
-using LicitProd.Services;
-using System.Windows.Forms;
+﻿using LicitProd.Entities;
 
 namespace LicitProd.UI
 {
