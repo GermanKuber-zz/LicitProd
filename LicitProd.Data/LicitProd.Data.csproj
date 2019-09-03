@@ -55,6 +55,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ToDbMapper\LogDbMapper.cs" />
     <Compile Include="ToDbMapper\ProveedorDbMapper.cs" />
+    <Compile Include="ToDbMapper\RolDbMapper.cs" />
     <Compile Include="ToDbMapper\UsuarioDbMapper.cs" />
   </ItemGroup>
   <ItemGroup>

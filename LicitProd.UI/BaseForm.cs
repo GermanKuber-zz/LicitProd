@@ -3,17 +3,13 @@ using System.Windows.Forms;
 
 namespace LicitProd.UI
 {
-    public abstract class BaseForm : Form
+    public class BaseForm : Form
     {
-        private Translations translation;
         public BaseForm()
         {
-          
-            TranslationService.Subscribe(trans =>
-            {
-                translation = trans;
-                ChangeLanguage(trans);
-            });
+
+            TranslationService.Subscribe(trans => ChangeLanguage(trans));
+
         }
         protected override void InitLayout()
         {
@@ -25,7 +21,7 @@ namespace LicitProd.UI
         {
             translation._translations.ForEach(x =>
             {
-                var controls = this.Controls.Find(x.Key, true);
+                var controls = Controls.Find(x.Key, true);
                 foreach (var control in controls)
                 {
                     if (control is Label)

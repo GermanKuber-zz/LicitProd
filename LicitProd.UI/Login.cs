@@ -7,9 +7,9 @@ using System.Windows.Forms;
 
 namespace LicitProd.UI
 {
-    public partial class Login : Form
+    public partial class Login : BaseForm
     {
-        public Login()
+        public Login():base()
         {
             var rolLogs = new Rol("LogsAdministrator");
             rolLogs.Add(new SinglePermission("ReadLogs"));
