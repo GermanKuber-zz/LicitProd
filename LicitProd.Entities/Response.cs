@@ -41,11 +41,26 @@ namespace LicitProd.Services
                 return callback(Result).Result;
             return default(TResult);
         }
-        public TResult Success<TResult>(Func<TResponse, TResult> callback)
+        public TResult Success<TResult>(Func<TResponse, TResult> callback, Func<TResult> errorDefaultValueCallback = null)
         {
             if (SuccessResult)
                 return callback(Result);
-            return default(TResult);
+            else
+                if (errorDefaultValueCallback != null)
+                return errorDefaultValueCallback.Invoke();
+            else
+                return default(TResult);
+        }
+
+        public TResult Success2<TResult>(Func<TResponse, TResult> callback, Func<TResult> errorDefaultValueCallback = null)
+        {
+            if (SuccessResult)
+                return callback(Result);
+            else
+                if (errorDefaultValueCallback != null)
+                return errorDefaultValueCallback.Invoke();
+            else
+                return default(TResult);
         }
         public TResult Map<TResult>(Func<TResponse, TResult> callbackSuccess, Func<List<string>, TResult> callbackError)
         {
