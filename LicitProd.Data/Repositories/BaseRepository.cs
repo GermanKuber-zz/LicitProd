@@ -28,10 +28,12 @@ namespace LicitProd.Data
                                      EntityToColumns<TEntity>.Map().Send()))))
                              .Error(x => Response<TEntity>.Error());
 
-        private static Response<List<TEntity>> ReturnResult(List<TEntity> result) =>
+        protected static Response<List<TEntity>> ReturnResult(List<TEntity> result) =>
             Response<TEntity>.From(result);
+        protected static Response<TEntity> ReturnResult(TEntity result) =>
+           Response<TEntity>.From(result);
 
-        private DbToObjectMapper<TEntity> CreateMapper()
+        protected DbToObjectMapper<TEntity> CreateMapper()
         {
             var dc = new Default();
             var loadableTypes = ReflectionHelper.GetClassesImplementingAnInterface(dc.GetType().Assembly, typeof(DbToObjectMapper<TEntity>)).Item2;

@@ -9,6 +9,7 @@ namespace LicitProd.Entities
         public string ColumnName { get; private set; }
         public bool HasColumnName { get; private set; }
         public bool IsPrimaryKey { get; private set; }
+        public bool IsIgnore { get; private set; }
         public string PropertyName => MemberInfo.Name;
 
         public DbMapperContainer(MemberInfo memberInfo)
@@ -24,6 +25,11 @@ namespace LicitProd.Entities
         public DbMapperContainer PrimaryKey()
         {
             IsPrimaryKey = true;
+            return this;
+        }
+        public DbMapperContainer Ignore()
+        {
+            IsIgnore = true;
             return this;
         }
     }

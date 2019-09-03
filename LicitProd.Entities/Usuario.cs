@@ -6,6 +6,7 @@ namespace LicitProd.Entities
     {
         public string Email { get; protected set; }
         public string HashPassword { get; protected set; }
+        public Rol Rol { get; protected set; }
 
         public Usuario()
         {
@@ -18,11 +19,13 @@ namespace LicitProd.Entities
             HashPassword = hashPassword ?? throw new ArgumentNullException(nameof(hashPassword));
         }
 
+
         public Usuario(string email, string hashPassword)
         {
             Email = email ?? throw new ArgumentNullException(nameof(email));
             HashPassword = hashPassword ?? throw new ArgumentNullException(nameof(hashPassword));
         }
+        public void SetRol(Rol rol) => Rol = rol;
     }
 
 }

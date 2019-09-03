@@ -50,6 +50,7 @@
     <Compile Include="Infraestructure\Parameters.cs" />
     <Compile Include="Infraestructure\SqlAccessService.cs" />
     <Compile Include="Repositories\ProveedoresRepository.cs" />
+    <Compile Include="Repositories\RolRepository.cs" />
     <Compile Include="Repositories\UsuarioRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ToDbMapper\LogDbMapper.cs" />

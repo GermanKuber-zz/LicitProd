@@ -40,20 +40,20 @@ namespace LicitProd.Entities
             throw new ArgumentException("Member does not exist.");
         }
 
-        public Response<string> GetColumnName(string propertyName)
+        public Response<DbMapperContainer> GetColumnName(string propertyName)
         {
             var result = _dbMapperContainer.Where(x => x.PropertyName == propertyName).FirstOrDefault();
-            if (result != null && result.HasColumnName)
-                return Response<string>.Ok(result.ColumnName);
+            if (result != null && (result.HasColumnName || result.IsIgnore))
+                return Response<DbMapperContainer>.Ok(result);
 
-            return Response<string>.Error();
+            return Response<DbMapperContainer>.Error();
         }
         public Response<string> GetPk()
         {
             var pk = _dbMapperContainer.FirstOrDefault(x => x.IsPrimaryKey);
             if (pk == null)
                 return Response<string>.Error();
-            return Response<string>.Ok(string.IsNullOrWhiteSpace(pk.ColumnName) ? pk.PropertyName: pk.ColumnName);
+            return Response<string>.Ok(string.IsNullOrWhiteSpace(pk.ColumnName) ? pk.PropertyName : pk.ColumnName);
         }
     }
 

@@ -24,7 +24,7 @@ namespace LicitProd.Mappers
             {
                 var columnName = prop.Name;
                 mapper.GetColumnName(prop.Name)
-                    .Success(x => columnName = x);
+                    .Success(x => columnName = x.ColumnName);
 
                 try
                 {

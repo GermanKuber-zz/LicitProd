@@ -10,8 +10,23 @@
         {
             Set(x => x.Id)
                 .PrimaryKey();
+            Set(x => x.Rol)
+                .Ignore();
             Set(x => x.HashPassword)
                 .Column("Password");
+        }
+    }
+
+    public class RolDbMapper : ObjectToDbMapper<Rol>
+    {
+        public RolDbMapper() : base("Permiso")
+        {
+        }
+
+        protected override void Map()
+        {
+            Set(x => x.Id)
+                .PrimaryKey();
         }
     }
 }

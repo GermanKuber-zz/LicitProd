@@ -23,6 +23,19 @@ namespace LicitProd.Data
         public DataTable SelectData(List<Parameter> parameters) =>
             SelectData(parameters, null);
 
+        public DataTable SelectData(string query)
+        {            
+            SqlConnection conn = new SqlConnection(connectionString);
+            SqlCommand command = new SqlCommand(query, conn);
+            conn.Open();
+            SqlDataAdapter da = new SqlDataAdapter(command);
+            DataTable dataTable = new DataTable();
+            da.Fill(dataTable);
+            conn.Close();
+            da.Dispose();
+            return dataTable;
+        }
+
         public DataTable SelectData(List<Parameter> parameters, List<string> selectColumns)
         {
             string query = "SELECT ";
@@ -56,9 +69,7 @@ namespace LicitProd.Data
             da.Fill(dataTable);
             conn.Close();
             da.Dispose();
-
             return dataTable;
-
         }
         public void InsertData(List<Parameter> parameters) =>
             ExcecuteQuery($"INSERT INTO dbo.{_dataTableName} ({string.Join(",", parameters.Select(x => x.ColumnName).ToList())}) " +

@@ -31,11 +31,17 @@ namespace LicitProd.Data
             props.ToList()?.ForEach(prop =>
             {
                 var columnName = prop.Name;
-
+                var ignore = false;
                 objectToDbMapper.GetColumnName(prop.Name)
-                    .Success(x => columnName = x);
-
-                columns.Add(columnName);
+                    .Success(x =>
+                    {
+                        if (!x.IsIgnore)
+                            columnName = x.ColumnName;
+                        else
+                            ignore = true;
+                    });
+                if (!ignore)
+                    columns.Add(columnName);
             });
             return columns;
         }
