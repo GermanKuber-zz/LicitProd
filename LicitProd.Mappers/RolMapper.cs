@@ -10,8 +10,6 @@ namespace LicitProd.Mappers
         {
             var permissions = new List<(int ParentRolId, SinglePermission Permission)>();
             var roles = new List<(int? ParentRolId, Rol Rol)>();
-            //TODO: remover
-            roles.Add((null, new Rol(1, "Administrador")));
             foreach (DataRow item in dataTable.Rows)
             {
                 if (item["Type"].ToString() == "Permiso")

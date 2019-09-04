@@ -29,6 +29,11 @@ namespace LicitProd.Services
                 return new Response<TResponse>(new List<string>());
             return new Response<TResponse>(value);
         }
+        public static Response<TResponse> From(Func<bool> condition, TResponse response) {
+            if (condition())
+                return new Response<TResponse>(response);
+            return new Response<TResponse>(new List<string>());
+        }
         public Response<TResponse> Success(Action<TResponse> callback)
         {
             if (SuccessResult)

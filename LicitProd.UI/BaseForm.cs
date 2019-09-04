@@ -1,4 +1,6 @@
-﻿using LicitProd.Services;
+﻿using LicitProd.Entities;
+using LicitProd.Services;
+using System;
 using System.Windows.Forms;
 
 namespace LicitProd.UI
@@ -9,13 +11,22 @@ namespace LicitProd.UI
         {
 
             TranslationService.Subscribe(trans => ChangeLanguage(trans));
-
+         
         }
         protected override void InitLayout()
         {
             base.InitLayout();
             TranslationService.GetTranslation()
                             .Success(x => ChangeLanguage(x));
+         
+        }
+        protected override void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);
+            IdentityServices.Instance.IsLoggued()
+                                     .Success(x => ApplyPermissions(x.Rol));
+        }
+        public virtual void ApplyPermissions(Rol rol) {
         }
         public void ChangeLanguage(Translations translation)
         {

@@ -27,6 +27,11 @@ namespace LicitProd.Services
         {
             _usuarioLogueado = null;
         }
+        public Response<Usuario> IsLoggued() {
+            if (_usuarioLogueado == null)
+                return Response<Usuario>.Error();
+            return Response<Usuario>.Ok(_usuarioLogueado);
+        }
         public Usuario GetUserLogged() => _usuarioLogueado;
     }
 }

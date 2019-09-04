@@ -1,4 +1,5 @@
 ﻿using LicitProd.Data;
+using LicitProd.Entities;
 using System;
 using System.Windows.Forms;
 
@@ -27,6 +28,10 @@ namespace LicitProd.UI
                    dataGridView1.DataSource = source;
                })
                .Error(x => MessageBox.Show("No hay logs"));
+        }
+        public override void ApplyPermissions(Rol rol)
+        {
+            base.ApplyPermissions(rol);
         }
     }
 }

@@ -6,33 +6,26 @@ using System.Windows.Forms;
 
 namespace LicitProd.UI
 {
-    public partial class MainContainer : Form
+    public partial class MainContainer : BaseForm
     {
-        private Translations translation;
 
         public MainContainer()
         {
-            TranslationService.Subscribe(trans =>
-            {
-                translation = trans;
-                ChangeLanguage(trans);
-            });
+
             InitializeComponent();
+   
         }
         protected override void InitLayout()
         {
             base.InitLayout();
-            CheckTraducciones();
         }
-        private void CheckTraducciones() {
-            TranslationService.GetTranslation()
-                         .Success(x => ChangeLanguage(x));
-        }
+       
+       
         protected override void OnMdiChildActivate(EventArgs e)
         {
             base.OnMdiChildActivate(e);
-            CheckTraducciones();
-
+            TranslationService.GetTranslation()
+                         .Success(x => ChangeLanguage(x));
         }
 
         public void ChangeLanguage(Translations translation)
@@ -56,7 +49,7 @@ namespace LicitProd.UI
             new LogManager().LogInformacion("Logout");
 
             new UsuarioService().Logout();
-            this.Hide();
+            Hide();
             new Login().Show();
         }
 
@@ -73,7 +66,13 @@ namespace LicitProd.UI
             logs.MdiParent = this;
             logs.Show();
         }
-
+        public override void ApplyPermissions(Rol rol)
+        {
+            rol.HasAccess(PermissionsEnum.DeleteConcurso)
+                .Error(x => {
+                    administracionMainMenu.Visible = false;
+                });
+        }
         private void InglesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             TranslationService.ChangeLanguage(new Translations(new List<Services.Translation> {

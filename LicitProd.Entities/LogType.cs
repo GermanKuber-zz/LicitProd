@@ -1,9 +1,11 @@
-﻿using System;
+﻿using LicitProd.Services;
+using System;
 using System.Collections.Generic;
 
 namespace LicitProd.Entities
 {
-    public enum PermissionsEnum {
+    public enum PermissionsEnum
+    {
         ReadLogs,
         DeleteLogs,
         ReadConcurso,
@@ -14,20 +16,18 @@ namespace LicitProd.Entities
         EditProveedor
     }
 
-    public abstract class Permission: Entity
+    public abstract class Permission : Entity
     {
         public string Name { get; set; }
         public abstract void Add(Permission permission);
         public abstract void Remove(Permission permission);
-       
+
         public Permission()
         {
 
         }
-        public virtual bool HasAccess(PermissionsEnum permission)
-        {
-            return Name == permission.ToString();
-        }
+        public virtual Response<bool> HasAccess(PermissionsEnum permission) =>
+            Response<bool>.From(() => Name == permission.ToString(), true);
     }
     public class Rol : Permission
     {
@@ -42,7 +42,7 @@ namespace LicitProd.Entities
         {
             Name = roleName ?? throw new ArgumentNullException(nameof(roleName));
         }
-        public Rol(int id,string roleName)
+        public Rol(int id, string roleName)
         {
             Name = roleName ?? throw new ArgumentNullException(nameof(roleName));
             Id = id;
@@ -57,14 +57,15 @@ namespace LicitProd.Entities
         {
             _permissions.Remove(permission);
         }
-        public override bool HasAccess(PermissionsEnum permission)
+        public override Response<bool> HasAccess(PermissionsEnum permission)
         {
             foreach (var item in _permissions)
             {
-                if (item.HasAccess(permission))
-                    return true;
+                var result = item.HasAccess(permission);
+                if (result.SuccessResult)
+                    return Response<bool>.Ok(result.Result);
             }
-            return false;
+            return Response<bool>.Error();
         }
     }
     public class SinglePermission : Permission

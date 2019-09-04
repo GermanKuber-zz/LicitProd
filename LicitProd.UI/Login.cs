@@ -11,24 +11,6 @@ namespace LicitProd.UI
     {
         public Login():base()
         {
-            var rolLogs = new Rol("LogsAdministrator");
-            rolLogs.Add(new SinglePermission("ReadLogs"));
-            rolLogs.Add(new SinglePermission("DeleteLogs"));
-            var rolConcurso = new Rol("ConcursoAdministrator");
-            rolConcurso.Add(new SinglePermission("ReadConcurso"));
-            rolConcurso.Add(new SinglePermission("DeleteConcurso"));
-            rolConcurso.Add(new SinglePermission("EditConcurso"));
-
-
-            var rolAdminitrador = new Rol("Administrador");
-            rolAdminitrador.Add(rolConcurso);
-            rolAdminitrador.Add(rolLogs);
-
-            var access = rolAdminitrador.HasAccess(PermissionsEnum.DeleteConcurso);
-            var acscess = rolAdminitrador.HasAccess(PermissionsEnum.DeleteProveedor);
-            var logs = new LogRepository().Get();
-
-            var us = new LogRepository().GetById("6");
             InitializeComponent();
         }
         private readonly Regex validEmailRegex = new Regex(
