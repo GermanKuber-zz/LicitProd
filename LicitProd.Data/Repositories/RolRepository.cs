@@ -1,5 +1,6 @@
 ﻿using LicitProd.Entities;
 using LicitProd.Services;
+using System.Collections.Generic;
 
 namespace LicitProd.Data
 {
@@ -20,5 +21,7 @@ namespace LicitProd.Data
                                                             " join recursivo r on r.PermisoId= sp.RolId" +
                                                             ")" +
                                                             " select * from recursivo r  inner join permiso p on r.PermisoId = p.Id")));
+        public Response<List<Rol>> GetAll() =>
+             ReturnResult(CreateMapper().MapList(SqlAccessService.SelectData("with recursivo as ( select  SP2.RolId, SP2.PermisoId from Rol_Permiso  SP2  where   sp2.RolId is null  UNION ALL select  sp.RolId, sp.PermisoId from Rol_Permiso sp join recursivo r on r.PermisoId= sp.RolId) select * from recursivo r  inner join permiso p on r.PermisoId = p.Id")));
     }
 }

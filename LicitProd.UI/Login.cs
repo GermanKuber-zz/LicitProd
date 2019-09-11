@@ -9,7 +9,7 @@ namespace LicitProd.UI
 {
     public partial class Login : BaseForm
     {
-        public Login():base()
+        public Login() : base()
         {
             InitializeComponent();
         }
@@ -26,13 +26,17 @@ namespace LicitProd.UI
             if (validEmailRegex.IsMatch(txtEmail.Text))
             {
                 new UsuarioService()
+#if DEBUG
+                 .Login(txtEmail.Text)
+#else
                  .Login(txtEmail.Text, txtPassword.Text)
+#endif
                  .Success(usuario =>
                  {
                      Hide();
                      new MainContainer().Show();
                  })
-                 .Error(errors => MessageBox.Show("Los datos ingresados no son correctos.", "Error!"));            
+                 .Error(errors => MessageBox.Show("Los datos ingresados no son correctos.", "Error!"));
             }
             else
             {

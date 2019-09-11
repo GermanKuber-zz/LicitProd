@@ -6,19 +6,22 @@ namespace LicitProd.Entities
 {
     public enum PermissionsEnum
     {
-        ReadLogs,
-        DeleteLogs,
-        ReadConcurso,
-        DeleteConcurso,
-        EditConcurso,
-        ReadProveedor,
-        DeleteProveedor,
-        EditProveedor
+        Administrador,
+        Duenio,
+        Comprador,
+        Proveedor,
+        EditarComprador,
+        EditarProveedores,
+        ListarProveedores,
+        PublicarConcursos,
+        ResponderPreguntas,
+        OfertarConcurso,
+        PreguntarConcurso
     }
 
     public abstract class Permission : Entity
     {
-        public string Name { get; set; }
+        public PermissionsEnum Name { get; set; }
         public abstract void Add(Permission permission);
         public abstract void Remove(Permission permission);
 
@@ -26,44 +29,47 @@ namespace LicitProd.Entities
         {
 
         }
-        public virtual Response<bool> HasAccess(PermissionsEnum permission) =>
-            Response<bool>.From(() => Name == permission.ToString(), true);
+        public virtual Response<bool> HasAccess(PermissionsEnum permiso) =>
+            Response<bool>.From(() => Name == permiso, true);
     }
     public class Rol : Permission
     {
-        private List<Permission> _permissions = new List<Permission>();
+        public List<Permission> Permissions = new List<Permission>();
 
 
         public Rol()
         {
 
         }
-        public Rol(string roleName)
+        public Rol(PermissionsEnum roleName)
         {
-            Name = roleName ?? throw new ArgumentNullException(nameof(roleName));
+            Name = roleName;
         }
-        public Rol(int id, string roleName)
+        public Rol(int id, PermissionsEnum roleName)
         {
-            Name = roleName ?? throw new ArgumentNullException(nameof(roleName));
+            Name = roleName;
             Id = id;
         }
 
         public override void Add(Permission permission)
         {
-            _permissions.Add(permission);
+            Permissions.Add(permission);
         }
 
         public override void Remove(Permission permission)
         {
-            _permissions.Remove(permission);
+            Permissions.Remove(permission);
         }
         public override Response<bool> HasAccess(PermissionsEnum permission)
         {
-            foreach (var item in _permissions)
+            foreach (var item in Permissions)
             {
                 var result = item.HasAccess(permission);
                 if (result.SuccessResult)
                     return Response<bool>.Ok(result.Result);
+                else if(Name == permission)
+                    return Response<bool>.Ok(true);
+
             }
             return Response<bool>.Error();
         }
@@ -71,14 +77,14 @@ namespace LicitProd.Entities
     public class SinglePermission : Permission
     {
 
-        public SinglePermission(string permissionName)
+        public SinglePermission(PermissionsEnum permissionName)
         {
-            Name = permissionName ?? throw new ArgumentNullException(nameof(permissionName));
+            Name = permissionName;
         }
 
-        public SinglePermission(int id, string permissionName)
+        public SinglePermission(int id, PermissionsEnum permissionName)
         {
-            Name = permissionName ?? throw new ArgumentNullException(nameof(permissionName));
+            Name = permissionName;
             Id = id;
         }
 

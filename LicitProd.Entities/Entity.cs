@@ -2,6 +2,6 @@
 {
     public class Entity : IEntityToDb
     {
-        public int Id { get; protected set; }
+        public int Id { get;  set; }
     }
 }

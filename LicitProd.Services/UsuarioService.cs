@@ -13,6 +13,9 @@ namespace LicitProd.Services
         public Response<Usuario> Login(string email, string password) => _usuarioRepository
             .GetUsuario(email, new HashService().Hash(password))
             .Success(usuario => LoginSuccess(usuario));
+        public Response<Usuario> Login(string email) => _usuarioRepository
+                            .GetUsuario(email)
+                            .Success(usuario => LoginSuccess(usuario));
 
         public void Logout() =>
                IdentityServices.Instance.RemoveUserLogged();

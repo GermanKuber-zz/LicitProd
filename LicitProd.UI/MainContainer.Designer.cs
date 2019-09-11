@@ -36,6 +36,7 @@
             this.lenguajesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.inglesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.españolToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.permisosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -64,7 +65,8 @@
             // administracionMainMenu
             // 
             this.administracionMainMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.logsToolStripMenuItem});
+            this.logsToolStripMenuItem,
+            this.permisosToolStripMenuItem});
             this.administracionMainMenu.Name = "administracionMainMenu";
             this.administracionMainMenu.Size = new System.Drawing.Size(147, 29);
             this.administracionMainMenu.Text = "Administración";
@@ -106,6 +108,13 @@
             this.españolToolStripMenuItem.Text = "Español";
             this.españolToolStripMenuItem.Click += new System.EventHandler(this.EspañolToolStripMenuItem_Click);
             // 
+            // permisosToolStripMenuItem
+            // 
+            this.permisosToolStripMenuItem.Name = "permisosToolStripMenuItem";
+            this.permisosToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
+            this.permisosToolStripMenuItem.Text = "Permisos";
+            this.permisosToolStripMenuItem.Click += new System.EventHandler(this.PermisosToolStripMenuItem_Click);
+            // 
             // MainContainer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -134,5 +143,6 @@
         private System.Windows.Forms.ToolStripMenuItem lenguajesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem inglesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem españolToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem permisosToolStripMenuItem;
     }
 }

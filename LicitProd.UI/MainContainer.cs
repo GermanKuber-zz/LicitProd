@@ -52,7 +52,7 @@ namespace LicitProd.UI
         }
         public override void ApplyPermissions(Rol rol)
         {
-            rol.HasAccess(PermissionsEnum.DeleteConcurso)
+            rol.HasAccess(PermissionsEnum.Administrador)
                 .Error(x => {
                     administracionMainMenu.Visible = false;
                 });
@@ -76,6 +76,13 @@ namespace LicitProd.UI
                 new Services.Translation("LogsTitle", "Lista de Logs"),
                 new Services.Translation("LogsBtnBuscar", "Buscar")                
             }));
+        }
+
+        private void PermisosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var permisos = new Permisos();
+            permisos.MdiParent = this;
+            permisos.Show();
         }
     }
 }
