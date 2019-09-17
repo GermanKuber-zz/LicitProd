@@ -9,6 +9,7 @@ namespace LicitProd.UI
     public partial class Permisos : Form
     {
         private bool _editando = false;
+        private Usuario usuario;
         public Permisos()
         {
             InitializeComponent();
@@ -17,7 +18,6 @@ namespace LicitProd.UI
         private void Permisos_Load(object sender, EventArgs e)
         {
             dataGridView1.Columns.Add("Email", "Email");
-            dataGridView1.AutoGenerateColumns = false;
             treeView1.CheckBoxes = true;
             AddPermisos();
             new UsuarioRepository().Get()
@@ -25,6 +25,7 @@ namespace LicitProd.UI
                {
                    var source = new BindingSource();
                    dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+
                    source.DataSource = usuarios;
                    dataGridView1.DataSource = source;
                })
@@ -72,6 +73,13 @@ namespace LicitProd.UI
         private void Button1_Click(object sender, EventArgs e)
         {
             _editando = !_editando;
+        }
+
+        private void DataGridView1_RowStateChanged(object sender, DataGridViewRowStateChangedEventArgs e)
+        {
+            if (e.StateChanged != DataGridViewElementStates.Selected) return;
+            usuario = (Usuario)e.Row.DataBoundItem;
+            
         }
     }
 }

@@ -30,8 +30,8 @@
         {
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.treeView1 = new System.Windows.Forms.TreeView();
             this.button1 = new System.Windows.Forms.Button();
+            this.treeView1 = new System.Windows.Forms.TreeView();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -45,6 +45,7 @@
             this.dataGridView1.RowTemplate.Height = 28;
             this.dataGridView1.Size = new System.Drawing.Size(500, 150);
             this.dataGridView1.TabIndex = 0;
+            this.dataGridView1.RowStateChanged += new System.Windows.Forms.DataGridViewRowStateChangedEventHandler(this.DataGridView1_RowStateChanged);
             // 
             // groupBox1
             // 
@@ -57,14 +58,6 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Usuarios";
             // 
-            // treeView1
-            // 
-            this.treeView1.Location = new System.Drawing.Point(37, 333);
-            this.treeView1.Name = "treeView1";
-            this.treeView1.Size = new System.Drawing.Size(388, 293);
-            this.treeView1.TabIndex = 3;
-            this.treeView1.BeforeCheck += new System.Windows.Forms.TreeViewCancelEventHandler(this.TreeView1_BeforeCheck);
-            // 
             // button1
             // 
             this.button1.Location = new System.Drawing.Point(449, 198);
@@ -74,6 +67,14 @@
             this.button1.Text = "Editar";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.Button1_Click);
+            // 
+            // treeView1
+            // 
+            this.treeView1.Location = new System.Drawing.Point(37, 333);
+            this.treeView1.Name = "treeView1";
+            this.treeView1.Size = new System.Drawing.Size(388, 293);
+            this.treeView1.TabIndex = 3;
+            this.treeView1.BeforeCheck += new System.Windows.Forms.TreeViewCancelEventHandler(this.TreeView1_BeforeCheck);
             // 
             // Permisos
             // 

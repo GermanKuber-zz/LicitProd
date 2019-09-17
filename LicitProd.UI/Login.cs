@@ -27,7 +27,7 @@ namespace LicitProd.UI
             {
                 new UsuarioService()
 #if DEBUG
-                 .Login(txtEmail.Text)
+                 .Login("german.kuber@outlook.com")
 #else
                  .Login(txtEmail.Text, txtPassword.Text)
 #endif

@@ -43,7 +43,11 @@
   <ItemGroup>
     <Compile Include="Entity.cs" />
     <Compile Include="IEntityToDb.cs" />
+    <Compile Include="Permission.cs" />
+    <Compile Include="PermissionsEnum.cs" />
     <Compile Include="Proveedor.cs" />
+    <Compile Include="Rol.cs" />
+    <Compile Include="SinglePermission.cs" />
     <Compile Include="Usuario.cs" />
     <Compile Include="Log.cs" />
     <Compile Include="LogType.cs" />
