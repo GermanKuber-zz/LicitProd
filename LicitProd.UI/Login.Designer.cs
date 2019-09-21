@@ -35,6 +35,7 @@
             this.txtPassword = new System.Windows.Forms.TextBox();
             this.button2 = new System.Windows.Forms.Button();
             this.directoryEntry1 = new System.DirectoryServices.DirectoryEntry();
+            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.SuspendLayout();
             // 
             // button1
@@ -117,5 +118,6 @@
         private System.Windows.Forms.TextBox txtPassword;
         private System.Windows.Forms.Button button2;
         private System.DirectoryServices.DirectoryEntry directoryEntry1;
+        private System.ComponentModel.BackgroundWorker backgroundWorker1;
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LicitProd.Entities;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -15,6 +16,11 @@ namespace LicitProd.UI
         public CrearConcurso()
         {
             InitializeComponent();
+        }
+
+        private void Button1_Click(object sender, EventArgs e)
+        {
+            var concurso = new Concurso(1, udPresupuesto.Value, txtNombre.Text, dtpFechaInicio.Value, dtpFechaApertura.Value, chkAdjudicaion.Checked);
         }
     }
 }

@@ -7,13 +7,13 @@ namespace LicitProd.Infraestructure
 {
     public static class ReflectionHelper
     {
+        public static IReadOnlyCollection<PropertyInfo> GetListOfProperties<TType>() =>
+                         typeof(TType).GetProperties(BindingFlags.Public | BindingFlags.Instance).ToList().AsReadOnly();
         public static Tuple<bool, IList<Type>> GetClassesImplementingAnInterface(Assembly assemblyToScan, Type implementedInterface)
         {
             if (assemblyToScan == null)
                 return Tuple.Create(false, (IList<Type>)null);
 
-            //if (implementedInterface == null || !implementedInterface.IsInterface)
-            //    return Tuple.Create(false, (IList<Type>)null);
 
             IEnumerable<Type> typesInTheAssembly;
 

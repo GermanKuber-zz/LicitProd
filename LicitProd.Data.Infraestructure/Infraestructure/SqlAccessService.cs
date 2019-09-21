@@ -11,12 +11,13 @@ namespace LicitProd.Data
     public class SqlAccessService<TEntity> where TEntity : IEntityToDb, new()
     {
         string connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=LicitProd;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+        private IObjectToDbMapper<TEntity> _objectToDbMapper;
         private string _dataTableName;
 
         public SqlAccessService()
         {
-            var objectToDbMapper = ObjectToDbMapperFactory<TEntity>.Create();
-            _dataTableName = objectToDbMapper.TableName;
+            _objectToDbMapper = ObjectToDbMapperFactory<TEntity>.Create();
+            _dataTableName = _objectToDbMapper.TableName;
         }
         public DataTable SelectData(List<string> selectColumns) =>
             SelectData(null, selectColumns);
@@ -24,7 +25,7 @@ namespace LicitProd.Data
             SelectData(parameters, null);
 
         public DataTable SelectData(string query)
-        {            
+        {
             SqlConnection conn = new SqlConnection(connectionString);
             SqlCommand command = new SqlCommand(query, conn);
             conn.Open();
@@ -71,10 +72,15 @@ namespace LicitProd.Data
             da.Dispose();
             return dataTable;
         }
-        public void InsertData(List<Parameter> parameters) =>
+        public void InsertData(List<Parameter> parameters)
+        {
             ExcecuteQuery($"INSERT INTO dbo.{_dataTableName} ({string.Join(",", parameters.Select(x => x.ColumnName).ToList())}) " +
-                           $"VALUES ({string.Join(",", parameters.Select(key => $"@{key.ColumnName}").ToList())}) ", parameters);
-
+                          $"VALUES ({string.Join(",", parameters.Select(key => $"@{key.ColumnName}").ToList())}) ", parameters);
+        }
+        public void InsertData(TEntity entity)
+        {
+            InsertData(_objectToDbMapper.GetParameters(entity).Send());
+        }
         public void UpdateData(List<Parameter> parameters, List<Parameter> where = default)
         {
             string query = $"UPDATE  dbo.{_dataTableName} SET {string.Join(",", parameters.Select(value => $"{value.ColumnName} = @{value.ColumnName}").ToList())}";

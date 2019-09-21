@@ -41,14 +41,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Infraestructure\Columns.cs" />
     <Compile Include="Repositories\BaseRepository.cs" />
-    <Compile Include="Infraestructure\Column.cs" />
     <Compile Include="Repositories\EntityToColumns.cs" />
     <Compile Include="Repositories\LogRepository.cs" />
-    <Compile Include="Infraestructure\Parameter.cs" />
-    <Compile Include="Infraestructure\Parameters.cs" />
-    <Compile Include="Infraestructure\SqlAccessService.cs" />
     <Compile Include="Repositories\ProveedoresRepository.cs" />
     <Compile Include="Repositories\RolRepository.cs" />
     <Compile Include="Repositories\UsuarioRepository.cs" />

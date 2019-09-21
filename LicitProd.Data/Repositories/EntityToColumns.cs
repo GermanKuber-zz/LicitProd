@@ -1,4 +1,5 @@
 ﻿using LicitProd.Entities;
+using LicitProd.Infraestructure;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,9 +27,10 @@ namespace LicitProd.Data
         public static Columns Map()
         {
             var columns = new Columns();
-            var props = typeof(TEntity).GetProperties(BindingFlags.Public | BindingFlags.Instance);
             var objectToDbMapper = ObjectToDbMapperFactory<TEntity>.Create();
-            props.ToList()?.ForEach(prop =>
+            ReflectionHelper.GetListOfProperties<TEntity>()
+                .ToList()
+                .ForEach(prop =>
             {
                 var columnName = prop.Name;
                 var ignore = false;
@@ -36,7 +38,10 @@ namespace LicitProd.Data
                     .Success(x =>
                     {
                         if (!x.IsIgnore)
-                            columnName = x.ColumnName;
+                        {
+                            if (!string.IsNullOrWhiteSpace(x.ColumnName))
+                                columnName = x.ColumnName;
+                        }
                         else
                             ignore = true;
                     });

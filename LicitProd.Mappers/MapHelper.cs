@@ -1,8 +1,9 @@
 ﻿using LicitProd.Data;
 using LicitProd.Entities;
+using LicitProd.Infraestructure;
 using System;
 using System.Data;
-using System.Reflection;
+using System.Linq;
 
 namespace LicitProd.Mappers
 {
@@ -15,12 +16,9 @@ namespace LicitProd.Mappers
 
         private static TEntityType ParseObject(DataRow row, TEntityType entity)
         {
-            var props = entity.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance);
-
-
             var mapper = ObjectToDbMapperFactory<TEntityType>.Create();
 
-            foreach (var prop in props)
+            foreach (var prop in ReflectionHelper.GetListOfProperties<TEntityType>())
             {
                 var columnName = prop.Name;
                 mapper.GetColumnName(prop.Name)
@@ -43,6 +41,8 @@ namespace LicitProd.Mappers
             }
             return entity;
         }
+
+
     }
 
 }

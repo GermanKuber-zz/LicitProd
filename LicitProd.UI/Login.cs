@@ -23,6 +23,14 @@ namespace LicitProd.UI
 
         private void Button1_Click(object sender, EventArgs e)
         {
+
+            var concurso = new Concurso(1, 1, "Algo", new DateTime(2019, 09, 21), new DateTime(2019, 09, 24), false);
+            var has = concurso.GetHashCode();
+            var concurso2 = new Concurso(1, 3, "Algo", new DateTime(2019, 09, 21), new DateTime(2019, 09, 24), false);
+            var has2 = concurso.GetHashCode();
+            var has4 = concurso2.GetHashCode();
+
+
 #if !DEBUG
             if (validEmailRegex.IsMatch(txtEmail.Text))
             {

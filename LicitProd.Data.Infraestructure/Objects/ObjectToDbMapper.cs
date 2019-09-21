@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
+using LicitProd.Data;
+using LicitProd.Infraestructure;
 using LicitProd.Services;
 
 namespace LicitProd.Entities
@@ -43,7 +45,7 @@ namespace LicitProd.Entities
         public Response<DbMapperContainer> GetColumnName(string propertyName)
         {
             var result = _dbMapperContainer.Where(x => x.PropertyName == propertyName).FirstOrDefault();
-            if (result != null && (result.HasColumnName || result.IsIgnore))
+            if (result != null && result.initialized)
                 return Response<DbMapperContainer>.Ok(result);
 
             return Response<DbMapperContainer>.Error();
@@ -54,6 +56,57 @@ namespace LicitProd.Entities
             if (pk == null)
                 return Response<string>.Error();
             return Response<string>.Ok(string.IsNullOrWhiteSpace(pk.ColumnName) ? pk.PropertyName : pk.ColumnName);
+        }
+
+        public IReadOnlyList<string> GetColumns()
+        {
+            return ReflectionHelper.GetListOfProperties<TEntity>()
+                 .Select(prop =>
+                 {
+                     var columnName = prop.Name;
+                     GetColumnName(prop.Name)
+                         .Success(x => columnName = x.ColumnName);
+                     return columnName;
+                 }).ToList().AsReadOnly();
+        }
+
+        public Parameters GetParameters(TEntity entity)
+        {
+            var parameters = new Parameters();
+            ReflectionHelper.GetListOfProperties<TEntity>()
+                .ToList()
+                .ForEach(prop =>
+                {
+                    var value = prop.GetValue(entity, null);
+                    var type = prop.GetType();
+                    var columnName = prop.Name;
+                    var typse = Convert.ChangeType(value, prop.PropertyType);
+
+                    GetColumnName(prop.Name)
+                            .Success(x =>
+                            {
+                                Type enumToAdd = default;
+                                try
+                                {
+                                     enumToAdd = Enum.GetUnderlyingType(prop.PropertyType);
+                                }
+                                catch (Exception)
+                                {
+                                }
+                                
+                                if (enumToAdd != null)
+                                    parameters.Add(prop.Name, typse.ToString(), x.SqlDbType);
+                                else
+                                    if (!x.IsPrimaryKey)
+                                    parameters.Add(prop.Name, (dynamic)typse, x.SqlDbType);
+
+                            })
+                            .Error(e =>
+                            {
+                                parameters.Add(prop.Name, (dynamic)typse);
+                            });
+                });
+            return parameters;
         }
     }
 
