@@ -23,9 +23,11 @@ namespace LicitProd.UI
 
         private void Button1_Click(object sender, EventArgs e)
         {
+#if !DEBUG
             if (validEmailRegex.IsMatch(txtEmail.Text))
             {
-                new UsuarioService()
+#endif
+            new UsuarioService()
 #if DEBUG
                  .Login("german.kuber@outlook.com")
 #else
@@ -37,12 +39,14 @@ namespace LicitProd.UI
                      new MainContainer().Show();
                  })
                  .Error(errors => MessageBox.Show("Los datos ingresados no son correctos.", "Error!"));
+#if !DEBUG
             }
             else
             {
                 MessageBox.Show("No ingreso un email valido", "Error!");
                 return;
             }
+#endif
         }
 
         private void Button2_Click(object sender, EventArgs e)
