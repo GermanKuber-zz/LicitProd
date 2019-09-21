@@ -8,7 +8,9 @@ namespace LicitProd.Data
     {
         public void Insertar(Log log, int userId)
         {
-            SqlAccessService.InsertData(log);
+            SqlAccessService.InsertData(log,
+                                        new Parameters()
+                                             .Add("Usuario_Id", userId));
         }
 
         public new Response<List<Log>> Get() =>

@@ -1,5 +1,6 @@
 ﻿using LicitProd.Entities;
 using LicitProd.Mappers;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -80,6 +81,14 @@ namespace LicitProd.Data
         public void InsertData(TEntity entity)
         {
             InsertData(_objectToDbMapper.GetParameters(entity).Send());
+        }
+        public void InsertData(TEntity entity, Parameters parameters)
+        {
+            if (parameters == null)
+                throw new ArgumentNullException(nameof(parameters));
+            var list = _objectToDbMapper.GetParameters(entity).Send();
+            list.AddRange(parameters.Send());
+            InsertData(list);
         }
         public void UpdateData(List<Parameter> parameters, List<Parameter> where = default)
         {
