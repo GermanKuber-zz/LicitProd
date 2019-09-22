@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
+# Blend for Visual Studio Version 16
 VisualStudioVersion = 16.0.29009.5
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LicitProd.UI", "LicitProd.UI\LicitProd.UI.csproj", "{128560AF-C371-46D7-BF8A-38E52142991F}"
@@ -22,6 +22,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{0652B822-EC72-448B-BB26-4B5383690DD3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LicitProd.Services.Integration.Tests", "LicitProd.Services.Integration.Tests\LicitProd.Services.Integration.Tests.csproj", "{145E1327-B524-47D5-AE63-7A2216B962CA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LicitProd.UI.Wpf", "LicitProd.UI.Wpf\LicitProd.UI.Wpf.csproj", "{2A18318C-AD4A-4E36-971F-92A5C0803F10}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -65,6 +67,10 @@ Global
 		{145E1327-B524-47D5-AE63-7A2216B962CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{145E1327-B524-47D5-AE63-7A2216B962CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{145E1327-B524-47D5-AE63-7A2216B962CA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2A18318C-AD4A-4E36-971F-92A5C0803F10}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2A18318C-AD4A-4E36-971F-92A5C0803F10}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2A18318C-AD4A-4E36-971F-92A5C0803F10}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2A18318C-AD4A-4E36-971F-92A5C0803F10}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
