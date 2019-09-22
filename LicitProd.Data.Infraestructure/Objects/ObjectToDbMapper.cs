@@ -88,16 +88,15 @@ namespace LicitProd.Entities
                                 Type enumToAdd = default;
                                 try
                                 {
-                                     enumToAdd = Enum.GetUnderlyingType(prop.PropertyType);
+                                    enumToAdd = Enum.GetUnderlyingType(prop.PropertyType);
                                 }
                                 catch (Exception)
                                 {
                                 }
-                                
+
                                 if (enumToAdd != null)
                                     parameters.Add(prop.Name, typse.ToString(), x.SqlDbType);
-                                else
-                                    if (!x.IsPrimaryKey)
+                                else if (!x.IsPrimaryKey && !x.IsIgnore)
                                     parameters.Add(prop.Name, (dynamic)typse, x.SqlDbType);
 
                             })

@@ -8,11 +8,8 @@ namespace LicitProd.Data
     {
         public new Response<List<Concurso>> Get() =>
             base.Get();
-        public void InsertUsuario(Usuario usuario) =>
-                            SqlAccessService.InsertData(new Parameters()
-                                .Add("Email", usuario.Email)
-                                .Add("Password", usuario.HashPassword)
-                                .Send());
+        public void Insert(Concurso concurso) =>
+                            SqlAccessService.InsertData(concurso);
     }
     public class ProveedoresRepository : BaseRepository<Proveedor>
     {

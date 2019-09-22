@@ -1,4 +1,5 @@
 ﻿using LicitProd.Entities;
+using LicitProd.Services;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -20,7 +21,19 @@ namespace LicitProd.UI
 
         private void Button1_Click(object sender, EventArgs e)
         {
-            var concurso = new Concurso(1, udPresupuesto.Value, txtNombre.Text, dtpFechaInicio.Value, dtpFechaApertura.Value, chkAdjudicaion.Checked);
+            var concurso = new Concurso(1,
+                udPresupuesto.Value,
+                txtNombre.Text,
+                dtpFechaInicio.Value,
+                dtpFechaApertura.Value,
+                chkAdjudicaion.Checked,
+                txtDescripcion.Text);
+            
+            new ConcursoService().Crear(concurso)
+                .Success(x=> {
+                    DialogResult result = MessageBox.Show("Creado exitosamente", $"El concurso {concurso.Nombre} fue creado");
+                    Close();
+                });
         }
     }
 }

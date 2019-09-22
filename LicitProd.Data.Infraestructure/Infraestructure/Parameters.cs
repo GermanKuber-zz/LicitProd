@@ -31,6 +31,16 @@ namespace LicitProd.Data
             parameters.Add(new Parameter(key, value.ToString(), SqlDbType.Int));
             return new Parameters(parameters); ;
         }
+        public Parameters Add(string key, bool value)
+        {
+            parameters.Add(new Parameter(key, value.ToString(), SqlDbType.Bit));
+            return new Parameters(parameters); ;
+        }
+        public Parameters Add(string key, decimal value)
+        {
+            parameters.Add(new Parameter(key, value.ToString(), SqlDbType.Decimal));
+            return new Parameters(parameters); ;
+        }
         public Parameters Add(string key, string value)
         {
             parameters.Add(new Parameter(key, value, SqlDbType.NVarChar));

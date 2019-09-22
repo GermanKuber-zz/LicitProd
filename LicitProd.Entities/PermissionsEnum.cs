@@ -12,6 +12,7 @@
         PublicarConcursos,
         ResponderPreguntas,
         OfertarConcurso,
-        PreguntarConcurso
+        PreguntarConcurso,
+        CrearConcurso
     }
 }

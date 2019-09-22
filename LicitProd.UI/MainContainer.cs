@@ -13,20 +13,20 @@ namespace LicitProd.UI
         {
 
             InitializeComponent();
-   
+
         }
         protected override void InitLayout()
         {
             base.InitLayout();
         }
-       
-       
+
+
         protected override void OnMdiChildActivate(EventArgs e)
         {
             base.OnMdiChildActivate(e);
         }
 
-      
+
 
         private void LogoutToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -53,9 +53,15 @@ namespace LicitProd.UI
         public override void ApplyPermissions(Rol rol)
         {
             rol.HasAccess(PermissionsEnum.Administrador)
-                .Error(x => {
+                .Error(x =>
+                {
                     administracionMainMenu.Visible = false;
                 });
+            rol.HasAccess(PermissionsEnum.CrearConcurso)
+           .Error(x =>
+           {
+               crearToolStripMenuItem.Visible = false;
+           });
         }
         private void InglesToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -71,10 +77,10 @@ namespace LicitProd.UI
         private void EspañolToolStripMenuItem_Click(object sender, EventArgs e)
         {
             TranslationService.ChangeLanguage(new Translations(new List<Services.Translation> {
-                new Services.Translation("DashboardProveedoresLabelTituloPrincipal", "Dashboard Proveedores"),
-                new Services.Translation("DashboardProveedoresTitle", "Dashboard Proveedores"),
-                new Services.Translation("LogsTitle", "Lista de Logs"),
-                new Services.Translation("LogsBtnBuscar", "Buscar")                
+                new Translation("DashboardProveedoresLabelTituloPrincipal", "Dashboard Proveedores"),
+                new Translation("DashboardProveedoresTitle", "Dashboard Proveedores"),
+                new Translation("LogsTitle", "Lista de Logs"),
+                new Translation("LogsBtnBuscar", "Buscar")
             }));
         }
 
@@ -83,6 +89,13 @@ namespace LicitProd.UI
             var permisos = new Permisos();
             permisos.MdiParent = this;
             permisos.Show();
+        }
+
+        private void CrearToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var crearConcurso = new CrearConcurso();
+            crearConcurso.MdiParent = this;
+            crearConcurso.Show();
         }
     }
 }
