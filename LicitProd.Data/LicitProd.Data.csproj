@@ -31,6 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="FluentAssemblyScanner, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\FluentAssemblyScanner.2.0.0\lib\netstandard2.0\FluentAssemblyScanner.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
@@ -42,7 +45,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Repositories\BackupsRepository.cs" />
     <Compile Include="Repositories\BaseRepository.cs" />
+    <Compile Include="Repositories\ConcursosRepository.cs" />
     <Compile Include="Repositories\EntityToColumns.cs" />
     <Compile Include="Repositories\LogRepository.cs" />
     <Compile Include="Repositories\ProveedoresRepository.cs" />
@@ -76,6 +81,9 @@
       <Project>{e23c9b28-892f-407e-acfe-471990eac91c}</Project>
       <Name>LicitProd.Seguridad</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

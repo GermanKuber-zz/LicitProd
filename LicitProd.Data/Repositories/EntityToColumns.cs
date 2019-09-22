@@ -14,7 +14,7 @@ namespace LicitProd.Data
         {
             var types = new List<Type>();
             Assembly[] assemblies = AppDomain.CurrentDomain.GetAssemblies();
-            assemblies.Select(assembly => ReflectionHelper.GetClassesImplementingAnInterface(assembly.GetType().Assembly, typeof(ObjectToDbMapper<TEntity>)).Item2)
+            assemblies.Select(assembly => ReflectionHelper.GetClassesImplementingAnInterface<ObjectToDbMapper<TEntity>>())
                                 ?.ToList()
                                 .ForEach(x => x.ToList().ForEach(xType => types.Add(xType)));
 

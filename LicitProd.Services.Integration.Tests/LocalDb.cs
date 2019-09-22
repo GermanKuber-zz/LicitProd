@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LicitProd.Data.Infraestructure.DataBase;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
@@ -12,6 +13,7 @@ namespace LicitProd.Services.Integration.Tests
         public const string DbDirectory = "Data";
         private static string _connectionString;
 
+        private static DataBaseManager _dataBaseManager = new DataBaseManager();
         public static void CreateLocalDb(string databaseName, List<string> scriptsName, bool deleteIfExists = false)
         {
             _connectionString = ConfigurationManager.ConnectionStrings["LictProd"].ConnectionString;
@@ -33,7 +35,7 @@ namespace LicitProd.Services.Integration.Tests
 
             if (CheckDatabaseExists(databaseName) && deleteIfExists)
             {
-                DropDatabaseObjects(databaseName);
+                DropDatabaseObjects();
             }
             else if (!CheckDatabaseExists(databaseName))
             {
@@ -96,33 +98,24 @@ namespace LicitProd.Services.Integration.Tests
             return false;
         }
 
+      
         public static bool DropDatabase(string databaseName)
         {
-            string connectionString = CreateConnectionstring(databaseName);
-            using (var connection = new SqlConnection(connectionString))
+            return _dataBaseManager.CallDataBase(cmd =>
             {
-                connection.Open();
-                SqlCommand cmd = connection.CreateCommand();
-
                 cmd.CommandText = string.Format("USE master;ALTER DATABASE {0} SET SINGLE_USER WITH ROLLBACK IMMEDIATE;DROP DATABASE {0} ;", databaseName);
                 object result = cmd.ExecuteScalar();
                 if (result != null)
                 {
                     return true;
                 }
-            }
-            return false;
+                return false;
+            });
         }
-        private static void DropDatabaseObjects(string databaseName)
-        {
-            try
-            {
-                string connectionString = CreateConnectionstring(databaseName);
-
-                using (var connection = new SqlConnection(connectionString))
+        private static void DropDatabaseObjects()=>
+            _dataBaseManager.CallDataBase(cmd =>
                 {
-                    connection.Open();
-                    var commandSetSingle = new SqlCommand(@"declare @ord int, @cmd varchar(8000)
+                    cmd.CommandText = @"declare @ord int, @cmd varchar(8000)
 
                     declare objs cursor for
                     select 0, 'drop trigger [' + name + '] on database' from sys.triggers
@@ -165,19 +158,13 @@ namespace LicitProd.Services.Integration.Tests
                     end
 
                     close objs
-                    deallocate objs",
-                                    connection);
-                    commandSetSingle.ExecuteNonQuery();
-                }
-            }
-            catch
-            {
-            }
-        }
+                    deallocate objs";
+                    return cmd.ExecuteNonQuery();
+                });
 
         private static void CreateDatabase(string databaseName, string databaseFileName)
         {
-            string connectionString = CreateConnectionstring("master");
+            string connectionString = CreateConnectionstring("master").Replace("TestDb","master");
             using (var connection = new SqlConnection(connectionString))
             {
                 connection.Open();

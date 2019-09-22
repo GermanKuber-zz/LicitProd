@@ -31,6 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="FluentAssemblyScanner, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\FluentAssemblyScanner.2.0.0\lib\netstandard2.0\FluentAssemblyScanner.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
@@ -42,6 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataBase\DataBaseManager.cs" />
     <Compile Include="Extensions\AttributeExtensions.cs" />
     <Compile Include="Extensions\DataRowCollectionExtensions.cs" />
     <Compile Include="Infraestructure\Column.cs" />
@@ -56,9 +60,7 @@
     <Compile Include="ObjectToDbMapperFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="DataBase\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\LicitProd.Entities\LicitProd.Entities.csproj">
       <Project>{0F7CB9FC-B7D8-4167-BF35-EB971DA7D312}</Project>
@@ -68,6 +70,9 @@
       <Project>{2C672D89-8B0F-4C0C-857F-2586E68FAE5F}</Project>
       <Name>LicitProd.Infraestructure</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

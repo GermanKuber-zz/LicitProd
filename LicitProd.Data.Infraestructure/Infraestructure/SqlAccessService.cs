@@ -74,22 +74,24 @@ namespace LicitProd.Data
             da.Dispose();
             return dataTable;
         }
-        public void InsertData(List<Parameter> parameters)
+        public int InsertData(List<Parameter> parameters)
         {
-            ExcecuteQuery($"INSERT INTO dbo.{_dataTableName} ({string.Join(",", parameters.Select(x => x.ColumnName).ToList())}) " +
-                          $"VALUES ({string.Join(",", parameters.Select(key => $"@{key.ColumnName}").ToList())}) ", parameters);
+            return ExecuteScalar($"INSERT INTO dbo.{_dataTableName} ({string.Join(",", parameters.Select(x => x.ColumnName).ToList())}) " +
+                          $"VALUES ({string.Join(",", parameters.Select(key => $"@{key.ColumnName}").ToList())}) ; SELECT SCOPE_IDENTITY()", parameters);
         }
-        public void InsertData(TEntity entity)
+        public int InsertData(TEntity entity)
         {
-            InsertData(_objectToDbMapper.GetParameters(entity).Send());
+            var id = InsertData(_objectToDbMapper.GetParameters(entity).Send());
+            entity.Id = id;
+            return id;
         }
-        public void InsertData(TEntity entity, Parameters parameters)
+        public int InsertData(TEntity entity, Parameters parameters)
         {
             if (parameters == null)
                 throw new ArgumentNullException(nameof(parameters));
             var list = _objectToDbMapper.GetParameters(entity).Send();
             list.AddRange(parameters.Send());
-            InsertData(list);
+            return InsertData(list);
         }
         public void UpdateData(List<Parameter> parameters, List<Parameter> where = default)
         {
@@ -97,10 +99,22 @@ namespace LicitProd.Data
 
             if (where != null)
                 query = string.Concat(query, " WHERE ", string.Join(" AND ", where.Select(x => $"{x.ColumnName}=@{x.ColumnName}")));
+            query = string.Concat(query, "; SELECT SCOPE_IDENTITY()");
             parameters.AddRange(where);
             ExcecuteQuery(query, parameters);
         }
-        private void ExcecuteQuery(string query, List<Parameter> parameters)
+
+        private int ExecuteScalar(string query, List<Parameter> parameters)
+        {
+            var identity = 0;
+            ExecuteCommand(query, parameters, cmd =>
+            {
+                identity = decimal.ToInt32((decimal)cmd.ExecuteScalar());
+            });
+            return identity;
+        }
+
+        private void ExecuteCommand(string query, List<Parameter> parameters, Action<SqlCommand> executeFunction)
         {
             using (SqlConnection cn = new SqlConnection(_connectionString))
             using (SqlCommand cmd = new SqlCommand(query, cn))
@@ -114,9 +128,13 @@ namespace LicitProd.Data
                 }).ToArray());
 
                 cn.Open();
-                cmd.ExecuteNonQuery();
+                executeFunction(cmd);
                 cn.Close();
             }
+
         }
+
+        public void ExcecuteQuery(string query, List<Parameter> parameters) =>
+            ExecuteCommand(query, parameters, cmd => cmd.ExecuteNonQuery());
     }
 }

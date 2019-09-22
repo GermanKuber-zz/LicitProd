@@ -1,4 +1,5 @@
-﻿using LicitProd.Data;
+﻿using FluentAssemblyScanner;
+using LicitProd.Data;
 using LicitProd.Entities;
 using LicitProd.Services;
 using System;
@@ -26,14 +27,15 @@ namespace LicitProd.UI
         private void Button1_Click(object sender, EventArgs e)
         {
 
-           new ConcursosRepository().Get()
-                .Success(concursos=> {
-                    var a = concursos.ToList()
-                          .Select(x => x.IsValid)
-                          .ToList();
-                });
+            new ConcursosRepository().Get()
+                 .Success(concursos =>
+                 {
+                     var a = concursos.ToList()
+                           .Select(x => x.IsValid)
+                           .ToList();
+                 });
 
-            
+
 #if !DEBUG
             if (validEmailRegex.IsMatch(txtEmail.Text))
             {

@@ -3,7 +3,7 @@ using LicitProd.Entities;
 
 namespace LicitProd.Services
 {
-    public class ConcursoService : BaseService
+    public partial class ConcursoServices : BaseService
     {
         private ConcursosRepository _concursosRepository = new ConcursosRepository();
 

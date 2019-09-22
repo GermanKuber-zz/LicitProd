@@ -28,7 +28,7 @@ namespace LicitProd.UI
                 chkAdjudicaion.Checked,
                 txtDescripcion.Text);
 
-            new ConcursoService().Crear(concurso)
+            new ConcursoServices().Crear(concurso)
                 .Success(x =>
                 {
                     DialogResult result = MessageBox.Show("Creado exitosamente", $"El concurso {concurso.Nombre} fue creado");

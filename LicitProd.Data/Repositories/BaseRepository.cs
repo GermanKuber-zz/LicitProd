@@ -1,4 +1,5 @@
-﻿using LicitProd.Entities;
+﻿using FluentAssemblyScanner;
+using LicitProd.Entities;
 using LicitProd.Infraestructure;
 using LicitProd.Mappers;
 using LicitProd.Services;
@@ -20,7 +21,7 @@ namespace LicitProd.Data
             ReturnResult(CreateMapper().MapList(SqlAccessService.SelectData(parameters, EntityToColumns<TEntity>.Map()
                  .Send())));
 
-        public Response<TEntity> GetById(string id)=>
+        public Response<TEntity> GetById(int id) =>
                     ObjectToDbMapperFactory<TEntity>.Create().GetPk()
                              .Success(x =>
                              Response<TEntity>.From(CreateMapper().Map(SqlAccessService.SelectData(new Parameters()
@@ -36,8 +37,9 @@ namespace LicitProd.Data
 
         protected DbToObjectMapper<TEntity> CreateMapper()
         {
-            var dc = new Default();
-            var loadableTypes = ReflectionHelper.GetClassesImplementingAnInterface(dc.GetType().Assembly, typeof(DbToObjectMapper<TEntity>)).Item2;
+
+            var loadableTypes = ReflectionHelper.GetClassesImplementingAnInterface<DbToObjectMapper<TEntity>>();
+
 
             var type = loadableTypes.FirstOrDefault(x => x.Name.Contains(typeof(TEntity).Name));
 

@@ -97,5 +97,10 @@ namespace LicitProd.UI
             crearConcurso.MdiParent = this;
             crearConcurso.Show();
         }
+
+        private void CrearToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            new BackupServices().CreateBackup();
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LicitProd.Mappers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -15,6 +16,7 @@ namespace LicitProd.UI
         [STAThread]
         static void Main()
         {
+            var defaultMapper = new Default();
             Application.ThreadException +=
             new System.Threading.ThreadExceptionEventHandler(Application_ThreadException);
             AppDomain.CurrentDomain.UnhandledException +=
