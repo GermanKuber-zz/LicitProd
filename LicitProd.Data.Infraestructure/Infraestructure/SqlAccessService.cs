@@ -1,7 +1,7 @@
 ﻿using LicitProd.Entities;
-using LicitProd.Mappers;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
@@ -11,12 +11,13 @@ namespace LicitProd.Data
 
     public class SqlAccessService<TEntity> where TEntity : IEntityToDb, new()
     {
-        string connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=LicitProd;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+        private string _connectionString;
         private IObjectToDbMapper<TEntity> _objectToDbMapper;
         private string _dataTableName;
 
         public SqlAccessService()
         {
+            _connectionString = ConfigurationManager.ConnectionStrings["LictProd"].ConnectionString;
             _objectToDbMapper = ObjectToDbMapperFactory<TEntity>.Create();
             _dataTableName = _objectToDbMapper.TableName;
         }
@@ -27,7 +28,7 @@ namespace LicitProd.Data
 
         public DataTable SelectData(string query)
         {
-            SqlConnection conn = new SqlConnection(connectionString);
+            SqlConnection conn = new SqlConnection(_connectionString);
             SqlCommand command = new SqlCommand(query, conn);
             conn.Open();
             SqlDataAdapter da = new SqlDataAdapter(command);
@@ -57,7 +58,7 @@ namespace LicitProd.Data
                 }).ToList()));
             }
 
-            SqlConnection conn = new SqlConnection(connectionString);
+            SqlConnection conn = new SqlConnection(_connectionString);
             SqlCommand command = new SqlCommand(query, conn);
             if (parameters != null)
                 command.Parameters.AddRange(parameters.Select(parameter =>
@@ -101,7 +102,7 @@ namespace LicitProd.Data
         }
         private void ExcecuteQuery(string query, List<Parameter> parameters)
         {
-            using (SqlConnection cn = new SqlConnection(connectionString))
+            using (SqlConnection cn = new SqlConnection(_connectionString))
             using (SqlCommand cmd = new SqlCommand(query, cn))
             {
                 cmd.Parameters.AddRange(parameters.Select(parameter =>

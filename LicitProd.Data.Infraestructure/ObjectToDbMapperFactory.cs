@@ -14,6 +14,8 @@ namespace LicitProd.Data
         {
             List<Assembly> listOfAssemblies = new List<Assembly>();
             var mainAsm = Assembly.GetEntryAssembly();
+            if (mainAsm == null)
+                mainAsm = Assembly.GetCallingAssembly();
             listOfAssemblies.Add(mainAsm);
 
             foreach (var refAsmName in mainAsm.GetReferencedAssemblies())
@@ -37,11 +39,11 @@ namespace LicitProd.Data
 
             if (typeToCreate == null)
                 throw new Exception("El DbMapper requerido no existe : " + typeToCreate.ToString());
-            var objectToDbMapper= (IObjectToDbMapper<TEntity>)Activator.CreateInstance(typeToCreate);
+            var objectToDbMapper = (IObjectToDbMapper<TEntity>)Activator.CreateInstance(typeToCreate);
             AddToCache(objectToDbMapper);
             return objectToDbMapper;
         }
-        public static void AddToCache( IObjectToDbMapper<TEntity> objectToDbMapper)
+        public static void AddToCache(IObjectToDbMapper<TEntity> objectToDbMapper)
         {
             _cache.Add(typeof(TEntity), objectToDbMapper);
         }

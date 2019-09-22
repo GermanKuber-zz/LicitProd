@@ -19,6 +19,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LicitProd.Infraestructure",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LicitProd.Data.Infraestructure", "LicitProd.Data.Infraestructure\LicitProd.Data.Infraestructure.csproj", "{E871D420-5591-4B55-AC43-C30ED8001BD8}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{0652B822-EC72-448B-BB26-4B5383690DD3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LicitProd.Services.Integration.Tests", "LicitProd.Services.Integration.Tests\LicitProd.Services.Integration.Tests.csproj", "{145E1327-B524-47D5-AE63-7A2216B962CA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -57,9 +61,16 @@ Global
 		{E871D420-5591-4B55-AC43-C30ED8001BD8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E871D420-5591-4B55-AC43-C30ED8001BD8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E871D420-5591-4B55-AC43-C30ED8001BD8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{145E1327-B524-47D5-AE63-7A2216B962CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{145E1327-B524-47D5-AE63-7A2216B962CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{145E1327-B524-47D5-AE63-7A2216B962CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{145E1327-B524-47D5-AE63-7A2216B962CA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{145E1327-B524-47D5-AE63-7A2216B962CA} = {0652B822-EC72-448B-BB26-4B5383690DD3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {72588172-D458-4719-AC3D-2686A5077892}

@@ -11,15 +11,14 @@ namespace LicitProd.Entities
         public DateTime FechaApertura { get; set; }
         public bool AdjudicacionDirecta { get; set; }
         public string Descripcion { get; set; }
-        public Concurso(int status,
-            decimal presupuesto,
+        public Concurso(decimal presupuesto,
             string nombre,
             DateTime fechaInicio,
             DateTime fechaApertura,
             bool adjudicacionDirecta,
             string descripcion)
         {
-            Status = status;
+            Status = 1;
             Presupuesto = presupuesto;
             Nombre = nombre ?? throw new ArgumentNullException(nameof(nombre));
             FechaInicio = fechaInicio;
