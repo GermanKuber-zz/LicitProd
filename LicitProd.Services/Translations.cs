@@ -6,14 +6,14 @@ namespace LicitProd.Services
 {
     public class Translations
     {
-        public List<Translation> _translations = new List<Translation>();
+        public List<Translation> TranslationList = new List<Translation>();
 
         public Translations(List<Translation> translations)
         {
-            _translations = translations ?? throw new ArgumentNullException(nameof(translations));
+            TranslationList = translations ?? throw new ArgumentNullException(nameof(translations));
         }
 
         public string GetTranslation(string key) =>
-            _translations.First(x => x.Key == key).Value;
+            TranslationList.First(x => x.Key == key).Value;
     }
 }

@@ -33,7 +33,7 @@ namespace LicitProd.UI
         {
             ShowExceptionDetails(e.ExceptionObject as Exception);
         }
-        static void ShowExceptionDetails(Exception Ex)
+        static void ShowExceptionDetails(Exception ex)
         {
             MessageBox.Show("Ocurrio un error inesperado en el sistema, intenta nuevamente o contacte al adminitrador",
                             "Error",

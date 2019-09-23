@@ -1,23 +1,24 @@
-﻿using LicitProd.Entities;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using LicitProd.Data.Infrastructure.Objects;
+using LicitProd.Entities;
+using LicitProd.Infrastructure;
 
-namespace LicitProd.Data
+namespace LicitProd.Data.Infrastructure.Infrastructure
 {
 
     public class SqlAccessService<TEntity> where TEntity : IEntityToDb, new()
     {
-        private string _connectionString;
-        private IObjectToDbMapper<TEntity> _objectToDbMapper;
-        private string _dataTableName;
+        private readonly string _connectionString;
+        private readonly IObjectToDbMapper<TEntity> _objectToDbMapper;
+        private readonly string _dataTableName;
 
         public SqlAccessService()
         {
-            _connectionString = ConfigurationManager.ConnectionStrings["LictProd"].ConnectionString;
+            _connectionString = ConfigurationManagerKeys.Configuration().ConnectionString;
             _objectToDbMapper = ObjectToDbMapperFactory<TEntity>.Create();
             _dataTableName = _objectToDbMapper.TableName;
         }

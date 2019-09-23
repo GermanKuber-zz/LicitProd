@@ -4,6 +4,7 @@ using System.Text.RegularExpressions;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using LicitProd.Data.Repositories;
+using LicitProd.Infrastructure;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -14,7 +15,7 @@ namespace LicitProd.UI.Uwp.Pages
     /// </summary>
     public sealed partial class Login : Page
     {
-        private readonly Regex validEmailRegex = new Regex(
+        private readonly Regex _validEmailRegex = new Regex(
                                       @"^(([^<>()[\]\\.,;:\s@\""]+"
                                       + @"(\.[^<>()[\]\\.,;:\s@\""]+)*)|(\"".+\""))@"
                                       + @"((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}"

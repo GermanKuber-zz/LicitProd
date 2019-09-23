@@ -13,7 +13,7 @@ namespace LicitProd.UI
         {
             InitializeComponent();
         }
-        private readonly Regex validEmailRegex = new Regex(
+        private readonly Regex _validEmailRegex = new Regex(
                                         @"^(([^<>()[\]\\.,;:\s@\""]+"
                                         + @"(\.[^<>()[\]\\.,;:\s@\""]+)*)|(\"".+\""))@"
                                         + @"((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}"

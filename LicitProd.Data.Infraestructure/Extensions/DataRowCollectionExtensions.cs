@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Data;
 
-namespace LicitProd.Mappers
+namespace LicitProd.Data.Infrastructure.Extensions
 {
     public static class DataRowCollectionExtensions
     {

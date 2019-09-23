@@ -14,7 +14,7 @@ namespace LicitProd.Seguridad
 
         // This constant determines the number of iterations for the password bytes generation function.
         private const int DerivationIterations = 1000;
-        private static string passPhrase = "2kjhsads89q23!$!4njkdsfsd5234*";
+        private static string _passPhrase = "2kjhsads89q23!$!4njkdsfsd5234*";
         public static string Encrypt(string plainText)
         {
             // Salt and IV is randomly generated each time, but is preprended to encrypted cipher text
@@ -22,7 +22,7 @@ namespace LicitProd.Seguridad
             var saltStringBytes = Generate256BitsOfRandomEntropy();
             var ivStringBytes = Generate256BitsOfRandomEntropy();
             var plainTextBytes = Encoding.UTF8.GetBytes(plainText);
-            using (var password = new Rfc2898DeriveBytes(passPhrase, saltStringBytes, DerivationIterations))
+            using (var password = new Rfc2898DeriveBytes(_passPhrase, saltStringBytes, DerivationIterations))
             {
                 var keyBytes = password.GetBytes(Keysize / 8);
                 using (var symmetricKey = new RijndaelManaged())
@@ -64,7 +64,7 @@ namespace LicitProd.Seguridad
             // Get the actual cipher text bytes by removing the first 64 bytes from the cipherText string.
             var cipherTextBytes = cipherTextBytesWithSaltAndIv.Skip((Keysize / 8) * 2).Take(cipherTextBytesWithSaltAndIv.Length - ((Keysize / 8) * 2)).ToArray();
 
-            using (var password = new Rfc2898DeriveBytes(passPhrase, saltStringBytes, DerivationIterations))
+            using (var password = new Rfc2898DeriveBytes(_passPhrase, saltStringBytes, DerivationIterations))
             {
                 var keyBytes = password.GetBytes(Keysize / 8);
                 using (var symmetricKey = new RijndaelManaged())

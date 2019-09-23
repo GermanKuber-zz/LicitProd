@@ -2,8 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using LicitProd.Data.Infrastructure;
+using LicitProd.Data.Infrastructure.Infrastructure;
+using LicitProd.Data.Infrastructure.Objects;
 using LicitProd.Entities;
-using LicitProd.Infraestructure;
+using LicitProd.Infrastructure;
+
 namespace LicitProd.Data.Repositories
 {
     public static class EntityToColumns<TEntity> where TEntity : IEntityToDb, new()

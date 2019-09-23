@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace LicitProd.Entities
+namespace LicitProd.Data.Infrastructure
 {
     [AttributeUsage(AttributeTargets.Property, Inherited = false, AllowMultiple = true)]
     public sealed class DbColumnAttribute : Attribute

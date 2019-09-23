@@ -1,6 +1,6 @@
 ﻿namespace LicitProd.UI
 {
-    partial class Elegir_Terminos_Generales
+    partial class ElegirTerminosGenerales
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Elegir_Terminos_Generales));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ElegirTerminosGenerales));
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -115,7 +115,7 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Name = "Elegir_Terminos_Generales";
+            this.Name = "ElegirTerminosGenerales";
             this.Text = "Elegir Terminos Generales";
             this.ResumeLayout(false);
             this.PerformLayout();

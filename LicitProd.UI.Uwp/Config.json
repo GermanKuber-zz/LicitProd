@@ -1,0 +1,3 @@
+﻿{
+  "ConnectionString": "Data Source=DESKTOP-L51S99M;Initial Catalog=LicitProd;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False"
+}

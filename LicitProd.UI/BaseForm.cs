@@ -31,7 +31,7 @@ namespace LicitProd.UI
         }
         public void ChangeLanguage(Translations translation)
         {
-            translation._translations.ForEach(x =>
+            translation.TranslationList.ForEach(x =>
             {
                 var controls = Controls.Find(x.Key, true);
                 foreach (var control in controls)

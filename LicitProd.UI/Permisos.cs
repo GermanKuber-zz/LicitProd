@@ -10,7 +10,7 @@ namespace LicitProd.UI
     public partial class Permisos : Form
     {
         private bool _editando = false;
-        private Usuario usuario;
+        private Usuario _usuario;
         public Permisos()
         {
             InitializeComponent();
@@ -87,10 +87,10 @@ namespace LicitProd.UI
         }
         private void SelectPermissions()
         {
-            if (usuario == null)
+            if (_usuario == null)
                 return;
             UnselectNodes(treeView1.Nodes);
-            new RolRepository().GetByUsuarioId(usuario.Id)
+            new RolRepository().GetByUsuarioId(_usuario.Id)
                   .Success(rol => ProccessPermission(rol));
         }
         private void UnselectNodes(TreeNodeCollection nodes)
@@ -171,7 +171,7 @@ namespace LicitProd.UI
             else if (permiso is SinglePermission)
                 CheckNode(permiso.Name.ToString());
         }
-        List<Permission> permisos = new List<Permission>();
+        List<Permission> _permisos = new List<Permission>();
         private bool ExistNode(string name)
         {
             TreeNode node = default;
@@ -187,7 +187,7 @@ namespace LicitProd.UI
         private void DataGridView1_RowStateChanged(object sender, DataGridViewRowStateChangedEventArgs e)
         {
             if (e.StateChanged != DataGridViewElementStates.Selected) return;
-            usuario = (Usuario)e.Row.DataBoundItem;
+            _usuario = (Usuario)e.Row.DataBoundItem;
             SelectPermissions();
 
         }

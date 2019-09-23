@@ -1,22 +1,22 @@
-﻿using LicitProd.Data.Infraestructure.DataBase;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Data.SqlClient;
 using System.IO;
 using System.Reflection;
+using LicitProd.Data.Infrastructure.DataBase;
+using LicitProd.Infrastructure;
 
 namespace LicitProd.Services.Integration.Tests
 {
     public static class LocalDb
     {
         public const string DbDirectory = "Data";
-        private static string _connectionString;
+        private static string ConnectionString;
 
-        private static DataBaseManager _dataBaseManager = new DataBaseManager();
+        private static readonly DataBaseManager _dataBaseManager = new DataBaseManager();
         public static void CreateLocalDb(string databaseName, List<string> scriptsName, bool deleteIfExists = false)
         {
-            _connectionString = ConfigurationManager.ConnectionStrings["LictProd"].ConnectionString;
+            ConnectionString =  ConfigurationManagerKeys.Configuration().ConnectionString;
 
             string codeBase = Assembly.GetExecutingAssembly().CodeBase;
             UriBuilder uri = new UriBuilder(codeBase);
@@ -77,7 +77,7 @@ namespace LicitProd.Services.Integration.Tests
             }
         }
 
-        private static string CreateConnectionstring(string databaseName) => string.Format(_connectionString, databaseName);
+        private static string CreateConnectionstring(string databaseName) => string.Format(ConnectionString, databaseName);
 
         private static bool CheckDatabaseExists(string databaseName)
         {

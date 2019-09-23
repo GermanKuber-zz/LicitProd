@@ -8,13 +8,8 @@ namespace LicitProd.Seguridad
         private readonly static IdentityServices _instance = new IdentityServices();
 
         private static Usuario _usuarioLogueado;
-        public static IdentityServices Instance
-        {
-            get
-            {
-                return _instance;
-            }
-        }
+        public static IdentityServices Instance => _instance;
+
         private IdentityServices()
         {
 

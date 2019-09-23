@@ -1,15 +1,16 @@
-﻿using System;
+﻿using LicitProd.Infrastructure;
+using System;
 using System.Configuration;
 using System.Data.SqlClient;
 
-namespace LicitProd.Data.Infraestructure.DataBase
+namespace LicitProd.Data.Infrastructure.DataBase
 {
     public class DataBaseManager
     {
         private string _connectionString;
         public DataBaseManager()
         {
-            _connectionString = ConfigurationManager.ConnectionStrings["LictProd"].ConnectionString;
+            _connectionString = ConfigurationManagerKeys.Configuration().ConnectionString;
 
         }
         public TReturn CallDataBase<TReturn>(Func<SqlCommand, TReturn> call)

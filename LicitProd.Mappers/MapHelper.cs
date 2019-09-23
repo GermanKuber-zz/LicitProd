@@ -1,8 +1,9 @@
 ﻿using LicitProd.Data;
 using LicitProd.Entities;
-using LicitProd.Infraestructure;
 using System;
 using System.Data;
+using LicitProd.Data.Infrastructure;
+using LicitProd.Infrastructure;
 
 namespace LicitProd.Mappers
 {

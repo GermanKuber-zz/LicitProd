@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Data;
 
-namespace LicitProd.Data
+namespace LicitProd.Data.Infrastructure.Infrastructure
 {
     public class Parameter
     {

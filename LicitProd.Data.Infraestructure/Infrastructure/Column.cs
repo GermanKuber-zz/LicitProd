@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace LicitProd.Data
+namespace LicitProd.Data.Infrastructure.Infrastructure
 {
     public class Column
     {

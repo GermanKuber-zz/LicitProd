@@ -23,7 +23,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LicitProd.Services.Integrat
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LicitProd.UI.Uwp", "LicitProd.UI.Uwp\LicitProd.UI.Uwp.csproj", "{F24FC843-2005-45D9-A82F-9FAA3FECD35B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LicitProd.Infraestructure", "LicitProd.Infraestructure\LicitProd.Infraestructure.csproj", "{2C672D89-8B0F-4C0C-857F-2586E68FAE5F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LicitProd.Infrastructure", "LicitProd.Infraestructure\LicitProd.Infrastructure.csproj", "{2C672D89-8B0F-4C0C-857F-2586E68FAE5F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

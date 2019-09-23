@@ -2,9 +2,9 @@
 
 namespace LicitProd.UI
 {
-    public partial class Elegir_Terminos_Generales : Form
+    public partial class ElegirTerminosGenerales : Form
     {
-        public Elegir_Terminos_Generales()
+        public ElegirTerminosGenerales()
         {
             InitializeComponent();
         }

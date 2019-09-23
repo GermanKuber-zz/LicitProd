@@ -1,6 +1,6 @@
 ﻿namespace LicitProd.UI
 {
-    partial class ElergirTerminos_Generales
+    partial class ElergirTerminosGenerales
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ElergirTerminos_Generales));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ElergirTerminosGenerales));
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
@@ -126,7 +126,7 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Name = "ElergirTerminos_Generales";
+            this.Name = "ElergirTerminosGenerales";
             this.Text = "ElergirTerminos_Generales";
             this.ResumeLayout(false);
             this.PerformLayout();

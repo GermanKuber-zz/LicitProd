@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using LicitProd.Data.Infrastructure.Infrastructure;
 using LicitProd.Entities;
 
 namespace LicitProd.Data.Repositories

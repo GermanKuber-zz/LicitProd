@@ -2,9 +2,9 @@
 
 namespace LicitProd.UI
 {
-    public partial class ElergirTerminos_Generales : Form
+    public partial class ElergirTerminosGenerales : Form
     {
-        public ElergirTerminos_Generales()
+        public ElergirTerminosGenerales()
         {
             InitializeComponent();
         }

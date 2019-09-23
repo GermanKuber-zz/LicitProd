@@ -1,4 +1,5 @@
-﻿using LicitProd.Entities;
+﻿using LicitProd.Data.Infrastructure.Infrastructure;
+using LicitProd.Entities;
 
 namespace LicitProd.Data.Repositories
 {

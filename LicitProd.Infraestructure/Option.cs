@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 
-namespace LicitProd.Infraestructure
+namespace LicitProd.Infrastructure
 {
     public class Option<T> : IEnumerable<T>
     {

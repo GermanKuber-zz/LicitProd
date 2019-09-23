@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-namespace LicitProd.Infraestructure
+namespace LicitProd.Infrastructure
 {
     public static class AttributeExtensions
     {

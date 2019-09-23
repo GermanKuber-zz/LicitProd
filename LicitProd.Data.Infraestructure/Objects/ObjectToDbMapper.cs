@@ -3,16 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
-using LicitProd.Data;
-using LicitProd.Infraestructure;
+using LicitProd.Data.Infrastructure.Infrastructure;
+using LicitProd.Entities;
+using LicitProd.Infrastructure;
 
-namespace LicitProd.Entities
+namespace LicitProd.Data.Infrastructure.Objects
 {
     public abstract class ObjectToDbMapper<TEntity> : IObjectToDbMapper<TEntity> where TEntity : new()
     {
         public string TableName { get; private set; }
         private readonly TEntity _entity;
-        public List<DbMapperContainer> _dbMapperContainer = new List<DbMapperContainer>();
+        public List<DbMapperContainer> DbMapperContainer = new List<DbMapperContainer>();
         public ObjectToDbMapper(string tableName)
         {
             _entity = new TEntity();
@@ -25,13 +26,13 @@ namespace LicitProd.Entities
         }
         public DbMapperContainer Set<TProperty>(Expression<Func<TEntity, TProperty>> dataValueField)
         {
-            var property = getMemberInfo(dataValueField);
+            var property = GetMemberInfo(dataValueField);
             var container = new DbMapperContainer(property);
-            _dbMapperContainer.Add(container);
+            DbMapperContainer.Add(container);
             return container;
         }
         protected virtual void Map() { }
-        private MemberInfo getMemberInfo<TObject, TProperty>(Expression<Func<TObject, TProperty>> expression)
+        private MemberInfo GetMemberInfo<TObject, TProperty>(Expression<Func<TObject, TProperty>> expression)
         {
             var member = expression.Body as MemberExpression;
             if (member != null)
@@ -43,15 +44,15 @@ namespace LicitProd.Entities
 
         public Response<DbMapperContainer> GetColumnName(string propertyName)
         {
-            var result = _dbMapperContainer.Where(x => x.PropertyName == propertyName).FirstOrDefault();
-            if (result != null && result.initialized)
+            var result = DbMapperContainer.Where(x => x.PropertyName == propertyName).FirstOrDefault();
+            if (result != null && result.Initialized)
                 return Response<DbMapperContainer>.Ok(result);
 
             return Response<DbMapperContainer>.Error();
         }
         public Response<string> GetPk()
         {
-            var pk = _dbMapperContainer.FirstOrDefault(x => x.IsPrimaryKey);
+            var pk = DbMapperContainer.FirstOrDefault(x => x.IsPrimaryKey);
             if (pk == null)
                 return Response<string>.Error();
             return Response<string>.Ok(string.IsNullOrWhiteSpace(pk.ColumnName) ? pk.PropertyName : pk.ColumnName);

@@ -1,10 +1,11 @@
-﻿using FluentAssemblyScanner;
-using LicitProd.Entities;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using FluentAssemblyScanner;
+using LicitProd.Data.Infrastructure.Objects;
+using LicitProd.Entities;
 
-namespace LicitProd.Data
+namespace LicitProd.Data.Infrastructure
 {
     public static class ObjectToDbMapperFactory<TEntity> where TEntity : IEntityToDb, new()
     {
@@ -18,7 +19,6 @@ namespace LicitProd.Data
                 var typeToCreate = AssemblyScanner.FromAssemblyInDirectory(new AssemblyFilter(""))
                                         .IncludeNonPublicTypes()
                                         .BasedOn<IObjectToDbMapper<TEntity>>()
-                                        .InSameNamespaceOf(typeof(IObjectToDbMapper<TEntity>))
                                         .Filter()
                                         .Classes()
                                         .Scan()

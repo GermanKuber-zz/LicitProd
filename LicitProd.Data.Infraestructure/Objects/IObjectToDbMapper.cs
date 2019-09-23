@@ -1,9 +1,10 @@
-﻿using LicitProd.Data;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using LicitProd.Data.Infrastructure.Infrastructure;
+using LicitProd.Entities;
 
-namespace LicitProd.Entities
+namespace LicitProd.Data.Infrastructure.Objects
 {
     public interface IObjectToDbMapper<TEntity> where TEntity : new()
     {

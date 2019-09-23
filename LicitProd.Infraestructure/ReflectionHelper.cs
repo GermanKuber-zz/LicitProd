@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-namespace LicitProd.Infraestructure
+namespace LicitProd.Infrastructure
 {
     public static class ReflectionHelper
     {

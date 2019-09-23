@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using LicitProd.Data.Infrastructure;
+using LicitProd.Data.Infrastructure.Infrastructure;
+using LicitProd.Data.Infrastructure.Objects;
 using LicitProd.Entities;
-using LicitProd.Infraestructure;
-using LicitProd.Mappers;
+using LicitProd.Infrastructure;
 
 namespace LicitProd.Data.Repositories
 {
@@ -33,10 +35,10 @@ namespace LicitProd.Data.Repositories
         protected static Response<TEntity> ReturnResult(TEntity result) =>
            Response<TEntity>.From(result);
 
-        protected DbToObjectMapper<TEntity> CreateMapper()
+        protected IDbToObjectMapper<TEntity> CreateMapper()
         {
 
-            var loadableTypes = ReflectionHelper.GetClassesImplementingAnInterface<DbToObjectMapper<TEntity>>();
+            var loadableTypes = ReflectionHelper.GetClassesImplementingAnInterface<IDbToObjectMapper<TEntity>>();
 
 
             var type = loadableTypes.FirstOrDefault(x => x.Name.Contains(typeof(TEntity).Name));
@@ -47,9 +49,9 @@ namespace LicitProd.Data.Repositories
                 if (type == null)
                     throw new Exception("El mapper requerido no existe : " + type.ToString());
                 Type[] typeArgs = { typeof(TEntity) };
-                return (DbToObjectMapper<TEntity>)Activator.CreateInstance(type.MakeGenericType(typeArgs));
+                return (IDbToObjectMapper<TEntity>)Activator.CreateInstance(type.MakeGenericType(typeArgs));
             }
-            return (DbToObjectMapper<TEntity>)Activator.CreateInstance(type);
+            return (IDbToObjectMapper<TEntity>)Activator.CreateInstance(type);
         }
     }
 

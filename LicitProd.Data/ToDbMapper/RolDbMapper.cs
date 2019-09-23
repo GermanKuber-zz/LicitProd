@@ -1,4 +1,5 @@
-﻿using LicitProd.Entities;
+﻿using LicitProd.Data.Infrastructure.Objects;
+using LicitProd.Entities;
 
 namespace LicitProd.Data.ToDbMapper
 {

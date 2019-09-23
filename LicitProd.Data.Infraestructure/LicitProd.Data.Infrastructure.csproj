@@ -16,7 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\LicitProd.Entities\LicitProd.Entities.csproj" />
-    <ProjectReference Include="..\LicitProd.Infraestructure\LicitProd.Infraestructure.csproj" />
+    <ProjectReference Include="..\LicitProd.Infraestructure\LicitProd.Infrastructure.csproj" />
   </ItemGroup>
 
   <ItemGroup>
