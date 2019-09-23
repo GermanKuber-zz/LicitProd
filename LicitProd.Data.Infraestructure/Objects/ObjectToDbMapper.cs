@@ -102,8 +102,10 @@ namespace LicitProd.Data.Infrastructure.Objects
                             })
                             .Error(e =>
                             {
-                                parameters.Add(prop.Name, (dynamic)typse);
+                                if (typse != null)
+                                    parameters.Add(prop.Name, (dynamic)typse);
                             });
+
                 });
             return parameters;
         }

@@ -1,0 +1,54 @@
+﻿<Page
+    x:Class="LicitProd.UI.Uwp.Pages.LogsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal" Margin="12">
+            <TextBlock Text="Logs" VerticalAlignment="Center" Margin="5,0" Style="{ThemeResource SubtitleTextBlockStyle}"></TextBlock>
+         
+        </StackPanel>
+        <controls:DataGrid
+            ItemsSource="{x:Bind Logs }"
+      Grid.Row="1"
+        x:Name="dataGrid"
+        Margin="12"
+        VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
+        HorizontalScrollBarVisibility="Visible"
+        VerticalScrollBarVisibility="Visible"
+        AlternatingRowBackground="Transparent"
+        AlternatingRowForeground="Gray"
+        AreRowDetailsFrozen="False"
+        AreRowGroupHeadersFrozen="True"
+        AutoGenerateColumns="False"
+        CanUserSortColumns="False"
+        CanUserReorderColumns="True"
+        CanUserResizeColumns="True"
+        ColumnHeaderHeight="32"
+        MaxColumnWidth="400"
+        FrozenColumnCount="0"
+        GridLinesVisibility="None"
+        HeadersVisibility="Column"
+        IsReadOnly="True"            
+        RowDetailsTemplate="{StaticResource RowDetailsTemplate}"
+        RowDetailsVisibilityMode="Collapsed"
+        SelectionMode="Extended"
+        RowGroupHeaderPropertyNameAlternative="Range">
+            <controls:DataGrid.Columns>
+                <controls:DataGridTextColumn Header="Nombre" Binding="{Binding Nombre}" Tag="Rank" />
+                <controls:DataGridTextColumn Header="Descripci{on" Binding="{Binding Descripcion}" Tag="Rank" />
+                <controls:DataGridTextColumn Header="Type" Binding="{Binding Type}" Tag="Rank" />
+                <controls:DataGridTextColumn Header="Fecha" Binding="{Binding Fecha}" Tag="Rank" />
+            </controls:DataGrid.Columns>
+        </controls:DataGrid>
+    </Grid>
+</Page>

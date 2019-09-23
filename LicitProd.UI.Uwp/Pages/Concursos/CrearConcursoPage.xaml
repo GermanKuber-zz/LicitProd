@@ -1,0 +1,50 @@
+﻿<Page
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:LicitProd.UI.Uwp.Pages"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:Custom="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    x:Class="LicitProd.UI.Uwp.Pages.CrearConcurso"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid>
+
+        <StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock x:Name="textBlock" TextAlignment="Right" Width="100" Text="Nombre" TextWrapping="Wrap" Margin="10,15,10,10"/>
+                <TextBox x:Name="txtName" Text="{x:Bind Mode=TwoWay, Path=Concurso.Nombre}" TextWrapping="Wrap" Width="300" Margin="10,10,10,10"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock x:Name="textBlock1" TextAlignment="Right" Width="100" Text="Presupuesto" TextWrapping="Wrap" Margin="10,15,10,10"/>
+                <TextBox x:Name="txtPresupuesto" Text="{x:Bind Mode=TwoWay, Path=Presupuesto}"  TextWrapping="Wrap" Width="300" Margin="10,10,10,10" BeforeTextChanging="TxtPresupuesto_BeforeTextChanging"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock x:Name="textBlock2" TextAlignment="Right" Width="100" Text="Fecha Inicio" TextWrapping="Wrap" Margin="10,15,10,10"/>
+                <DatePicker x:Name="dtpInicio" Date="{x:Bind Path=Concurso.FechaInicio}"  Width="300"  Margin="10,15,10,10"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock x:Name="textBlock3" TextAlignment="Right" Width="100" Text="Fecha Apertura" TextWrapping="Wrap" Margin="10,15,10,10"/>
+                <DatePicker x:Name="dtpApertura" Date="{x:Bind Path=Concurso.FechaApertura}"  Width="300"  Margin="10,15,10,10"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock x:Name="textBlock4" TextAlignment="Right" Width="100" Text="Adjudicación directa" TextWrapping="Wrap" Margin="10,15,10,10"/>
+                <CheckBox x:Name="chkDirecta" IsChecked="{x:Bind Mode=TwoWay, Path=Concurso.AdjudicacionDirecta}"  Content=""/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock  Text="Descripción" TextAlignment="Right" Width="100" TextWrapping="Wrap" Margin="10,15,10,10" ScrollViewer.HorizontalScrollBarVisibility="Auto"/>
+                <TextBox   
+                    AcceptsReturn="True"
+                    x:Name="txtDescripcion" Text="{x:Bind Mode=TwoWay, Path=Concurso.Descripcion}"  TextWrapping="Wrap" Width="300" Margin="10,10,10,10" Height="200" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Button x:Name="btnAcept" Content="Crear" d:LayoutOverrides="TopPosition, BottomPosition" Margin="20,20,20,20" Click="BtnAcept_Click"/>
+                <Button x:Name="btnCancel" Content="Cancelar" Margin="20,20,20,20"/>
+            </StackPanel>
+
+        </StackPanel>
+
+    </Grid>
+
+</Page>

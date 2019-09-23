@@ -1,3 +1,4 @@
 ﻿{
-  "ConnectionString": "Data Source=DESKTOP-L51S99M;Initial Catalog=LicitProd;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False"
+  "ConnectionString": "Server=DESKTOP-1MAPVAT\\SQLEXPRESS;Database=LicitProd;Trusted_Connection=True;"
+  //"ConnectionString": "Data Source=DESKTOP-1MAPVAT\\SQLEXPRESS;Initial Catalog=LicitProd;Integrated Security=SSPI"
 }

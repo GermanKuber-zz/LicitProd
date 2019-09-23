@@ -29,43 +29,44 @@ namespace LicitProd.UI.Uwp.Pages
 
         private void BtnLogin_Click(object sender, RoutedEventArgs e)
         {
-            new ConcursosRepository().Get()
-                .Success(concursos =>
-                {
-                    var a = concursos.ToList()
-                          .Select(x => x.IsValid)
-                          .ToList();
-                });
+            this.Frame.Navigate(typeof(MainContainerPage), null);
+            //            new ConcursosRepository().Get()
+            //                .Success(concursos =>
+            //                {
+            //                    var a = concursos.ToList()
+            //                          .Select(x => x.IsValid)
+            //                          .ToList();
+            //                });
 
 
-#if !DEBUG
-            if (validEmailRegex.IsMatch(txtEmail.Text))
-            {
-#endif
-            new UsuarioService()
-#if DEBUG
-                 .Login("german.kuber@outlook.com")
-#else
-                 .Login(txtEmail.Text, txtPassword.Text)
-#endif
-                 .Success(usuario =>
-                 {
-                 })
-                 .Error(errors => {
-                 });
-#if !DEBUG
-            }
-            else
-            {
-                MessageBox.Show("No ingreso un email valido", "Error!");
-                return;
-            }
-#endif
+            //#if !DEBUG
+            //            if (validEmailRegex.IsMatch(txtEmail.Text))
+            //            {
+            //#endif
+            //            new UsuarioService()
+            //#if DEBUG
+            //                 .Login("german.kuber@outlook.com")
+            //#else
+            //                 .Login(txtEmail.Text, txtPassword.Text)
+            //#endif
+            //                 .Success(usuario =>
+            //                 {
+            //                 })
+            //                 .Error(errors => {
+            //                 });
+            //#if !DEBUG
+            //            }
+            //            else
+            //            {
+            //                MessageBox.Show("No ingreso un email valido", "Error!");
+            //                return;
+            //            }
+            //#endif
         }
 
         private void BtnCancel_Click(object sender, RoutedEventArgs e)
         {
-            
+
 
         }
     }

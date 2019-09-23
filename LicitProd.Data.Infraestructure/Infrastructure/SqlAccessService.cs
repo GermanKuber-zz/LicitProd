@@ -70,6 +70,7 @@ namespace LicitProd.Data.Infrastructure.Infrastructure
 
             SqlDataAdapter da = new SqlDataAdapter(command);
             DataTable dataTable = new DataTable();
+
             da.Fill(dataTable);
             conn.Close();
             da.Dispose();

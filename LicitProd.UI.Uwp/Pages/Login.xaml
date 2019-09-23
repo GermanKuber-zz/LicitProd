@@ -16,4 +16,5 @@
             <Button x:Name="btnCancel" Content="Cancelar" Click="BtnCancel_Click" Margin="0,5,20,0"/>
         </StackPanel>
     </StackPanel>
+
 </Page>

@@ -7,15 +7,15 @@ namespace LicitProd.Entities
     {
         public int Status { get; set; }
         public decimal Presupuesto { get; set; }
-        public string Nombre { get; set; }
-        public DateTime FechaInicio { get; set; }
-        public DateTime FechaApertura { get; set; }
+        public string Nombre { get; set; } = string.Empty;
+        public DateTimeOffset FechaInicio { get; set; } = DateTime.Now.AddDays(1);
+        public DateTimeOffset FechaApertura { get; set; } = DateTime.Now.AddDays(2);
         public bool AdjudicacionDirecta { get; set; }
-        public string Descripcion { get; set; }
+        public string Descripcion { get; set; } = string.Empty;
         public Concurso(decimal presupuesto,
             string nombre,
-            DateTime fechaInicio,
-            DateTime fechaApertura,
+            DateTimeOffset fechaInicio,
+            DateTimeOffset fechaApertura,
             bool adjudicacionDirecta,
             string descripcion)
         {
