@@ -1,7 +1,6 @@
 ﻿using LicitProd.Entities;
-using LicitProd.Services;
 
-namespace LicitProd.Data
+namespace LicitProd.Data.Repositories
 {
     public class BackupsRepository : BaseRepository<Backup>
     {

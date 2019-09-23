@@ -1,13 +1,11 @@
-﻿using FluentAssemblyScanner;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using LicitProd.Entities;
 using LicitProd.Infraestructure;
 using LicitProd.Mappers;
-using LicitProd.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 
-namespace LicitProd.Data
+namespace LicitProd.Data.Repositories
 {
     public class BaseRepository<TEntity> where TEntity : IEntityToDb, new()
     {

@@ -1,133 +1,24 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\packages\xunit.runner.visualstudio.2.4.1\build\net20\xunit.runner.visualstudio.props" Condition="Exists('..\packages\xunit.runner.visualstudio.2.4.1\build\net20\xunit.runner.visualstudio.props')" />
-  <Import Project="..\packages\xunit.runner.console.2.4.1\build\xunit.runner.console.props" Condition="Exists('..\packages\xunit.runner.console.2.4.1\build\xunit.runner.console.props')" />
-  <Import Project="..\packages\xunit.core.2.4.1\build\xunit.core.props" Condition="Exists('..\packages\xunit.core.2.4.1\build\xunit.core.props')" />
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{145E1327-B524-47D5-AE63-7A2216B962CA}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>LicitProd.Services.Integration.Tests</RootNamespace>
-    <AssemblyName>LicitProd.Services.Integration.Tests</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <Deterministic>true</Deterministic>
-    <NuGetPackageImportStamp>
-    </NuGetPackageImportStamp>
+    <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
+
   <ItemGroup>
-    <Reference Include="FluentAssemblyScanner, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\FluentAssemblyScanner.2.0.0\lib\netstandard2.0\FluentAssemblyScanner.dll</HintPath>
-    </Reference>
-    <Reference Include="FluentAssertions, Version=5.9.0.0, Culture=neutral, PublicKeyToken=33f2691a05b67b6a, processorArchitecture=MSIL">
-      <HintPath>..\packages\FluentAssertions.5.9.0\lib\net47\FluentAssertions.dll</HintPath>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Configuration" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Xml" />
-    <Reference Include="xunit.abstractions, Version=2.0.0.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
-      <HintPath>..\packages\xunit.abstractions.2.0.3\lib\net35\xunit.abstractions.dll</HintPath>
-    </Reference>
-    <Reference Include="xunit.assert, Version=2.4.1.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
-      <HintPath>..\packages\xunit.assert.2.4.1\lib\netstandard1.1\xunit.assert.dll</HintPath>
-    </Reference>
-    <Reference Include="xunit.core, Version=2.4.1.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
-      <HintPath>..\packages\xunit.extensibility.core.2.4.1\lib\net452\xunit.core.dll</HintPath>
-    </Reference>
-    <Reference Include="xunit.execution.desktop, Version=2.4.1.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
-      <HintPath>..\packages\xunit.extensibility.execution.2.4.1\lib\net452\xunit.execution.desktop.dll</HintPath>
-    </Reference>
+    <PackageReference Include="FluentAssertions" Version="5.9.0" />
+    <PackageReference Include="xunit" Version="2.4.1" />
   </ItemGroup>
+
   <ItemGroup>
-    <Compile Include="ConcursoServicesShould.cs" />
-    <Compile Include="DatabaseFixture.cs" />
-    <Compile Include="IntegrationTestsBase.cs" />
-    <Compile Include="LocalDb.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
+    <ProjectReference Include="..\LicitProd.Data\LicitProd.Data.csproj" />
+    <ProjectReference Include="..\LicitProd.Entities\LicitProd.Entities.csproj" />
+    <ProjectReference Include="..\LicitProd.Mappers\LicitProd.Mappers.csproj" />
+    <ProjectReference Include="..\LicitProd.Seguridad\LicitProd.Seguridad.csproj" />
+    <ProjectReference Include="..\LicitProd.Services\LicitProd.Services.csproj" />
   </ItemGroup>
+
   <ItemGroup>
-    <None Include="App.config" />
-    <None Include="packages.config" />
-    <None Include="xunit.runner.json" />
+    <Folder Include="Properties\" />
   </ItemGroup>
-  <ItemGroup>
-    <Analyzer Include="..\packages\xunit.analyzers.0.10.0\analyzers\dotnet\cs\xunit.analyzers.dll" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="..\Data\Creation.sql">
-      <Link>Data\Creation.sql</Link>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\LicitProd.Data.Infraestructure\LicitProd.Data.Infraestructure.csproj">
-      <Project>{e871d420-5591-4b55-ac43-c30ed8001bd8}</Project>
-      <Name>LicitProd.Data.Infraestructure</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\LicitProd.Data\LicitProd.Data.csproj">
-      <Project>{3f861c85-f80a-4dae-8fda-dae5f3e0e18b}</Project>
-      <Name>LicitProd.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\LicitProd.Entities\LicitProd.Entities.csproj">
-      <Project>{0F7CB9FC-B7D8-4167-BF35-EB971DA7D312}</Project>
-      <Name>LicitProd.Entities</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\LicitProd.Infraestructure\LicitProd.Infraestructure.csproj">
-      <Project>{2c672d89-8b0f-4c0c-857f-2586e68fae5f}</Project>
-      <Name>LicitProd.Infraestructure</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\LicitProd.Mappers\LicitProd.Mappers.csproj">
-      <Project>{94280dfa-51d2-4d59-8688-1ed7b6f86457}</Project>
-      <Name>LicitProd.Mappers</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\LicitProd.Seguridad\LicitProd.Seguridad.csproj">
-      <Project>{e23c9b28-892f-407e-acfe-471990eac91c}</Project>
-      <Name>LicitProd.Seguridad</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\LicitProd.Services\LicitProd.Services.csproj">
-      <Project>{0daf5c0f-eb39-47da-acd2-612455be7a17}</Project>
-      <Name>LicitProd.Services</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\LicitProd.UI\LicitProd.UI.csproj">
-      <Project>{128560af-c371-46d7-bf8a-38e52142991f}</Project>
-      <Name>LicitProd.UI</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('..\packages\xunit.core.2.4.1\build\xunit.core.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\xunit.core.2.4.1\build\xunit.core.props'))" />
-    <Error Condition="!Exists('..\packages\xunit.core.2.4.1\build\xunit.core.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\xunit.core.2.4.1\build\xunit.core.targets'))" />
-    <Error Condition="!Exists('..\packages\xunit.runner.console.2.4.1\build\xunit.runner.console.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\xunit.runner.console.2.4.1\build\xunit.runner.console.props'))" />
-    <Error Condition="!Exists('..\packages\xunit.runner.visualstudio.2.4.1\build\net20\xunit.runner.visualstudio.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\xunit.runner.visualstudio.2.4.1\build\net20\xunit.runner.visualstudio.props'))" />
-  </Target>
-  <Import Project="..\packages\xunit.core.2.4.1\build\xunit.core.targets" Condition="Exists('..\packages\xunit.core.2.4.1\build\xunit.core.targets')" />
+
 </Project>

@@ -1,7 +1,7 @@
-﻿using LicitProd.Data;
-using LicitProd.Entities;
+﻿using LicitProd.Entities;
 using System;
 using System.Windows.Forms;
+using LicitProd.Data.Repositories;
 
 namespace LicitProd.UI
 {

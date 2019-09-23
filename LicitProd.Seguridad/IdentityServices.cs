@@ -1,6 +1,6 @@
 ﻿using LicitProd.Entities;
 
-namespace LicitProd.Services
+namespace LicitProd.Seguridad
 {
 
     public sealed class IdentityServices

@@ -1,6 +1,4 @@
-﻿using LicitProd.Services;
-
-namespace LicitProd.Entities
+﻿namespace LicitProd.Entities
 {
     public abstract class Permission : Entity
     {

@@ -1,4 +1,6 @@
-﻿namespace LicitProd.Entities
+﻿using LicitProd.Entities;
+
+namespace LicitProd.Data.ToDbMapper
 {
     public class RolDbMapper : ObjectToDbMapper<Rol>
     {

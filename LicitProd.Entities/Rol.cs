@@ -1,5 +1,4 @@
-﻿using LicitProd.Services;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace LicitProd.Entities
 {

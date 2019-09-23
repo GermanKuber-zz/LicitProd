@@ -1,11 +1,10 @@
-﻿using LicitProd.Entities;
-using LicitProd.Infraestructure;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-
-namespace LicitProd.Data
+using LicitProd.Entities;
+using LicitProd.Infraestructure;
+namespace LicitProd.Data.Repositories
 {
     public static class EntityToColumns<TEntity> where TEntity : IEntityToDb, new()
     {

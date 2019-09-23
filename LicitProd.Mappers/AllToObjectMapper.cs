@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+
 namespace LicitProd.Mappers
 {
     public class AllToObjectMapper<TEntity> : DbToObjectMapper<TEntity> where TEntity : IEntityToDb, new()

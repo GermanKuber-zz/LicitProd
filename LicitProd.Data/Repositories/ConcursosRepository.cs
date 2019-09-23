@@ -1,8 +1,7 @@
-﻿using LicitProd.Entities;
-using LicitProd.Services;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using LicitProd.Entities;
 
-namespace LicitProd.Data
+namespace LicitProd.Data.Repositories
 {
     public class ConcursosRepository : BaseRepository<Concurso>
     {

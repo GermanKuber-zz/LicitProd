@@ -1,9 +1,9 @@
-﻿using LicitProd.Data;
-using LicitProd.Entities;
+﻿using LicitProd.Entities;
 using LicitProd.Seguridad;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using LicitProd.Data.Repositories;
 
 namespace LicitProd.Services
 {

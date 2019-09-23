@@ -3,7 +3,6 @@ using LicitProd.Entities;
 using LicitProd.Infraestructure;
 using System;
 using System.Data;
-using System.Linq;
 
 namespace LicitProd.Mappers
 {

@@ -5,7 +5,6 @@ using System.Linq.Expressions;
 using System.Reflection;
 using LicitProd.Data;
 using LicitProd.Infraestructure;
-using LicitProd.Services;
 
 namespace LicitProd.Entities
 {

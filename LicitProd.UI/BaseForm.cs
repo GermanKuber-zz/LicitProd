@@ -2,6 +2,7 @@
 using LicitProd.Services;
 using System;
 using System.Windows.Forms;
+using LicitProd.Seguridad;
 
 namespace LicitProd.UI
 {

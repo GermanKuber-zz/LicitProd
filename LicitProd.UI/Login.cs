@@ -1,12 +1,9 @@
-﻿using FluentAssemblyScanner;
-using LicitProd.Data;
-using LicitProd.Entities;
-using LicitProd.Services;
+﻿using LicitProd.Services;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
+using LicitProd.Data.Repositories;
 
 namespace LicitProd.UI
 {

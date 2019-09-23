@@ -1,7 +1,7 @@
 ﻿using FluentAssertions;
-using LicitProd.Data;
 using LicitProd.Entities;
 using System;
+using LicitProd.Data.Repositories;
 using Xunit;
 
 namespace LicitProd.Services.Integration.Tests

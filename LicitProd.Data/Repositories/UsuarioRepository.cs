@@ -1,11 +1,9 @@
-﻿using LicitProd.Entities;
-using LicitProd.Mappers;
-using LicitProd.Services;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using LicitProd.Entities;
 
-namespace LicitProd.Data
+namespace LicitProd.Data.Repositories
 {
     public class UsuarioRepository : BaseRepository<Usuario>
     {
