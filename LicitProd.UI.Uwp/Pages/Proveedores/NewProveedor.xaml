@@ -9,6 +9,29 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
+        <StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock  TextAlignment="Right" Width="100" Text="Razón Social" TextWrapping="Wrap" Margin="10,15,10,10"/>
+                <TextBox Text="{x:Bind Mode=TwoWay, Path=Proveedor.RazonSocial}" TextWrapping="Wrap" Width="300" Margin="10,10,10,10"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock  TextAlignment="Right" Width="100" Text="Celular" TextWrapping="Wrap" Margin="10,15,10,10"/>
+                <TextBox  Text="{x:Bind Mode=TwoWay, Path=Proveedor.Celular}"  TextWrapping="Wrap" Width="300" Margin="10,10,10,10"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock  TextAlignment="Right" Width="100" Text="Dirección" TextWrapping="Wrap" Margin="10,15,10,10"/>
+                <TextBox  Text="{x:Bind Mode=TwoWay, Path=Proveedor.Direccion}"  TextWrapping="Wrap" Width="300" Margin="10,10,10,10" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock  TextAlignment="Right" Width="100" Text="Telefono" TextWrapping="Wrap" Margin="10,15,10,10"/>
+                <TextBox  Text="{x:Bind Mode=TwoWay, Path=Proveedor.Telefono}"  TextWrapping="Wrap" Width="300" Margin="10,10,10,10"/>
+            </StackPanel>
+         
+            <StackPanel Orientation="Horizontal">
+                <Button  Content="Crear" d:LayoutOverrides="TopPosition, BottomPosition" Margin="20,20,20,20" Click="BtnAccept_Click"/>
+                <Button  Content="Cancelar" Margin="20,20,20,20"/>
+            </StackPanel>
 
+        </StackPanel>
     </Grid>
 </Page>

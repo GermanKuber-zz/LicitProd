@@ -22,7 +22,9 @@ namespace LicitProd.UI.Uwp.Services
     {
 
 
-        public static void Create(string message, Action<IUICommand> commandAccept, Action<IUICommand> commandCancel)
+        public static void Create(string message,
+                                  Action<IUICommand> commandAccept = null, 
+                                  Action<IUICommand> commandCancel = null)
         {
             // Create the message dialog and set its content
             var messageDialog = new MessageDialog(message);

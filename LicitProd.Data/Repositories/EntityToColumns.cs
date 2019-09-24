@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Threading.Tasks;
 using LicitProd.Data.Infrastructure;
 using LicitProd.Data.Infrastructure.Infrastructure;
 using LicitProd.Data.Infrastructure.Objects;
@@ -27,10 +28,11 @@ namespace LicitProd.Data.Repositories
                 throw new Exception("El mapper requerido no existe : " + type.ToString());
             return (ObjectToDbMapper<TEntity>)Activator.CreateInstance(type);
         }
-        public static Columns Map()
+        public static async Task<Columns> MapAsync()
         {
+
             var columns = new Columns();
-            var objectToDbMapper = ObjectToDbMapperFactory<TEntity>.Create();
+            var objectToDbMapper = await ObjectToDbMapperFactory<TEntity>.Create();
             ReflectionHelper.GetListOfProperties<TEntity>()
                 .ToList()
                 .ForEach(prop =>

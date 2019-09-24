@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using FluentAssemblyScanner;
 using LicitProd.Data.Infrastructure.Objects;
 using LicitProd.Entities;
@@ -11,10 +12,12 @@ namespace LicitProd.Data.Infrastructure
     {
         private static Dictionary<Type, IObjectToDbMapper<TEntity>> _cache = new Dictionary<Type, IObjectToDbMapper<TEntity>>();
       
-        public static IObjectToDbMapper<TEntity> Create()
+        public static async Task<IObjectToDbMapper<TEntity>> Create()
         {
-            if (IsInCache())
-                return GetFromCache();
+            return await Task.Run(() =>
+            {
+                if (IsInCache())
+                    return GetFromCache();
 
                 var typeToCreate = AssemblyScanner.FromAssemblyInDirectory(new AssemblyFilter(""))
                                         .IncludeNonPublicTypes()
@@ -22,15 +25,16 @@ namespace LicitProd.Data.Infrastructure
                                         .Filter()
                                         .Classes()
                                         .Scan()
-                                        .FirstOrDefault(); 
+                                        .FirstOrDefault();
 
 
 
-            if (typeToCreate == null)
-                throw new Exception("El DbMapper requerido no existe : " + typeToCreate.ToString());
-            var objectToDbMapper = (IObjectToDbMapper<TEntity>)Activator.CreateInstance(typeToCreate);
-            AddToCache(objectToDbMapper);
-            return objectToDbMapper;
+                if (typeToCreate == null)
+                    throw new Exception("El DbMapper requerido no existe : " + typeToCreate.ToString());
+                var objectToDbMapper = (IObjectToDbMapper<TEntity>)Activator.CreateInstance(typeToCreate);
+                AddToCache(objectToDbMapper);
+                return objectToDbMapper;
+            });
         }
         public static void AddToCache(IObjectToDbMapper<TEntity> objectToDbMapper)
         {

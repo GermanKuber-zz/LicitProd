@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using LicitProd.Data.Repositories;
+using System.Threading.Tasks;
 
 namespace LicitProd.UI
 {
@@ -21,27 +22,17 @@ namespace LicitProd.UI
                                         + @"[a-zA-Z]{2,}))$",
                                         RegexOptions.Compiled);
 
-        private void Button1_Click(object sender, EventArgs e)
+        private async Task Button1_ClickAsync(object sender, EventArgs e)
         {
-
-            new ConcursosRepository().Get()
-                 .Success(concursos =>
-                 {
-                     var a = concursos.ToList()
-                           .Select(x => x.IsValid)
-                           .ToList();
-                 });
-
-
 #if !DEBUG
             if (validEmailRegex.IsMatch(txtEmail.Text))
             {
 #endif
-            new UsuarioService()
+            (await new UsuarioService()
 #if DEBUG
-                 .Login("german.kuber@outlook.com")
+                 .LoginAsync("german.kuber@outlook.com"))
 #else
-                 .Login(txtEmail.Text, txtPassword.Text)
+                 .Login(txtEmail.Text, txtPassword.Text))
 #endif
                  .Success(usuario =>
                  {

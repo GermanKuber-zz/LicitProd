@@ -18,16 +18,30 @@
                         AlwaysShowHeader="True"
                         ExpandedModeThresholdWidth="500"
                         IsTabStop="False">
+        <NavigationView.HeaderTemplate>
+            <DataTemplate>
+                <StackPanel HorizontalAlignment="Right">
+                    <Button Margin="0,20,20,0" Width="50" Height="50" Click="Button_Click" >
+                        <StackPanel>
+                            <SymbolIcon Symbol="OtherUser" />
+                        </StackPanel>
+                    </Button>
+
+                </StackPanel>
+            </DataTemplate>
+        </NavigationView.HeaderTemplate>
 
         <NavigationView.MenuItems>
             <NavigationViewItem Content="Dashboard" Tag="SamplePage1" x:Name="Dashboard" Icon="Page"/>
             <NavigationViewItemHeader Content="Actions"/>
             <NavigationViewItem Content="Logs" Tag="Logs" x:Name="Logs" SelectsOnInvoked="True" Icon="Save"/>
             <NavigationViewItem Content="Crear Concurso" Tag="SamplePage3" x:Name="CrearConcurso" Icon="NewFolder"/>
-            <NavigationViewItem Content="Iistar Concursos" Tag="SamplePage3" x:Name="ListConcursos" Icon="Bold"/>
+            <NavigationViewItem Content="Listar Concursos" Tag="SamplePage3" x:Name="ListConcursos" Icon="Bold"/>
+            <NavigationViewItem Content="Registrar Proveedor" Tag="SamplePage3" x:Name="RegistrarProveedor" Icon="Bold"/>
+            <NavigationViewItem Content="Listar Proveedores" Tag="SamplePage3" x:Name="ListarProveedores" Icon="Bold"/>
 
-            
-        </NavigationView.MenuItems>
+
+</NavigationView.MenuItems>
 
         <NavigationView.PaneCustomContent>
             <HyperlinkButton x:Name="PaneHyperlink" Content="More info" Margin="12,0" Visibility="Collapsed" />

@@ -14,7 +14,13 @@ namespace LicitProd.Entities
         public Response<TResponse> Success(Func<TResponse, Task> callback)
         {
             if (SuccessResult)
-                callback(Result).Wait();
+            {
+                Task.Run(async () =>
+                {
+                    await callback(Result);
+                }).Wait();
+            }
+
             return this;
         }
         public static Response<List<TResponse>> From(List<TResponse> values)
@@ -29,7 +35,8 @@ namespace LicitProd.Entities
                 return new Response<TResponse>(new List<string>());
             return new Response<TResponse>(value);
         }
-        public static Response<TResponse> From(Func<bool> condition, TResponse response) {
+        public static Response<TResponse> From(Func<bool> condition, TResponse response)
+        {
             if (condition())
                 return new Response<TResponse>(response);
             return new Response<TResponse>(new List<string>());
@@ -43,7 +50,14 @@ namespace LicitProd.Entities
         public TResult Success<TResult>(Func<TResponse, Task<TResult>> callback)
         {
             if (SuccessResult)
-                return callback(Result).Result;
+            {
+                var returnValue = default(TResult);
+                Task.Run(async () =>
+                {
+                    returnValue = await callback(Result); ;
+                }).Wait();
+                return returnValue;
+            }
             return default(TResult);
         }
         public TResult Success<TResult>(Func<TResponse, TResult> callback, Func<TResult> errorDefaultValueCallback = null)
@@ -71,6 +85,22 @@ namespace LicitProd.Entities
         {
             if (SuccessResult)
                 return callbackSuccess(Result);
+            return callbackError(Errors);
+        }
+        public TResult Map<TResult>(Func<TResponse, Task<TResult>> callbackSuccess, Func<List<string>, TResult> callbackError)
+        {
+            if (SuccessResult)
+            {
+                var returnValue = default(TResult);
+                Task.Run(async () =>
+                {
+                    returnValue = await callbackSuccess(Result); ;
+                }).Wait();
+                return returnValue;
+
+            }
+
+
             return callbackError(Errors);
         }
 

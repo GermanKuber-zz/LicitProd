@@ -5,6 +5,8 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using LicitProd.Data.Repositories;
 using LicitProd.Infrastructure;
+using LicitProd.UI.Uwp.Services;
+using System.Threading.Tasks;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -27,41 +29,37 @@ namespace LicitProd.UI.Uwp.Pages
             this.InitializeComponent();
         }
 
-        private void BtnLogin_Click(object sender, RoutedEventArgs e)
+        private async void BtnLogin_Click(object sender, RoutedEventArgs e)
         {
-            this.Frame.Navigate(typeof(MainContainerPage), null);
-            //            new ConcursosRepository().Get()
-            //                .Success(concursos =>
-            //                {
-            //                    var a = concursos.ToList()
-            //                          .Select(x => x.IsValid)
-            //                          .ToList();
-            //                });
+            Loading.IsLoading = true;
 
+#if !DEBUG
+                        if (validEmailRegex.IsMatch(txtEmail.Text))
+                        {
+#endif
+            (await new UsuarioService()
+#if DEBUG
+                             .LoginAsync("german.kuber@outlook.com"))
+#else
+                             .Login(txtEmail.Text, txtPassword.Text)
+#endif
+                             .Success(usuario =>
+                             {
+                                 this.Frame.Navigate(typeof(MainContainerPage));
 
-            //#if !DEBUG
-            //            if (validEmailRegex.IsMatch(txtEmail.Text))
-            //            {
-            //#endif
-            //            new UsuarioService()
-            //#if DEBUG
-            //                 .Login("german.kuber@outlook.com")
-            //#else
-            //                 .Login(txtEmail.Text, txtPassword.Text)
-            //#endif
-            //                 .Success(usuario =>
-            //                 {
-            //                 })
-            //                 .Error(errors => {
-            //                 });
-            //#if !DEBUG
-            //            }
-            //            else
-            //            {
-            //                MessageBox.Show("No ingreso un email valido", "Error!");
-            //                return;
-            //            }
-            //#endif
+                             })
+                 .Error(errors =>
+                 {
+                     MessageDialogService.Create("Verifique los datos ingresados!!");
+                 });
+#if !DEBUG
+                        }
+                        else
+                        {
+                            MessageBox.Show("No ingreso un email valido", "Error!");
+                            return;
+                        }
+#endif
         }
 
         private void BtnCancel_Click(object sender, RoutedEventArgs e)
@@ -69,5 +67,7 @@ namespace LicitProd.UI.Uwp.Pages
 
 
         }
+
+      
     }
 }

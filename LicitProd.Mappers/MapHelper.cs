@@ -4,19 +4,20 @@ using System;
 using System.Data;
 using LicitProd.Data.Infrastructure;
 using LicitProd.Infrastructure;
+using System.Threading.Tasks;
 
 namespace LicitProd.Mappers
 {
     public static class MapHelper<TEntityType> where TEntityType : IEntityToDb, new()
     {
-        public static TEntityType FillObject(TEntityType entity, DataRow row) =>
-            ParseObject(row, entity);
-        public static TEntityType FillObject(DataRow row) =>
-            ParseObject(row, new TEntityType());
+        public static async Task<TEntityType> FillObjectAsync(TEntityType entity, DataRow row) =>
+            await ParseObjectAsync(row, entity);
+        public static async Task<TEntityType> FillObjectAsync(DataRow row) =>
+            await  ParseObjectAsync(row, new TEntityType());
 
-        private static TEntityType ParseObject(DataRow row, TEntityType entity)
+        private static async Task<TEntityType> ParseObjectAsync(DataRow row, TEntityType entity)
         {
-            var mapper = ObjectToDbMapperFactory<TEntityType>.Create();
+            var mapper = await ObjectToDbMapperFactory<TEntityType>.Create();
 
             foreach (var prop in ReflectionHelper.GetListOfProperties<TEntityType>())
             {

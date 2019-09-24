@@ -3,6 +3,7 @@ using LicitProd.Entities;
 using System;
 using LicitProd.Data.Repositories;
 using Xunit;
+using System.Threading.Tasks;
 
 namespace LicitProd.Services.Integration.Tests
 {
@@ -21,20 +22,20 @@ namespace LicitProd.Services.Integration.Tests
         }
 
         [Fact]
-        public void Create_Multiples_Concursos()
+        public async Task Create_Multiples_Concursos()
         {
             _sut.Crear(_newConcurso);
             _sut.Crear(_newConcurso);
-            _concursoRepository.Get()
+            (await _concursoRepository.Get())
                 .Success(x =>
                 {
                     x.Count.Should().Be(3);
                 });
         }
         [Fact]
-        public void Create_Complete_Concurso()
+        public async Task Create_Complete_Concurso()
         {
-            _concursoRepository.GetById(_newConcurso.Id)
+            (await _concursoRepository.GetByIdAsync(_newConcurso.Id))
                 .Success(concurso =>
                 {
                     concurso.Id.Should().Be(_newConcurso.Id);
@@ -46,9 +47,9 @@ namespace LicitProd.Services.Integration.Tests
         }
 
         [Fact]
-        public void Be_Invalid_Differnet_Hash()
+        public async Task Be_Invalid_Differnet_Hash()
         {
-            _concursoRepository.GetById(_newConcurso.Id)
+            (await _concursoRepository.GetByIdAsync(_newConcurso.Id))
                 .Success(x =>
                 {
                     x.IsValid.Should().Be(true);

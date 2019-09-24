@@ -2,7 +2,6 @@
     x:Class="LicitProd.UI.Uwp.Pages.Concursos.ListConcursos"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:LicitProd.UI.Uwp.Pages.Concursos"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
@@ -37,7 +36,7 @@
         RowGroupHeaderPropertyNameAlternative="Range">
         <controls:DataGrid.Columns>
             <controls:DataGridTextColumn Header="Nombre" Binding="{Binding Nombre}" Tag="Rank" />
-            <controls:DataGridTextColumn Header="Descripci{on" Binding="{Binding Descripcion}" Tag="Rank" />
+            <controls:DataGridTextColumn Header="Descripción" Binding="{Binding Descripcion}" Tag="Rank" />
             <controls:DataGridTextColumn Header="Status" Binding="{Binding Status}" Tag="Rank" />
             <controls:DataGridTextColumn Header="Presupuesto" Binding="{Binding Presupuesto}" Tag="Rank" />
             <controls:DataGridTextColumn Header="FechaInicio" Binding="{Binding FechaInicio}" Tag="Rank" />

@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using LicitProd.Data.Repositories;
+using System.Threading.Tasks;
 
 namespace LicitProd.Services
 {
@@ -22,11 +23,11 @@ namespace LicitProd.Services
     {
         private UsuarioRepository _usuarioRepository = new UsuarioRepository();
 
-        public Response<Usuario> Login(string email, string password) => _usuarioRepository
-            .GetUsuario(email, new HashService().Hash(password))
+        public async Task<Response<Usuario>> LoginAsync(string email, string password) => (await _usuarioRepository
+            .GetUsuarioAsync(email, new HashService().Hash(password)))
             .Success(usuario => LoginSuccess(usuario));
-        public Response<Usuario> Login(string email) => _usuarioRepository
-                            .GetUsuario(email)
+        public async Task<Response<Usuario>> LoginAsync(string email) => (await _usuarioRepository
+                            .GetUsuarioAsync(email))
                             .Success(usuario => LoginSuccess(usuario));
 
         public void Logout() =>

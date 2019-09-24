@@ -2,6 +2,7 @@
 using System;
 using System.Windows.Forms;
 using LicitProd.Data.Repositories;
+using System.Threading.Tasks;
 
 namespace LicitProd.UI
 {
@@ -19,15 +20,18 @@ namespace LicitProd.UI
 
         private void Logs_Load(object sender, EventArgs e)
         {
-            new LogRepository().Get()
-               .Success(logs =>
-               {
-                   var source = new BindingSource();
-                   dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-                   source.DataSource = logs;
-                   dataGridView1.DataSource = source;
-               })
-               .Error(x => MessageBox.Show("No hay logs"));
+            LoadData();
+        }
+        private async Task LoadData() {
+            (await new LogRepository().Get())
+              .Success(logs =>
+              {
+                  var source = new BindingSource();
+                  dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+                  source.DataSource = logs;
+                  dataGridView1.DataSource = source;
+              })
+              .Error(x => MessageBox.Show("No hay logs"));
         }
         public override void ApplyPermissions(Rol rol)
         {

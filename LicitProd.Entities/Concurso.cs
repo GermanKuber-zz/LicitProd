@@ -2,7 +2,7 @@
 
 namespace LicitProd.Entities
 {
-    public class Backup: Entity { }
+ 
     public class Concurso : Verificable
     {
         public int Status { get; set; }

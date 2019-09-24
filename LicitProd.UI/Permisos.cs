@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using LicitProd.Data.Repositories;
+using System.Threading.Tasks;
 
 namespace LicitProd.UI
 {
@@ -19,12 +20,12 @@ namespace LicitProd.UI
         private void Permisos_Load(object sender, EventArgs e)
         {
             ConfigurateDataGridView();
-            AddPermisos();
-            FillAddUsuarios();
+            AddPermisosAsync();
+            FillAddUsuariosAsync();
         }
 
-        private void FillAddUsuarios() =>
-            new UsuarioRepository().Get()
+        private async Task FillAddUsuariosAsync() =>
+            (await new UsuarioRepository().Get())
                .Success(usuarios =>
                {
                    var source = new BindingSource();
@@ -53,11 +54,11 @@ namespace LicitProd.UI
             dataGridViewColumn.Name = name;
             dataGridView1.Columns.Add(dataGridViewColumn);
         }
-        private void AddPermisos()
+        private async Task AddPermisosAsync()
         {
             var permisosToAdd = new List<Permission>();
-            permisosToAdd.AddRange(new RolRepository()
-                                    .GetAll().Result);
+            permisosToAdd.AddRange((await new RolRepository()
+                                    .GetAllAsync()).Result);
             AddTreeViewChildNodes(permisosToAdd);
         }
         private void AddTreeViewChildNodes(List<Permission> roles)
@@ -85,12 +86,12 @@ namespace LicitProd.UI
             }
             return parentNode;
         }
-        private void SelectPermissions()
+        private async Task SelectPermissionsAsync()
         {
             if (_usuario == null)
                 return;
             UnselectNodes(treeView1.Nodes);
-            new RolRepository().GetByUsuarioId(_usuario.Id)
+            (await new RolRepository().GetByUsuarioIdAsync(_usuario.Id))
                   .Success(rol => ProccessPermission(rol));
         }
         private void UnselectNodes(TreeNodeCollection nodes)
@@ -188,7 +189,7 @@ namespace LicitProd.UI
         {
             if (e.StateChanged != DataGridViewElementStates.Selected) return;
             _usuario = (Usuario)e.Row.DataBoundItem;
-            SelectPermissions();
+            SelectPermissionsAsync();
 
         }
     }

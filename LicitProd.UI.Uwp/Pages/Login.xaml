@@ -5,16 +5,19 @@
     xmlns:local="using:LicitProd.UI.Uwp.Pages"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:Custom="using:Microsoft.Toolkit.Uwp.UI.Controls"
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Width="350" Height="150">
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" >
+    <Grid>
+        <Custom:Loading Name="Loading" Content="Loading"  Background="Black" Opacity="0.3" ContentTemplate="{StaticResource WaitListTemplate}" Canvas.ZIndex="1"/>
 
-    <StackPanel>
-        <TextBox x:Name="txtUser" PlaceholderText="Usuario"  TextWrapping="Wrap" Margin="20,20,20,20"/>
-        <PasswordBox x:Name="txtPassword" PlaceholderText="Password"  Margin="20,0,20,0"/>
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-            <Button x:Name="btnLogin" Content="Loguear" Click="BtnLogin_Click" Margin="0,3,20,0"/>
-            <Button x:Name="btnCancel" Content="Cancelar" Click="BtnCancel_Click" Margin="0,5,20,0"/>
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+            <TextBox x:Name="txtUser" Width="250" PlaceholderText="Usuario"  TextWrapping="Wrap" Margin="20,20,20,20"/>
+            <PasswordBox x:Name="txtPassword" Width="250" PlaceholderText="Password"  Margin="20,0,20,0"/>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button x:Name="btnLogin" Content="Loguear" Click="BtnLogin_Click" Margin="0,3,20,0"/>
+                <Button x:Name="btnCancel" Content="Cancelar" Click="BtnCancel_Click" Margin="0,5,20,0"/>
+            </StackPanel>
         </StackPanel>
-    </StackPanel>
-
+    </Grid>
 </Page>

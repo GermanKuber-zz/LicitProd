@@ -1,31 +1,28 @@
 ﻿using LicitProd.Data.Repositories;
 using LicitProd.Entities;
 using LicitProd.UI.Uwp.Services;
-using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using Windows.UI.Xaml.Controls;
 
-// The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace LicitProd.UI.Uwp.Pages.Concursos
 {
-    /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
-    /// </summary>
     public sealed partial class ListConcursos : Page
     {
-        public List<Concurso> Concursos { get; set; }
+        public ObservableCollection<Concurso> Concursos { get; set; } = new ObservableCollection<Concurso>();
         public ListConcursos()
         {
             this.InitializeComponent();
             LoadingService.LoadingStart();
-            LoadData();
+            LoadDataAsync();
         }
-        private void LoadData()
+        private async Task LoadDataAsync()
         {
-            new ConcursosRepository().Get()
+            (await new ConcursosRepository().Get())
            .Success(concursos =>
            {
-               Concursos = concursos;
+               concursos?.ForEach(x=> Concursos.Add(x));
                LoadingService.LoadingStop();
            })
            .Error(async x =>

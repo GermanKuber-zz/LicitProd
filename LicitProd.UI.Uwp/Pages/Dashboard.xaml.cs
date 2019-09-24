@@ -1,30 +1,43 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.UI.Xaml;
+﻿using LicitProd.Data.Repositories;
+using LicitProd.Entities;
+using LicitProd.UI.Uwp.Services;
+using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
-
-// The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace LicitProd.UI.Uwp.Pages
 {
-    /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
-    /// </summary>
     public sealed partial class Dashboard : Page
     {
+        public ObservableCollection<Concurso> Concursos { get; set; } = new ObservableCollection<Concurso>();
+        public string Titulo { get; set; } = "Lalalalallala";
         public Dashboard()
         {
             this.InitializeComponent();
+            LoadingService.LoadingStart();
+            LoadDataAsync();
         }
+        private async Task LoadDataAsync()
+        {
+            (await new ConcursosRepository().Get())
+           .Success(concursos =>
+           {
+               concursos?.ForEach(x => Concursos.Add(x));
+               LoadingService.LoadingStop();
+           })
+           .Error(async x =>
+           {
+               MessageDialogService.Create("No hay concursos", c =>
+               {
+                   LoadingService.LoadingStop();
+                   NavigationService.NavigatePop<Dashboard>();
+               }, null);
+           });
+        }
+        public void Group()
+        {
+
+        }
+
     }
 }

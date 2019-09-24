@@ -4,9 +4,11 @@ using LicitProd.UI.Uwp.Services;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 using Windows.UI.Popups;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Data;
+using LicitProd.Mappers;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -17,22 +19,20 @@ namespace LicitProd.UI.Uwp.Pages
     /// </summary>
     public sealed partial class LogsPage : Page
     {
-
-        public List<Log> Logs { get; set; }
+        public ObservableCollection<Log> Logs { get; set; } = new ObservableCollection<Log>();
         public LogsPage()
         {
             this.InitializeComponent();
             LoadingService.LoadingStart();
-            LoadData();
+            LoadDataAsync();
         }
-        private void LoadData()
+        private async Task LoadDataAsync()
         {
-            new LogRepository().Get()
+            (await new LogRepository().Get())
            .Success(logs =>
            {
-               Logs = logs;
+               logs.ForEach(x => Logs.Add(x));
                LoadingService.LoadingStop();
-
            })
            .Error(async x =>
            {

@@ -1,8 +1,10 @@
-﻿using LicitProd.UI.Uwp.Pages.Concursos;
+﻿using LicitProd.Services;
+using LicitProd.UI.Uwp.Pages.Concursos;
 using LicitProd.UI.Uwp.Services;
 using System.Linq;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Animation;
+using LicitProd.UI.Uwp.Pages.Proveedores;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -47,7 +49,7 @@ namespace LicitProd.UI.Uwp.Pages
                     switch (selectedItem.Name)
                     {
                         case "Dashboard":
-                            NavigationService.Navigate<LogsPage>();
+                            NavigationService.Navigate<Dashboard>();
                             break;
                         case "Logs":
                             NavigationService.Navigate<LogsPage>();
@@ -58,11 +60,24 @@ namespace LicitProd.UI.Uwp.Pages
                         case "ListConcursos":
                             NavigationService.Navigate<ListConcursos>();
                             break;
+                        case "RegistrarProveedor":
+                            NavigationService.Navigate<NewProveedor>();
+                            break;
+                        case "ListarProveedores":
+                            NavigationService.Navigate<ListProveedores>();
+                            break;
+                            
                         default:
                             break;
                     }
                 }
             }
+        }
+
+        private void Button_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            new UsuarioService().Logout();
+            this.Frame.Navigate(typeof(Login));
         }
     }
 }

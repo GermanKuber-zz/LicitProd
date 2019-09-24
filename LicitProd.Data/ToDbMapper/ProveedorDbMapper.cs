@@ -12,6 +12,9 @@ namespace LicitProd.Data.ToDbMapper
         {
             Set(x => x.Id)
                .PrimaryKey();
+            Set(x => x.Status)
+                .Column("Status")
+                .Type(System.Data.SqlDbType.NVarChar);
         }
     }
 }

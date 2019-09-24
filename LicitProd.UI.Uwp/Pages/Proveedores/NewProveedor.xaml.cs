@@ -1,17 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
+using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
+using LicitProd.Entities;
+using LicitProd.Services;
+using LicitProd.UI.Uwp.Services;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -22,9 +15,34 @@ namespace LicitProd.UI.Uwp.Pages.Proveedores
     /// </summary>
     public sealed partial class NewProveedor : Page
     {
+        public Proveedor Proveedor { get; set; } = new Proveedor();
         public NewProveedor()
         {
             this.InitializeComponent();
+        }
+
+        private async void BtnAccept_Click(object sender, RoutedEventArgs e)
+        {
+            LoadingService.LoadingStart();
+           
+
+            (await new ProveedoresServices().Registrar(Proveedor))
+                .Success(s =>
+                {
+                    MessageDialogService.Create("Proveedor Registrador Existosamente", c =>
+                    {
+                        LoadingService.LoadingStop();
+                        NavigationService.NavigatePop<Dashboard>();
+                    }, null);
+
+                })
+                .Error(erros =>
+                {
+                    MessageDialogService.Create("Error al Crear el Proveedor", c =>
+                    {
+                        LoadingService.LoadingStop();
+                    }, null);
+                });
         }
     }
 }
