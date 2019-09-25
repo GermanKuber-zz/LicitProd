@@ -1,4 +1,5 @@
 ﻿using LicitProd.UI.Uwp.Pages;
+using LicitProd.UI.Uwp.Services;
 using System;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
@@ -31,7 +32,7 @@ namespace LicitProd.UI.Uwp
         protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
             Frame rootFrame = Window.Current.Content as Frame;
-
+            this.UnhandledException += App_UnhandledException; ;
             // Do not repeat app initialization when the Window already has content,
             // just ensure that the window is active
             if (rootFrame == null)
@@ -62,6 +63,16 @@ namespace LicitProd.UI.Uwp
                 // Ensure the current window is active
                 Window.Current.Activate();
             }
+        }
+
+        private void App_UnhandledException(object sender, Windows.UI.Xaml.UnhandledExceptionEventArgs e)
+        {
+            LoadingService.LoadingStart();
+            MessageDialogService.Create("Error Global. Contacte al administrador", c =>
+            {
+                LoadingService.LoadingStop();
+                NavigationService.NavigatePop<Dashboard>();
+            }, null);
         }
 
         /// <summary>

@@ -1,6 +1,7 @@
-﻿using System.Threading.Tasks;
+﻿using LicitProd.Data.Infrastructure.Infrastructure;
 using LicitProd.Data.Repositories;
 using LicitProd.Entities;
+using System.Threading.Tasks;
 
 namespace LicitProd.Services
 {
@@ -14,22 +15,19 @@ namespace LicitProd.Services
             return Response<string>.Ok("");
         }
     }
-    public class ProveedoresServices : BaseService
+    public class RolesServices : BaseService
     {
-        private ProveedoresRepository _proveedoresRepository = new ProveedoresRepository();
+        private RolRepository _rolRepository = new RolRepository();
 
-        public async Task<Response<Proveedor>> Registrar(Proveedor proveedor)
+        public async Task<Response<Rol>> CreatAsync(Rol rol)
         {
-             (await _proveedoresRepository.GetByRazonSocial(proveedor.RazonSocial))
-                 .Success(async x =>
-                 {
-                     
-                 })
-                 .Error(async e=>
-                 {
-                     await _proveedoresRepository.InsertDataAsync(proveedor);
-                 });
-             return Response<Proveedor>.Ok(proveedor);
+            (await _rolRepository.Get(new Parameters()
+                    .Add(nameof(rol.Nombre), rol.Nombre)))
+                    .Error(async x =>
+                    {
+                        await _rolRepository.InsertDataAsync(rol);
+                    });
+            return Response<Rol>.Ok(default);
         }
     }
 }

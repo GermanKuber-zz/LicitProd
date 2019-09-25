@@ -13,7 +13,7 @@ namespace LicitProd.Mappers
         public static async Task<TEntityType> FillObjectAsync(TEntityType entity, DataRow row) =>
             await ParseObjectAsync(row, entity);
         public static async Task<TEntityType> FillObjectAsync(DataRow row) =>
-            await  ParseObjectAsync(row, new TEntityType());
+            await ParseObjectAsync(row, new TEntityType());
 
         private static async Task<TEntityType> ParseObjectAsync(DataRow row, TEntityType entity)
         {
@@ -31,11 +31,13 @@ namespace LicitProd.Mappers
 
                 try
                 {
-                    var value = row[columnName].ToString();
-                    if (prop.PropertyType.IsEnum)
-                        prop.SetValue(entity, Enum.Parse(prop.PropertyType, value));
-                    else
-                        prop.SetValue(entity, Convert.ChangeType(value, prop.PropertyType), null);
+                    if (row.Table.Columns[columnName] != null)
+                    {
+                        var value = row[columnName].ToString();
+                        if (prop.PropertyType.IsEnum)
+                            prop.SetValue(entity, Enum.Parse(prop.PropertyType, value));
+                        else
+                            prop.SetValue(entity, Convert.ChangeType(value, prop.PropertyType), null);}
                 }
                 catch (ArgumentException ex)
                 {

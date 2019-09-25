@@ -4,6 +4,7 @@ using LicitProd.UI.Uwp.Services;
 using System.Linq;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Animation;
+using LicitProd.UI.Uwp.Pages.Permisos;
 using LicitProd.UI.Uwp.Pages.Proveedores;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
@@ -66,7 +67,9 @@ namespace LicitProd.UI.Uwp.Pages
                         case "ListarProveedores":
                             NavigationService.Navigate<ListProveedores>();
                             break;
-                            
+                        case "AdminPermisos":
+                            NavigationService.Navigate<AdminPermisos>();
+                            break;
                         default:
                             break;
                     }

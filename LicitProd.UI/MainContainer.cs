@@ -51,7 +51,7 @@ namespace LicitProd.UI
         }
         public override void ApplyPermissions(Rol rol)
         {
-            rol.HasAccess(PermissionsEnum.Administrador)
+            rol.HasAccess(PermissionsEnum.AdminRoles)
                 .Error(x =>
                 {
                     administracionMainMenu.Visible = false;

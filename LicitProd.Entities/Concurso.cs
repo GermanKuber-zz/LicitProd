@@ -2,7 +2,7 @@
 
 namespace LicitProd.Entities
 {
- 
+
     public class Concurso : Verificable
     {
         public int Status { get; set; }
@@ -34,13 +34,13 @@ namespace LicitProd.Entities
 
         public override string GenerateHash()
         {
-            return HashValue(Status.ToString()) +
-                HashValue(Presupuesto.ToString()) +
-                HashValue(Nombre.ToString()) +
-                HashValue(FechaInicio.ToString()) +
-                HashValue(FechaApertura.ToString()) +
-                HashValue(AdjudicacionDirecta.ToString()) +
-                HashValue(Descripcion.ToString());
+            return HashValue(Status +
+                             Presupuesto.ToString() + 
+                             Nombre +
+                             FechaInicio +
+                             FechaApertura +
+                             AdjudicacionDirecta +
+                             Descripcion);
         }
     }
 }

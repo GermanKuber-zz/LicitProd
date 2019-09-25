@@ -1,16 +1,19 @@
-﻿namespace LicitProd.Entities
+﻿using System.Collections.Generic;
+
+namespace LicitProd.Entities
 {
     public abstract class Permission : Entity
     {
-        public PermissionsEnum Name { get; set; }
+        public string Nombre { get; set; }
         public abstract void Add(Permission permission);
         public abstract void Remove(Permission permission);
+        public List<Permission> Permissions = new List<Permission>();
 
         public Permission()
         {
 
         }
         public virtual Response<bool> HasAccess(PermissionsEnum permiso) =>
-            Response<bool>.From(() => Name == permiso, true);
+            Response<bool>.From(() => Nombre == permiso.ToString(), true);
     }
 }

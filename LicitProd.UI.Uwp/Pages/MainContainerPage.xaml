@@ -39,6 +39,7 @@
             <NavigationViewItem Content="Listar Concursos" Tag="SamplePage3" x:Name="ListConcursos" Icon="Bold"/>
             <NavigationViewItem Content="Registrar Proveedor" Tag="SamplePage3" x:Name="RegistrarProveedor" Icon="Bold"/>
             <NavigationViewItem Content="Listar Proveedores" Tag="SamplePage3" x:Name="ListarProveedores" Icon="Bold"/>
+            <NavigationViewItem Content="Administrar Permisos" Tag="SamplePage3" x:Name="AdminPermisos" Icon="Bold"/>
 
 
 </NavigationView.MenuItems>

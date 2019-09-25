@@ -4,20 +4,19 @@ namespace LicitProd.Entities
 {
     public class Rol : Permission
     {
-        public List<Permission> Permissions = new List<Permission>();
 
 
         public Rol()
         {
 
         }
-        public Rol(PermissionsEnum roleName)
+        public Rol(string roleName)
         {
-            Name = roleName;
+            Nombre = roleName;
         }
-        public Rol(int id, PermissionsEnum roleName)
+        public Rol(int id, string roleName)
         {
-            Name = roleName;
+            Nombre = roleName;
             Id = id;
         }
 
@@ -37,7 +36,7 @@ namespace LicitProd.Entities
                 var result = item.HasAccess(permission);
                 if (result.SuccessResult)
                     return Response<bool>.Ok(result.Result);
-                else if(Name == permission)
+                else if(Nombre == permission.ToString())
                     return Response<bool>.Ok(true);
 
             }

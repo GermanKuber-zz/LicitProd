@@ -5,12 +5,12 @@
 
         public SinglePermission(PermissionsEnum permissionName)
         {
-            Name = permissionName;
+            Nombre = permissionName.ToString();
         }
 
         public SinglePermission(int id, PermissionsEnum permissionName)
         {
-            Name = permissionName;
+            Nombre = permissionName.ToString();
             Id = id;
         }
 

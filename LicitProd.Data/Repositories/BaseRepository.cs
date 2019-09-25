@@ -31,8 +31,11 @@ namespace LicitProd.Data.Repositories
                                      (await EntityToColumns<TEntity>.MapAsync()).Send()))))
                              .Error(x => Response<TEntity>.Error());
 
-        public async Task<int> InsertDataAsync(TEntity entity) =>
+        public async Task<Response<TEntity>> InsertDataAsync(TEntity entity)
+        {
             await SqlAccessService.InsertDataAsync(entity);
+            return Response<TEntity>.Ok(entity);
+        }
         protected static Response<List<TEntity>> ReturnResult(List<TEntity> result) =>
             Response<TEntity>.From(result);
         protected static Response<TEntity> ReturnResult(TEntity result) =>

@@ -141,6 +141,9 @@
     <Compile Include="Pages\MainContainerPage.xaml.cs">
       <DependentUpon>MainContainerPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\Permisos\AdminPermisos.xaml.cs">
+      <DependentUpon>AdminPermisos.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\Proveedores\ListProveedores.xaml.cs">
       <DependentUpon>ListProveedores.xaml</DependentUpon>
     </Compile>
@@ -195,6 +198,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\MainContainerPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Permisos\AdminPermisos.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

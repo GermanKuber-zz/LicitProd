@@ -8,4 +8,8 @@
     <Folder Include="Properties\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\LicitProd.Infraestructure\LicitProd.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -86,13 +86,9 @@ namespace LicitProd.Data.Infrastructure.Objects
                             .Success(x =>
                             {
                                 Type enumToAdd = default;
-                                try
-                                {
+                                if (prop.PropertyType.IsEnum)
                                     enumToAdd = Enum.GetUnderlyingType(prop.PropertyType);
-                                }
-                                catch (Exception)
-                                {
-                                }
+
 
                                 if (enumToAdd != null)
                                     parameters.Add(prop.Name, typse.ToString(), x.SqlDbType);

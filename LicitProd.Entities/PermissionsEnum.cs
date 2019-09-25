@@ -2,10 +2,6 @@
 {
     public enum PermissionsEnum
     {
-        Administrador,
-        Duenio,
-        Comprador,
-        Proveedor,
         EditarComprador,
         EditarProveedores,
         ListarProveedores,
@@ -13,6 +9,7 @@
         ResponderPreguntas,
         OfertarConcurso,
         PreguntarConcurso,
-        CrearConcurso
+        CrearConcurso,
+        AdminRoles
     }
 }

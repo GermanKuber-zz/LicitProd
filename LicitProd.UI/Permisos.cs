@@ -70,7 +70,7 @@ namespace LicitProd.UI
         {
             if (parentNode == null)
             {
-                parentNode = new TreeNode(rol.Name.ToString());
+                parentNode = new TreeNode(rol.Nombre.ToString());
 
             }
             if (rol is Rol)
@@ -78,7 +78,7 @@ namespace LicitProd.UI
 
                 foreach (var item in ((Rol)rol).Permissions)
                 {
-                    var permission = new TreeNode(item.Name.ToString());
+                    var permission = new TreeNode(item.Nombre.ToString());
                     var nodeToAdd = AddParentNode(permission, item);
                     parentNode.Nodes.Add(nodeToAdd.Text, nodeToAdd.Text);
                 }
@@ -110,10 +110,10 @@ namespace LicitProd.UI
                 var rol = (Rol)permiso;
                 if (rol.Permissions.Any())
                     rol.Permissions.ForEach(p => ProccessPermission(p));
-                CheckNode(rol.Name.ToString());
+                CheckNode(rol.Nombre.ToString());
             }
             else if (permiso is SinglePermission)
-                CheckNode(permiso.Name.ToString());
+                CheckNode(permiso.Nombre.ToString());
         }
         private void CheckNode(string name)
         {
@@ -170,7 +170,7 @@ namespace LicitProd.UI
                 //if (ExistNode(rol.Name.ToString()))
             }
             else if (permiso is SinglePermission)
-                CheckNode(permiso.Name.ToString());
+                CheckNode(permiso.Nombre.ToString());
         }
         List<Permission> _permisos = new List<Permission>();
         private bool ExistNode(string name)

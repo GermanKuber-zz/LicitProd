@@ -85,24 +85,33 @@ namespace LicitProd.Data.Infrastructure.Infrastructure
             });
 
         }
-        public async Task<int> InsertDataAsync(List<Parameter> parameters)
+        public async Task<int> InsertDataAsync(Parameters parameters) =>
+                    await InsertDataAsync(parameters.Send());
+        private async Task<int> InsertDataAsync(List<Parameter> parameters, string tableName = null)
         {
-            return await ExecuteScalarAsync($"INSERT INTO dbo.{_dataTableName} ({string.Join(",", parameters.Select(x => x.ColumnName).ToList())}) " +
+            if (string.IsNullOrWhiteSpace(tableName))
+                tableName = _dataTableName;
+            return await ExecuteScalarAsync($"INSERT INTO dbo.{tableName} ({string.Join(",", parameters.Select(x => x.ColumnName).ToList())}) " +
                           $"VALUES ({string.Join(",", parameters.Select(key => $"@{key.ColumnName}").ToList())}) ; SELECT SCOPE_IDENTITY()", parameters);
         }
+        public async Task<int> InsertDataAsync(Parameters parameters, string tableName) =>
+            await InsertDataAsync(parameters.Send(), tableName);
         public async Task<int> InsertDataAsync(TEntity entity)
         {
-            var id = await InsertDataAsync(_objectToDbMapper.GetParameters(entity).Send());
+            var id = await InsertDataAsync(_objectToDbMapper.GetParameters(entity));
             entity.Id = id;
             return id;
         }
+
         public async Task<int> InsertDataAsync(TEntity entity, Parameters parameters)
         {
             if (parameters == null)
                 throw new ArgumentNullException(nameof(parameters));
             var list = _objectToDbMapper.GetParameters(entity).Send();
             list.AddRange(parameters.Send());
-            return await InsertDataAsync(list);
+            var id = await InsertDataAsync(list);
+            entity.Id = id;
+            return id;
         }
         public async Task UpdateDataAsync(List<Parameter> parameters, List<Parameter> where = default)
         {
@@ -129,6 +138,12 @@ namespace LicitProd.Data.Infrastructure.Infrastructure
             {
                 cmd.Parameters.AddRange(parameters.Select(parameter =>
                 {
+                    if (parameter.Value == "NULL")
+                        return new SqlParameter($"@{parameter.ColumnName}", DBNull.Value)
+                        {
+                            SqlDbType = parameter.Type
+                        };
+
                     return new SqlParameter($"@{parameter.ColumnName}", parameter.Value)
                     {
                         SqlDbType = parameter.Type
