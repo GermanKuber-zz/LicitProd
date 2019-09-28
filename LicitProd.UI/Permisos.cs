@@ -27,14 +27,13 @@ namespace LicitProd.UI
         private async Task FillAddUsuariosAsync() =>
             (await new UsuarioRepository().Get())
                .Success(usuarios =>
-               {
-                   var source = new BindingSource();
-                   dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-                   source.DataSource = usuarios;
-                   dataGridView1.DataSource = source;
-                   dataGridView1.Rows[0].Selected = true;
-               })
-               .Error(x => MessageBox.Show("No hay logs"));
+            {
+                var source = new BindingSource();
+                dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+                source.DataSource = usuarios;
+                dataGridView1.DataSource = source;
+                dataGridView1.Rows[0].Selected = true;
+            }).Error(x => MessageBox.Show("No hay logs"));
         private void ConfigurateDataGridView()
         {
             dataGridView1.AutoGenerateColumns = false;

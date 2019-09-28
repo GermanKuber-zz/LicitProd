@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
@@ -98,8 +99,14 @@ namespace LicitProd.Data.Infrastructure.Objects
                             })
                             .Error(e =>
                             {
-                                if (typse != null)
-                                    parameters.Add(prop.Name, (dynamic)typse);
+                                Type enumToAdd = default;
+                                if (prop.PropertyType.IsEnum)
+                                    enumToAdd = Enum.GetUnderlyingType(prop.PropertyType);
+
+
+                                if (enumToAdd != null)
+                                    parameters.Add(prop.Name, typse.ToString(), SqlDbType.NVarChar);
+                                else parameters.Add(prop.Name, (dynamic)typse);
                             });
 
                 });

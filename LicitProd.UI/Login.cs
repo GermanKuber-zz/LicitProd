@@ -5,6 +5,7 @@ using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using LicitProd.Data.Repositories;
 using System.Threading.Tasks;
+using LicitProd.Entities;
 
 namespace LicitProd.UI
 {

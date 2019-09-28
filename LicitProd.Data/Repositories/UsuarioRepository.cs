@@ -47,8 +47,7 @@ namespace LicitProd.Data.Repositories
         public async Task UpdateLastLoginDate(string email, DateTime date) => await SqlAccessService.UpdateDataAsync(new Parameters()
                     .Add("LastLogin", date),
                  new Parameters()
-                    .Add("Email", email)
-                    .Send());
+                    .Add("Email", email));
 
 
 

@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using LicitProd.Data.Infrastructure.Infrastructure;
 using LicitProd.Entities;
 using LicitProd.Infrastructure;
+using LicitProd.Seguridad;
 
 namespace LicitProd.Data.Repositories
 {
@@ -21,7 +22,8 @@ namespace LicitProd.Data.Repositories
             (await new GenericRepository<Verificable>().GetAsync())
                 .Success(async x =>
                 {
-                    var codigoVerificador = VerificableService.GetCheckDigit(string.Join("", x.Select(s => VerificableService.GetCheckDigit(s.Hash))));
+                    var hasService = new HashService();
+                    var codigoVerificador = hasService.Hash(string.Join("", x.Select(s => hasService.Hash(s.Hash))));
                     var digitoVerificadorRepository = new GenericRepository<DigitoVerificadorVertical>();
                     (await digitoVerificadorRepository.GetAsync(
                         new Parameters().Add(nameof(DigitoVerificadorVertical.Tabla), "Concursos")))
@@ -33,7 +35,7 @@ namespace LicitProd.Data.Repositories
                         })
                         .Error(async erros =>
                         {
-                            await digitoVerificadorRepository.InsertDataAsync(new DigitoVerificadorVertical(codigoVerificador,
+                             await digitoVerificadorRepository.InsertDataAsync(new DigitoVerificadorVertical(codigoVerificador,
                                 DigitoVerificadorTablasEnum.Concursos));
                         });
                 });

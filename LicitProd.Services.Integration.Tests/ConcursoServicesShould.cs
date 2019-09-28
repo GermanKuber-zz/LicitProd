@@ -18,14 +18,14 @@ namespace LicitProd.Services.Integration.Tests
             _sut = new ConcursoServices();
             _concursoRepository = new ConcursosRepository();
             _newConcurso = new Concurso(1234, "Test", new DateTime(2019, 2, 2), new DateTime(2019, 2, 4), false, "Descripion");
-            _sut.Crear(_newConcurso);
         }
 
         [Fact]
         public async Task Create_Multiples_Concursos()
         {
-            _sut.Crear(_newConcurso);
-            _sut.Crear(_newConcurso);
+            await _sut.Crear(_newConcurso);
+            await _sut.Crear(_newConcurso);
+            await _sut.Crear(_newConcurso);
             (await _concursoRepository.Get())
                 .Success(x =>
                 {
@@ -35,6 +35,8 @@ namespace LicitProd.Services.Integration.Tests
         [Fact]
         public async Task Create_Complete_Concurso()
         {
+            await _sut.Crear(_newConcurso);
+
             (await _concursoRepository.GetByIdAsync(_newConcurso.Id))
                 .Success(concurso =>
                 {
@@ -49,6 +51,8 @@ namespace LicitProd.Services.Integration.Tests
         [Fact]
         public async Task Be_Invalid_Differnet_Hash()
         {
+            await _sut.Crear(_newConcurso);
+
             (await _concursoRepository.GetByIdAsync(_newConcurso.Id))
                 .Success(x =>
                 {

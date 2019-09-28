@@ -135,7 +135,7 @@ namespace LicitProd.Data.Infrastructure.Infrastructure
             return id;
         }
         public async Task UpdateDataAsync(TEntity entity) =>
-            await UpdateDataAsync(_objectToDbMapper.GetParameters(entity));
+            await UpdateDataAsync(_objectToDbMapper.GetParameters(entity), new Parameters().Add(nameof(entity.Id), entity.Id));
         public async Task<int> InsertDataAsync(TEntity entity, Parameters parameters)
         {
             if (parameters == null)
@@ -146,15 +146,16 @@ namespace LicitProd.Data.Infrastructure.Infrastructure
             entity.Id = id;
             return id;
         }
-        public async Task UpdateDataAsync(Parameters parameters, List<Parameter> where = default)
+        public async Task UpdateDataAsync(Parameters parameters, Parameters where = default)
         {
             var parametersToAdd = parameters.Send();
             string query = $"UPDATE  dbo.{_dataTableName} SET {string.Join(",", parametersToAdd.Select(value => $"{value.ColumnName} = @{value.ColumnName}").ToList())}";
 
             if (where != null)
-                query = string.Concat(query, " WHERE ", string.Join(" AND ", where.Select(x => $"{x.ColumnName}=@{x.ColumnName}")));
+                query = string.Concat(query, " WHERE ", string.Join(" AND ", where.Send().Select(x => $"{x.ColumnName}=@{x.ColumnName}")));
             query = string.Concat(query, "; SELECT SCOPE_IDENTITY()");
-            parametersToAdd.AddRange(where);
+            if (where != null)
+                parametersToAdd.AddRange(where.Send());
             await ExcecuteQueryAsync(query, parametersToAdd);
         }
 
