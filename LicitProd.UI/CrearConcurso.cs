@@ -12,7 +12,7 @@ namespace LicitProd.UI
             InitializeComponent();
         }
 
-        private void Button1_Click(object sender, EventArgs e)
+        private async  void Button1_Click(object sender, EventArgs e)
         {
             var concurso = new Concurso(udPresupuesto.Value,
                 txtNombre.Text,
@@ -21,7 +21,7 @@ namespace LicitProd.UI
                 chkAdjudicaion.Checked,
                 txtDescripcion.Text);
 
-            new ConcursoServices().Crear(concurso)
+            (await new ConcursoServices().Crear(concurso))
                 .Success(x =>
                 {
                     DialogResult result = MessageBox.Show("Creado exitosamente", $"El concurso {concurso.Nombre} fue creado");

@@ -9,9 +9,9 @@ namespace LicitProd.Services
     {
         private ConcursosRepository _concursosRepository = new ConcursosRepository();
 
-        public Response<string> Crear(Concurso concurso)
+        public async Task<Response<string>> Crear(Concurso concurso)
         {
-            _concursosRepository.Insert(concurso);
+            await _concursosRepository.Insert(concurso);
             return Response<string>.Ok("");
         }
     }

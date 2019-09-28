@@ -44,9 +44,8 @@ namespace LicitProd.Data.Repositories
                                           .Success(x => usuario.SetRol(x));
                                 return usuario;
                             }));
-        public void UpdateLastLoginDate(string email, DateTime date) => SqlAccessService.UpdateDataAsync(new Parameters()
-                    .Add("LastLogin", date)
-                    .Send(),
+        public async Task UpdateLastLoginDate(string email, DateTime date) => await SqlAccessService.UpdateDataAsync(new Parameters()
+                    .Add("LastLogin", date),
                  new Parameters()
                     .Add("Email", email)
                     .Send());

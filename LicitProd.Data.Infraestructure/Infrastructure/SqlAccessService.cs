@@ -47,6 +47,38 @@ namespace LicitProd.Data.Infrastructure.Infrastructure
             });
         }
 
+        public async Task<DataTable> SelectDataIn(Parameters propertyToCheckIn, Parameters parametersForPutIn, List<string> selectColumns)
+        {
+            string query = "SELECT ";
+
+            if (selectColumns != null)
+                query = string.Concat(query, string.Join(",", selectColumns), " ");
+            else
+                query = string.Concat(query, "*", " ");
+
+            query = string.Concat(query, $"FROM {_dataTableName}", " ");
+
+            query = string.Concat(query, " WHERE ", string.Join(propertyToCheckIn.Send().First().ColumnName, " IN", "(", parametersForPutIn.Send().Select(value =>
+                   {
+                       return $" {value.Value},";
+                   }).ToList()));
+            query = query.Remove(query.Length - 1);
+            query = String.Concat(query, ")");
+            return await Task.Run(async () =>
+            {
+                SqlConnection conn = new SqlConnection(_connectionString);
+                SqlCommand command = new SqlCommand(query, conn);
+                await conn.OpenAsync();
+                SqlDataAdapter da = new SqlDataAdapter(command);
+                DataTable dataTable = new DataTable();
+                da.Fill(dataTable);
+                conn.Close();
+                da.Dispose();
+                return dataTable;
+            });
+
+        }
+
         public async Task<DataTable> SelectData(List<Parameter> parameters, List<string> selectColumns)
         {
             string query = "SELECT ";
@@ -102,7 +134,8 @@ namespace LicitProd.Data.Infrastructure.Infrastructure
             entity.Id = id;
             return id;
         }
-
+        public async Task UpdateDataAsync(TEntity entity) =>
+            await UpdateDataAsync(_objectToDbMapper.GetParameters(entity));
         public async Task<int> InsertDataAsync(TEntity entity, Parameters parameters)
         {
             if (parameters == null)
@@ -113,15 +146,16 @@ namespace LicitProd.Data.Infrastructure.Infrastructure
             entity.Id = id;
             return id;
         }
-        public async Task UpdateDataAsync(List<Parameter> parameters, List<Parameter> where = default)
+        public async Task UpdateDataAsync(Parameters parameters, List<Parameter> where = default)
         {
-            string query = $"UPDATE  dbo.{_dataTableName} SET {string.Join(",", parameters.Select(value => $"{value.ColumnName} = @{value.ColumnName}").ToList())}";
+            var parametersToAdd = parameters.Send();
+            string query = $"UPDATE  dbo.{_dataTableName} SET {string.Join(",", parametersToAdd.Select(value => $"{value.ColumnName} = @{value.ColumnName}").ToList())}";
 
             if (where != null)
                 query = string.Concat(query, " WHERE ", string.Join(" AND ", where.Select(x => $"{x.ColumnName}=@{x.ColumnName}")));
             query = string.Concat(query, "; SELECT SCOPE_IDENTITY()");
-            parameters.AddRange(where);
-            await ExcecuteQueryAsync(query, parameters);
+            parametersToAdd.AddRange(where);
+            await ExcecuteQueryAsync(query, parametersToAdd);
         }
 
         private async Task<int> ExecuteScalarAsync(string query, List<Parameter> parameters)

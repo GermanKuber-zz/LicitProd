@@ -10,6 +10,9 @@ namespace LicitProd.Data.Infrastructure.Objects
         public string ColumnName { get; private set; }
         public bool HasColumnName { get; private set; }
         public bool IsPrimaryKey { get; private set; }
+        public bool IsForeignKey { get; private set; }
+
+        
         public bool IsIgnore { get; private set; }
         public SqlDbType SqlDbType { get; private set; }
         public string PropertyName => MemberInfo.Name;
@@ -38,6 +41,13 @@ namespace LicitProd.Data.Infrastructure.Objects
             Initialized = true;
 
             IsPrimaryKey = true;
+            return this;
+        }
+        public DbMapperContainer ForeignKey()
+        {
+            Initialized = true;
+
+            IsForeignKey = true;
             return this;
         }
         public DbMapperContainer Ignore()

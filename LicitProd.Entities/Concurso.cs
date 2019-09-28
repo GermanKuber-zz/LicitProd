@@ -12,6 +12,7 @@ namespace LicitProd.Entities
         public DateTimeOffset FechaApertura { get; set; } = DateTime.Now.AddDays(2);
         public bool AdjudicacionDirecta { get; set; }
         public string Descripcion { get; set; } = string.Empty;
+
         public Concurso(decimal presupuesto,
             string nombre,
             DateTimeOffset fechaInicio,

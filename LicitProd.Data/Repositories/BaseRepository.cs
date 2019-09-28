@@ -14,28 +14,50 @@ namespace LicitProd.Data.Repositories
     {
         protected readonly SqlAccessService<TEntity> SqlAccessService = new SqlAccessService<TEntity>();
 
-        protected async Task<Response<List<TEntity>>> GetAsync() =>
+        public async Task<Response<List<TEntity>>> GetAsync() =>
             ReturnResult((await CreateMapper()).MapList((await SqlAccessService.SelectData((await EntityToColumns<TEntity>.MapAsync())
                  .Send()))));
 
-        protected async Task<Response<List<TEntity>>> GetAsync(List<Parameter> parameters) =>
+        public async Task<Response<List<TEntity>>> GetAsync(List<Parameter> parameters, List<string> selectColumns) =>
+            ReturnResult((await CreateMapper()).MapList((await SqlAccessService.SelectData(parameters, selectColumns))));
+        public async Task<Response<List<TEntity>>> GetAsync(List<Parameter> parameters) =>
             ReturnResult((await CreateMapper()).MapList((await SqlAccessService.SelectData(parameters, (await EntityToColumns<TEntity>.MapAsync())
-                 .Send()))));
+                .Send()))));
+
+        public async Task<Response<List<TEntity>>> GetAsync(Parameters parameters) => await GetAsync(parameters.Send());
 
         public async Task<Response<TEntity>> GetByIdAsync(int id) =>
-                    (await ObjectToDbMapperFactory<TEntity>.Create()).GetPk()
-                             .Success(async x =>
-                             Response<TEntity>.From((await CreateMapper()).Map(await SqlAccessService.SelectData(new Parameters()
-                                     .Add(x, id)
-                                     .Send(),
-                                     (await EntityToColumns<TEntity>.MapAsync()).Send()))))
-                             .Error(x => Response<TEntity>.Error());
+            (await ObjectToDbMapperFactory<TEntity>.Create()).GetPk()
+            .Success(async x =>
+                Response<TEntity>.From((await CreateMapper()).Map(await SqlAccessService.SelectData(new Parameters()
+                        .Add(x, id)
+                        .Send(),
+                    (await EntityToColumns<TEntity>.MapAsync()).Send()))))
+            .Error(x => Response<TEntity>.Error());
+
+        private Parameters GetParameters(List<int> ids)
+        {
+            return ids.Aggregate(new Parameters(), (acc, x) => acc.Add("Id", x));
+        }
+        public async Task<List<TEntity>> GetByIdsAsync(List<int> ids) =>
+            (await ObjectToDbMapperFactory<TEntity>.Create()).GetPk()
+            .Success(async x =>
+                (await CreateMapper()).MapList(await SqlAccessService.SelectDataIn(new Parameters()
+                        .Add("Id", string.Empty),
+                    GetParameters(ids), new List<string>())));
 
         public async Task<Response<TEntity>> InsertDataAsync(TEntity entity)
         {
             await SqlAccessService.InsertDataAsync(entity);
             return Response<TEntity>.Ok(entity);
         }
+        public async Task<Response<TEntity>> UpdateDataAsync(TEntity entity)
+        {
+            await SqlAccessService.UpdateDataAsync(entity);
+            return Response<TEntity>.Ok(entity);
+        }
+
+        
         protected static Response<List<TEntity>> ReturnResult(List<TEntity> result) =>
             Response<TEntity>.From(result);
         protected static Response<TEntity> ReturnResult(TEntity result) =>

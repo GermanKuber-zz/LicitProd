@@ -21,7 +21,7 @@ namespace LicitProd.UI.Uwp.Pages
             args.Cancel = args.NewText.Any(c => !char.IsDigit(c));
         }
 
-        private void BtnAcept_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        private async void BtnAcept_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
             LoadingService.LoadingStart();
             if (decimal.TryParse(Presupuesto, out var parsed)) 
@@ -29,7 +29,7 @@ namespace LicitProd.UI.Uwp.Pages
             else
                 Concurso.Presupuesto = 0;
 
-            new ConcursoServices().Crear(Concurso)
+            (await new ConcursoServices().Crear(Concurso))
                                     .Success(s =>
                                     {
                                         MessageDialogService.Create("Concurso Creado Existosamente", c =>

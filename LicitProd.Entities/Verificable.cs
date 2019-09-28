@@ -1,8 +1,31 @@
-﻿using LicitProd.Infrastructure;
+﻿using System.Threading;
+using LicitProd.Infrastructure;
 
 namespace LicitProd.Entities
 {
-    public abstract class Verificable : Entity
+    public enum DigitoVerificadorTablasEnum
+    {
+        Concursos
+    }
+
+    public class DigitoVerificadorVertical : Entity
+    {
+        public string Digito { get; set; }    
+        public DigitoVerificadorTablasEnum Tabla { get; set; }
+
+        public DigitoVerificadorVertical(string digito, DigitoVerificadorTablasEnum tabla)
+        {
+            Digito = digito;
+            Tabla = tabla;
+        }
+
+        public DigitoVerificadorVertical()
+        {
+                
+        }
+
+    }
+    public  class Verificable : Entity
     {
         private string _hash;
 
@@ -11,10 +34,20 @@ namespace LicitProd.Entities
             get { return GenerateHash(); }
             set { _hash = value; }
         }
-        public abstract string GenerateHash();
+
+        public virtual string GenerateHash()
+        {
+            return string.Empty;
+
+        }
         public bool IsValid => _hash == Hash;
 
         public string HashValue(string toHash) =>
             VerificableService.GetCheckDigit((toHash));
+
+        public Verificable()
+        {
+            
+        }
     }
 }
