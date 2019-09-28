@@ -3,11 +3,14 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:converters="using:LicitProd.UI.Uwp.Converters"
     x:Class="LicitProd.UI.Uwp.Pages.CrearConcurso"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-
-    <Grid>
+    <Page.Resources>
+        <converters:DateTimeToDateTimeOfSetConverter x:Key="DateTimeToDateTimeOfSetConverter"></converters:DateTimeToDateTimeOfSetConverter>
+    </Page.Resources>
+<Grid>
 
         <StackPanel>
             <StackPanel Orientation="Horizontal">
@@ -20,11 +23,11 @@
             </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <TextBlock x:Name="textBlock2" TextAlignment="Right" Width="100" Text="Fecha Inicio" TextWrapping="Wrap" Margin="10,15,10,10"/>
-                <DatePicker x:Name="dtpInicio" Date="{x:Bind Path=Concurso.FechaInicio}"  Width="300"  Margin="10,15,10,10"/>
+                <DatePicker x:Name="dtpInicio" Date="{x:Bind Path=FechaInicio}"  Width="300"  Margin="10,15,10,10"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <TextBlock x:Name="textBlock3" TextAlignment="Right" Width="100" Text="Fecha Apertura" TextWrapping="Wrap" Margin="10,15,10,10"/>
-                <DatePicker x:Name="dtpApertura" Date="{x:Bind Path=Concurso.FechaApertura}"  Width="300"  Margin="10,15,10,10"/>
+                <DatePicker x:Name="dtpApertura" Date="{x:Bind Path=FechaApertura}"   Width="300"  Margin="10,15,10,10"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <TextBlock x:Name="textBlock4" TextAlignment="Right" Width="100" Text="Adjudicación directa" TextWrapping="Wrap" Margin="10,15,10,10"/>

@@ -119,6 +119,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Converters\DateTimeToDateTimeOfSetConverter.cs" />
     <Compile Include="Pages\Concursos\CrearConcursoPage.xaml.cs">
       <DependentUpon>CrearConcursoPage.xaml</DependentUpon>
     </Compile>
