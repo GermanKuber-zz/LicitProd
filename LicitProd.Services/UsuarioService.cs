@@ -3,6 +3,7 @@ using LicitProd.Seguridad;
 using System;
 using LicitProd.Data.Repositories;
 using System.Threading.Tasks;
+using LicitProd.Mappers;
 
 namespace LicitProd.Services
 {
@@ -24,6 +25,12 @@ namespace LicitProd.Services
         {
             _usuarioRepository.UpdateLastLoginDate(usuario.Email, DateTime.Now);
             IdentityServices.Instance.SetUserLogged(usuario);
+
+            AsyncHelper.CallAsyncMethod(() => new IdiomasRepository().GetByName("Español"))
+                .Success(idioma =>
+                    SettingsServices.SetIdioma(idioma));
+                
+
             LogManager.LogInformacion("Login", $"{usuario.Email}");
         }
     }

@@ -5,6 +5,7 @@
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls1="using:LicitProd.UI.Uwp.Controls"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
@@ -43,10 +44,10 @@
         SelectionMode="Extended"
         RowGroupHeaderPropertyNameAlternative="Range">
             <controls:DataGrid.Columns>
-                <controls:DataGridTextColumn Header="Nombre" Binding="{Binding Nombre}" Tag="Rank" />
-                <controls:DataGridTextColumn Header="Descripción" Binding="{Binding Descripcion}" Tag="Rank" />
-                <controls:DataGridTextColumn Header="Type" Binding="{Binding Type}" Tag="Rank" />
-                <controls:DataGridTextColumn Header="Fecha" Binding="{Binding Fecha}" Tag="Rank" />
+                <controls1:DataGridTextColumnTranslatable TranslatableKey="LOGS_LIST_NOMBRE"  Binding="{Binding Nombre}" Tag="Rank" />
+                <controls1:DataGridTextColumnTranslatable TranslatableKey="LOGS_LIST_DESCRIPCION"  Binding="{Binding Descripcion}" Tag="Rank" />
+                <controls1:DataGridTextColumnTranslatable TranslatableKey="LOGS_LIST_TIPO" Binding="{Binding Type}" Tag="Rank" />
+                <controls1:DataGridTextColumnTranslatable TranslatableKey="LOGS_LIST_FECHA"  Binding="{Binding Fecha}" Tag="Rank" />
             </controls:DataGrid.Columns>
         </controls:DataGrid>
     </Grid>

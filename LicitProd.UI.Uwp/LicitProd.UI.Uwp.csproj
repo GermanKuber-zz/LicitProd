@@ -119,6 +119,10 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\ButtonTranslatable.cs" />
+    <Compile Include="Controls\DataGridTextColumnTranslatable.cs" />
+    <Compile Include="Controls\DatePickerTranslatable.cs" />
+    <Compile Include="Controls\TextBoxTranslatable.cs" />
     <Compile Include="Converters\DateTimeToDateTimeOfSetConverter.cs" />
     <Compile Include="Pages\Concursos\CrearConcurso.cs">
       <DependentUpon>CrearConcursoPage.xaml</DependentUpon>
@@ -142,6 +146,7 @@
     <Compile Include="Pages\MainContainerPage.xaml.cs">
       <DependentUpon>MainContainerPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\NavigationViewItemTranslatable.cs" />
     <Compile Include="Pages\Permisos\AdminPermisos.xaml.cs">
       <DependentUpon>AdminPermisos.xaml</DependentUpon>
     </Compile>

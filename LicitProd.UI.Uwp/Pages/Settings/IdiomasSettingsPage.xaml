@@ -15,7 +15,7 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <StackPanel Orientation="Vertical" >
+        <StackPanel Orientation="Vertical" x:Name="PanelIdiomas" >
             <RelativePanel>
                 <ComboBox
                     ItemsSource="{x:Bind Idiomas}"
@@ -23,6 +23,11 @@
                     DisplayMemberPath="Idioma.Nombre"
                     Header="Idiomas" PlaceholderText="Idiomas" Margin="24,24,10,20"  Width="300" >
                 </ComboBox>
+            </RelativePanel>
+        </StackPanel>
+        <StackPanel Orientation="Vertical" Visibility="Collapsed" x:Name="PanelNewIdioma" >
+            <RelativePanel>
+               <TextBox Header="Nuevo Lenguaje"></TextBox>
             </RelativePanel>
         </StackPanel>
         <controls:DataGrid
@@ -58,6 +63,14 @@
         <CommandBar IsOpen="False" >
             <AppBarButton Name="ApbAccept" Icon="Save" Label="Guardar" Click="ApbAccept_OnClick"/>
             <AppBarButton Name="ApbCancel" Icon="Cancel" Label="Cancelar" Click="ApbCancel_OnClick"/>
+            <AppBarButton Icon="Preview" Label="Acciones">
+                <AppBarButton.Flyout>
+                    <MenuFlyout>
+                        <MenuFlyoutItem Text="Nuevo Idioma" Click="MenuFlyoutItem_OnClick" />
+                    </MenuFlyout>
+                </AppBarButton.Flyout>
+            </AppBarButton>
         </CommandBar>
+
     </Page.BottomAppBar>
 </Page>

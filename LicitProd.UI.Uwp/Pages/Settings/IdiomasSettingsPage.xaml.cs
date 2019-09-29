@@ -81,6 +81,8 @@ namespace LicitProd.UI.Uwp.Pages.Settings
 
         private void ApbAccept_OnClick(object sender, RoutedEventArgs e)
         {
+            LoadingService.LoadingStart();
+
             MessageDialogService.Create("¿Desea salvar todos los cambios realizados en los idiomas?", async command =>
                 {
                     foreach (var idioma in Idiomas)
@@ -88,7 +90,28 @@ namespace LicitProd.UI.Uwp.Pages.Settings
                         await new IdiomasRepository()
                             .UpdateDataAsync(idioma.Idioma);
                     }
+                    LoadingService.LoadingStop();
+                },
+                command =>
+                {
+                    LoadingService.LoadingStop();
                 });
+        }
+
+        private void MenuFlyout_Closed(object sender, object e)
+        {
+
+        }
+
+        private void MenuFlyout_Opened(object sender, object e)
+        {
+
+        }
+
+        private void MenuFlyoutItem_OnClick(object sender, RoutedEventArgs e)
+        {
+            PanelNewIdioma.Visibility = Visibility.Visible;
+            PanelIdiomas.Visibility = Visibility.Collapsed;
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using LicitProd.Services;
 using LicitProd.UI.Uwp.Pages.Concursos;
 using LicitProd.UI.Uwp.Services;
@@ -8,21 +10,26 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Animation;
+using LicitProd.Data.Repositories;
 using LicitProd.Entities;
+using LicitProd.Mappers;
 using LicitProd.Seguridad;
 using LicitProd.UI.Uwp.Pages.Permisos;
 using LicitProd.UI.Uwp.Pages.Proveedores;
 using LicitProd.UI.Uwp.Pages.Settings;
+using TranslationService = LicitProd.Services.TranslationService;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace LicitProd.UI.Uwp.Pages
 {
+ 
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
     public sealed partial class MainContainerPage : Page
     {
+        public ObservableCollection<string> Idiomas { get; set; } = new ObservableCollection<string>();
 
         public MainContainerPage()
         {
@@ -58,6 +65,7 @@ namespace LicitProd.UI.Uwp.Pages
                 .Success(x => ChangeLanguage(x));
 
            FindChildren(new List<TextBox>(), this);
+
         }
 
         private void NvSample_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
@@ -120,6 +128,9 @@ namespace LicitProd.UI.Uwp.Pages
             //            control.Text = x.Value;
             //    }
             //});
+
+            var list = new List<NavigationViewItem>();
+            FindChildren(list,this);
         }
          private void FindChildren<T>(List<T> results, DependencyObject startNode)
             where T : DependencyObject
@@ -140,6 +151,14 @@ namespace LicitProd.UI.Uwp.Pages
         {
             new UsuarioService().Logout();
             this.Frame.Navigate(typeof(Login));
+        }
+
+        private void MenuFlyoutItem_OnClick(object sender, RoutedEventArgs e)
+        {
+            var languaje = ((MenuFlyoutItem)sender).Text;
+            AsyncHelper.CallAsyncMethod(() => new IdiomasRepository().GetByName(languaje))
+                .Success(idioma =>
+                    SettingsServices.SetIdioma(idioma));
         }
     }
 }

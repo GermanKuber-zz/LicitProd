@@ -64,23 +64,23 @@ namespace LicitProd.UI
         }
         private void InglesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            TranslationService.ChangeLanguage(new Translations(new List<Services.Translation> {
-                new Services.Translation("DashboardProveedoresLabelTituloPrincipal", "Dashboard Providers"),
-                new Services.Translation("DashboardProveedoresTitle", "Dashboard Providers"),
-                new Services.Translation("LogsTitle", "List of Logs"),
-                new Services.Translation("LogsBtnBuscar", "Search")
+            //TranslationService.ChangeLanguage(new Translations(new List<Services.Translation> {
+            //    new Services.Translation("DashboardProveedoresLabelTituloPrincipal", "Dashboard Providers"),
+            //    new Services.Translation("DashboardProveedoresTitle", "Dashboard Providers"),
+            //    new Services.Translation("LogsTitle", "List of Logs"),
+            //    new Services.Translation("LogsBtnBuscar", "Search")
 
-            }));
+            //}));
         }
 
         private void EspañolToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            TranslationService.ChangeLanguage(new Translations(new List<Services.Translation> {
-                new Translation("DashboardProveedoresLabelTituloPrincipal", "Dashboard Proveedores"),
-                new Translation("DashboardProveedoresTitle", "Dashboard Proveedores"),
-                new Translation("LogsTitle", "Lista de Logs"),
-                new Translation("LogsBtnBuscar", "Buscar")
-            }));
+        //    TranslationService.ChangeLanguage(new Translations(new List<Services.Translation> {
+        //        new Translation("DashboardProveedoresLabelTituloPrincipal", "Dashboard Proveedores"),
+        //        new Translation("DashboardProveedoresTitle", "Dashboard Proveedores"),
+        //        new Translation("LogsTitle", "Lista de Logs"),
+        //        new Translation("LogsBtnBuscar", "Buscar")
+        //    }));
         }
 
         private void PermisosToolStripMenuItem_Click(object sender, EventArgs e)

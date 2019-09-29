@@ -1,19 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using LicitProd.Entities;
 
 namespace LicitProd.Services
 {
     public class Translations
     {
-        public List<Translation> TranslationList = new List<Translation>();
+        private readonly Idioma _idioma;
+        public IReadOnlyCollection<TraduccionValue> TranslationList => _idioma.Traducciones.AsReadOnly();
 
-        public Translations(List<Translation> translations)
+        public Translations(Idioma idioma)
         {
-            TranslationList = translations ?? throw new ArgumentNullException(nameof(translations));
+            _idioma = idioma;
         }
 
         public string GetTranslation(string key) =>
-            TranslationList.First(x => x.Key == key).Value;
+            TranslationList.FirstOrDefault(x => x.KeyValue == key)?.Traduccion;
     }
 }

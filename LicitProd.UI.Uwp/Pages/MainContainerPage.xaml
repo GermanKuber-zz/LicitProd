@@ -6,6 +6,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Windows.UI.Xaml.Controls"
     xmlns:Custom="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:controls="using:LicitProd.UI.Uwp.Controls"
     x:Class="LicitProd.UI.Uwp.Pages.MainContainerPage"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
@@ -18,29 +19,40 @@
                         IsTabStop="False">
         <NavigationView.HeaderTemplate>
             <DataTemplate>
-                <StackPanel HorizontalAlignment="Right">
+                <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
                     <Button Margin="0,20,20,0" Width="50" Height="50" Click="Button_Click" >
                         <StackPanel>
-                            <SymbolIcon Symbol="OtherUser" />
+                            <SymbolIcon Symbol="ClosePane"></SymbolIcon>
                         </StackPanel>
+                    </Button>
+                    <Button  Margin="0,20,20,0" Width="50" Height="50" >
+                        <StackPanel>
+                            <SymbolIcon Symbol="Flag"></SymbolIcon>
+                        </StackPanel>
+                        <Button.Flyout>
+                            <MenuFlyout x:Name="MenuLanguajes">
+                                <MenuFlyoutItem Text="Español" Click="MenuFlyoutItem_OnClick" />
+                                <MenuFlyoutItem Text="Ingles" Click="MenuFlyoutItem_OnClick" />
+                            </MenuFlyout>
+                        </Button.Flyout>
                     </Button>
                 </StackPanel>
             </DataTemplate>
         </NavigationView.HeaderTemplate>
 
         <NavigationView.MenuItems>
-            <NavigationViewItem Content="Dashboard" Tag="SamplePage1" x:Name="Dashboard" Icon="Page"/>
+            <controls:NavigationViewItemTranslatable TranslatableKey="PRINCIPAL_MENU_LEFT_DASHBOARD" Content="Dashboard" Tag="SamplePage1" x:Name="Dashboard" Icon="Page"/>
             <NavigationViewItemHeader Content="Actions"/>
-            <NavigationViewItem Content="Logs" Tag="Logs" x:Name="Logs" SelectsOnInvoked="True" Icon="Save"/>
-            <NavigationViewItem Content="Crear Concurso" Tag="SamplePage3" x:Name="CrearConcurso" Icon="NewFolder"/>
-            <NavigationViewItem Content="Listar Concursos" Tag="SamplePage3" x:Name="ListConcursos" Icon="Bold"/>
-            <NavigationViewItem Content="Registrar Proveedor" Tag="SamplePage3" x:Name="RegistrarProveedor" Icon="Bold"/>
-            <NavigationViewItem Content="Listar Proveedores" Tag="SamplePage3" x:Name="ListarProveedores" Icon="Bold"/>
-            <NavigationViewItem Content="Administrar Permisos" Tag="SamplePage3" x:Name="AdminPermisos" Icon="Bold"/>
-            <NavigationViewItem Content="Administrar Idiomas" Tag="SamplePage3" x:Name="AdminIdiomas" Icon="Flag"/>
+            <controls:NavigationViewItemTranslatable TranslatableKey="PRINCIPAL_MENU_LEFT_LOGS"  Content="Logs" Tag="Logs"  x:Name="Logs" SelectsOnInvoked="True" Icon="Save"/>
+            <controls:NavigationViewItemTranslatable TranslatableKey="PRINCIPAL_MENU_LEFT_CREAR_CONCURSOS" Content="Crear Concurso" Tag="SamplePage3" x:Name="CrearConcurso" Icon="NewFolder"/>
+            <controls:NavigationViewItemTranslatable TranslatableKey="PRINCIPAL_MENU_LEFT_LISTAR_CONCURSOS" Content="Listar Concursos" Tag="SamplePage3" x:Name="ListConcursos" Icon="Bold"/>
+            <controls:NavigationViewItemTranslatable TranslatableKey="PRINCIPAL_MENU_LEFT_REGISTRAR_PROVEEDOR" Content="Registrar Proveedor" Tag="SamplePage3" x:Name="RegistrarProveedor" Icon="Bold"/>
+            <controls:NavigationViewItemTranslatable TranslatableKey="PRINCIPAL_MENU_LEFT_LISTAR_PROVEEDOR" Content="Listar Proveedores" Tag="SamplePage3" x:Name="ListarProveedores" Icon="Bold"/>
+            <controls:NavigationViewItemTranslatable TranslatableKey="PRINCIPAL_MENU_LEFT_ADMINISTRAR_PERMISOS" Content="Administrar Permisos" Tag="SamplePage3" x:Name="AdminPermisos" Icon="Bold"/>
+            <controls:NavigationViewItemTranslatable TranslatableKey="PRINCIPAL_MENU_LEFT_LISTAR_PERMISOS" Content="Administrar Idiomas" Tag="SamplePage3" x:Name="AdminIdiomas" Icon="Flag"/>
 
 
-</NavigationView.MenuItems>
+        </NavigationView.MenuItems>
 
         <NavigationView.PaneCustomContent>
             <HyperlinkButton x:Name="PaneHyperlink" Content="More info" Margin="12,0" Visibility="Collapsed" />

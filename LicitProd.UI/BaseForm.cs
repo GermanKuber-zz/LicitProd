@@ -31,17 +31,17 @@ namespace LicitProd.UI
         }
         public void ChangeLanguage(Translations translation)
         {
-            translation.TranslationList.ForEach(x =>
-            {
-                var controls = Controls.Find(x.Key, true);
-                foreach (var control in controls)
-                {
-                    if (control is Label)
-                        control.Text = x.Value;
-                    if (control is Button)
-                        control.Text = x.Value;
-                }
-            });
+            //translation.TranslationList.ForEach(x =>
+            //{
+            //    var controls = Controls.Find(x.Key, true);
+            //    foreach (var control in controls)
+            //    {
+            //        if (control is Label)
+            //            control.Text = x.Value;
+            //        if (control is Button)
+            //            control.Text = x.Value;
+            //    }
+            //});
         }
 
     }
