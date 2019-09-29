@@ -166,7 +166,7 @@ namespace LicitProd.Data.Infrastructure.Infrastructure
 
             if (where != null)
                 query = string.Concat(query, " WHERE ", string.Join(" AND ", where.Send().Select(x => $"{x.ColumnName}=@{x.ColumnName}")));
-            query = string.Concat(query, "; SELECT SCOPE_IDENTITY()");
+            query = string.Concat(query, ";");
             if (where != null)
                 parametersToAdd.AddRange(where.Send());
             await ExcecuteQueryAsync(query, parametersToAdd);

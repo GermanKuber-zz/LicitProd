@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using LicitProd.Data.Infrastructure.Infrastructure;
 using LicitProd.Entities;
 
 namespace LicitProd.Data.Repositories
@@ -11,7 +12,7 @@ namespace LicitProd.Data.Repositories
         {
             var result = (await CreateMapper()).MapList(await SqlAccessService.SelectData("SELECT Tr.Id," +
                                                                                           "Tr.Traduccion," +
-                                                                                          "T.[Key]," +
+                                                                                          "T.KeyValue," +
                                                                                           "Tr.Id_Idioma," +
                                                                                           "Tr.Id_Termino "+
                                                                                           "FROM Traducciones AS Tr " +
@@ -20,6 +21,14 @@ namespace LicitProd.Data.Repositories
                                                                                           $"WHERE Tr.Id_Idioma IN ({ string.Join(",", idiomas.Select(x => x.Id))})"));
             
             return Response<List<TraduccionValue>>.From(result);
+        }
+        public async Task<Response<TraduccionValue>> UpdateDataAsync(TraduccionValue traduccionValue)
+        {
+             await SqlAccessService.UpdateAsync(new Parameters()
+                 .Add(nameof(TraduccionValue.Traduccion), traduccionValue.Traduccion),
+                 new Parameters()
+                     .Add(nameof(TraduccionValue.Id), traduccionValue.Id));
+             return Response<TraduccionValue>.Ok(traduccionValue);
         }
     }
 }

@@ -14,7 +14,7 @@ namespace LicitProd.UI.Uwp.Pages.Settings
     public sealed partial class IdiomasSettingsPage : Page
     {
         private IdiomaViewModel _idiomaSelected = new IdiomaViewModel();
-     
+
         public ObservableCollection<IdiomaViewModel> Idiomas { get; set; } = new ObservableCollection<IdiomaViewModel>();
 
         public ObservableCollection<TraduccionValue> Traducciones { get; set; } =
@@ -27,9 +27,10 @@ namespace LicitProd.UI.Uwp.Pages.Settings
             }
             set
             {
+                _idiomaSelected.Idioma?.SetTraducciones(Traducciones.ToList());
                 _idiomaSelected = value;
                 Traducciones.Clear();
-                _idiomaSelected.Traducciones.ToList().ForEach(x=> Traducciones.Add(x));
+                _idiomaSelected.Traducciones.ToList().ForEach(x => Traducciones.Add(x));
             }
         }
 
@@ -41,7 +42,8 @@ namespace LicitProd.UI.Uwp.Pages.Settings
             LoadData();
         }
 
-        private async void LoadData() {
+        private async void LoadData()
+        {
             (await (new IdiomasRepository()
                 .Get())).Success(x =>
                 {
@@ -57,7 +59,7 @@ namespace LicitProd.UI.Uwp.Pages.Settings
                     }, null);
 
                 });
-                
+
         }
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
@@ -65,14 +67,28 @@ namespace LicitProd.UI.Uwp.Pages.Settings
 
         }
 
-        private void CancelButton_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
 
         private void Idioma_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
+        }
+
+
+        private void ApbCancel_OnClick(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ApbAccept_OnClick(object sender, RoutedEventArgs e)
+        {
+            MessageDialogService.Create("¿Desea salvar todos los cambios realizados en los idiomas?", async command =>
+                {
+                    foreach (var idioma in Idiomas)
+                    {
+                        await new IdiomasRepository()
+                            .UpdateDataAsync(idioma.Idioma);
+                    }
+                });
         }
     }
 }

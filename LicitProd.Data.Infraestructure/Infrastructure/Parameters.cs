@@ -21,6 +21,11 @@ namespace LicitProd.Data.Infrastructure.Infrastructure
             _parameters.Add(new Parameter(key, value, type));
             return new Parameters(_parameters); ;
         }
+        public Parameters Add(string key, int value, SqlDbType type)
+        {
+            _parameters.Add(new Parameter(key, value.ToString(), type));
+            return new Parameters(_parameters); ;
+        }
         public Parameters Add(string key, DateTime value)
         {
             _parameters.Add(new Parameter(key, value.ToString(), SqlDbType.DateTime));

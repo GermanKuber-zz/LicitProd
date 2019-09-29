@@ -89,12 +89,13 @@ namespace LicitProd.Data.Infrastructure.Objects
                                 Type enumToAdd = default;
                                 if (prop.PropertyType.IsEnum)
                                     enumToAdd = Enum.GetUnderlyingType(prop.PropertyType);
-
+                                if (!string.IsNullOrWhiteSpace(x.ColumnName))
+                                    columnName = x.ColumnName;
 
                                 if (enumToAdd != null)
-                                    parameters.Add(prop.Name, typse.ToString(), x.SqlDbType);
+                                    parameters.Add(columnName, typse.ToString(), x.SqlDbType);
                                 else if (!x.IsPrimaryKey && !x.IsIgnore)
-                                    parameters.Add(prop.Name, (dynamic)typse, x.SqlDbType);
+                                    parameters.Add(columnName, (dynamic)typse, x.SqlDbType);
 
                             })
                             .Error(e =>

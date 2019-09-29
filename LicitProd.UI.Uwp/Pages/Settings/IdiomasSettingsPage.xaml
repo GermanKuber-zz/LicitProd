@@ -45,11 +45,19 @@
             RowDetailsTemplate="{StaticResource RowDetailsTemplate}"
             RowDetailsVisibilityMode="Collapsed"
             SelectionMode="Extended"
+            
             RowGroupHeaderPropertyNameAlternative="Range" Margin="0,79,0,0">
             <controls:DataGrid.Columns>
-                <controls:DataGridTextColumn Header="Key" Binding="{Binding Key}" Width="250"  />
+                <controls:DataGridTextColumn  Header="Key" Binding="{Binding KeyValue}" Width="250"  />
                 <controls:DataGridTextColumn Header="Traduccion" Binding="{Binding Traduccion}" />
             </controls:DataGrid.Columns>
         </controls:DataGrid>
+
     </Grid>
+    <Page.BottomAppBar>
+        <CommandBar IsOpen="False" >
+            <AppBarButton Name="ApbAccept" Icon="Save" Label="Guardar" Click="ApbAccept_OnClick"/>
+            <AppBarButton Name="ApbCancel" Icon="Cancel" Label="Cancelar" Click="ApbCancel_OnClick"/>
+        </CommandBar>
+    </Page.BottomAppBar>
 </Page>

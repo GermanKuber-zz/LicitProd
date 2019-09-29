@@ -23,7 +23,15 @@ namespace LicitProd.Data.Repositories
                             });
                     });
             });
-
+        }
+        public async Task<Response<Idioma>> UpdateDataAsync(Idioma idioma)
+        {
+            var traduccionesRepository = new TraduccionesRepository();
+            foreach (var traduccion in idioma.Traducciones)
+            {
+                await traduccionesRepository.UpdateDataAsync(traduccion);
+            }
+            return Response<Idioma>.Ok(idioma);
         }
     }
 }
