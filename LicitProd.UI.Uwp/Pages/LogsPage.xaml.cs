@@ -1,14 +1,10 @@
 ﻿using LicitProd.Data.Repositories;
 using LicitProd.Entities;
 using LicitProd.UI.Uwp.Services;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
 using System.Threading.Tasks;
 using Windows.UI.Popups;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Data;
-using LicitProd.Mappers;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 

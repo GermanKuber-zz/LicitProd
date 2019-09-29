@@ -1,5 +1,4 @@
-﻿using LicitProd.Data;
-using LicitProd.Entities;
+﻿using LicitProd.Entities;
 using System;
 using System.Data;
 using LicitProd.Data.Infrastructure;

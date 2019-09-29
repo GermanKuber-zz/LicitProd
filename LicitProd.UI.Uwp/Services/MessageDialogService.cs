@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Threading.Tasks;
 using Windows.UI.Core;
 using Windows.UI.Popups;
-using LicitProd.Mappers;
 
 namespace LicitProd.UI.Uwp.Services
 {

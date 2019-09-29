@@ -1,7 +1,5 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
-using System.Threading;
-using LicitProd.Infrastructure;
 
 namespace LicitProd.Entities
 {

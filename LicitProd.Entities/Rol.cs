@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace LicitProd.Entities
+﻿namespace LicitProd.Entities
 {
     public class Rol : Permission
     {

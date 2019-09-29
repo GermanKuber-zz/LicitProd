@@ -2,7 +2,6 @@
 using LicitProd.UI.Uwp.Pages.Concursos;
 using LicitProd.UI.Uwp.Services;
 using System.Linq;
-using System.Net.Mime;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Animation;

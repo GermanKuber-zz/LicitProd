@@ -6,7 +6,6 @@ using Windows.UI.Xaml.Controls;
 using LicitProd.Data.Repositories;
 using LicitProd.Entities;
 using LicitProd.UI.Uwp.Services;
-using Microsoft.UI.Xaml.Controls;
 using TreeViewNode = Microsoft.UI.Xaml.Controls.TreeViewNode;
 using LicitProd.Services;
 
