@@ -5,32 +5,6 @@ using LicitProd.Infrastructure;
 
 namespace LicitProd.Entities
 {
-    public enum DigitoVerificadorTablasEnum
-    {
-        Concursos
-    }
-
-    public class DigitoVerificadorVertical : Entity
-    {
-        public string Digito { get; set; }    
-        public DigitoVerificadorTablasEnum Tabla { get; set; }
-
-        public DigitoVerificadorVertical(string digito, DigitoVerificadorTablasEnum tabla)
-        {
-            Digito = digito;
-            Tabla = tabla;
-        }
-
-        public DigitoVerificadorVertical()
-        {
-                
-        }
-    }
-
-    public class ConcursoVerificable : Verificable
-    {
-    }
-
     public  class Verificable : Entity
     {
         private string _hash;

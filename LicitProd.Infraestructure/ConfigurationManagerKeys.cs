@@ -17,9 +17,4 @@ namespace LicitProd.Infrastructure
             return _configuration;
         }
     }
-
-    public class Configuration
-    {
-        public string ConnectionString { get; set; }
-    }
 }

@@ -1,9 +1,5 @@
 ﻿namespace LicitProd.Entities
 {
-    public enum ProveedorStatus
-    {
-    }
-
     public class Proveedor : Entity
     {
         public string Celular { get; set; }

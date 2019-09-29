@@ -120,7 +120,7 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Converters\DateTimeToDateTimeOfSetConverter.cs" />
-    <Compile Include="Pages\Concursos\CrearConcursoPage.xaml.cs">
+    <Compile Include="Pages\Concursos\CrearConcurso.cs">
       <DependentUpon>CrearConcursoPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\Concursos\ListConcursos.xaml.cs">
@@ -145,6 +145,8 @@
     <Compile Include="Pages\Permisos\AdminPermisos.xaml.cs">
       <DependentUpon>AdminPermisos.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\Permisos\TreeViewNodeCustom.cs" />
+    <Compile Include="Pages\Proveedores\EnumToStringConverter.cs" />
     <Compile Include="Pages\Proveedores\ListProveedores.xaml.cs">
       <DependentUpon>ListProveedores.xaml</DependentUpon>
     </Compile>
@@ -153,6 +155,8 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\LoadingService.cs" />
+    <Compile Include="Services\MessageDialogService.cs" />
+    <Compile Include="Services\NavigationService.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">

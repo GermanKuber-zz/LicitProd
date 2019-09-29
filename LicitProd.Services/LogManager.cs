@@ -4,19 +4,6 @@ using LicitProd.Seguridad;
 
 namespace LicitProd.Services
 {
-
-
-
-    public static class LenguajeLogin
-    {
-   
-        public static string CancelButtonLabel { get; set; } = "Cancel";
-    }
-    public class LenguajeService
-    {
-
-
-    }
     public class LogManager
     {
         private readonly LogRepository _logRepository;
