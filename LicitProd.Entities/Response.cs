@@ -54,7 +54,7 @@ namespace LicitProd.Entities
                 var returnValue = default(TResult);
                 Task.Run(async () =>
                 {
-                    returnValue = await callback(Result); ;
+                    returnValue = await callback(Result);
                 }).Wait();
                 return returnValue;
             }

@@ -4,7 +4,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:converters="using:LicitProd.UI.Uwp.Converters"
-    x:Class="LicitProd.UI.Uwp.Pages.CrearConcurso"
+    x:Class="LicitProd.UI.Uwp.Pages.Concursos.CrearConcurso"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
     <Page.Resources>

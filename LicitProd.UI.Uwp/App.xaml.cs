@@ -6,6 +6,7 @@ using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
+using LicitProd.Data.Infrastructure.DataBase;
 
 namespace LicitProd.UI.Uwp
 {
@@ -31,6 +32,7 @@ namespace LicitProd.UI.Uwp
         /// <param name="e">Details about the launch request and process.</param>
         protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
+            new Migrations().Run();
             Frame rootFrame = Window.Current.Content as Frame;
             this.UnhandledException += App_UnhandledException; ;
             // Do not repeat app initialization when the Window already has content,

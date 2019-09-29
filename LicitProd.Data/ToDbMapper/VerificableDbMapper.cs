@@ -3,20 +3,18 @@ using LicitProd.Entities;
 
 namespace LicitProd.Data.ToDbMapper
 {
-    public class ConcursoDbMapper : ObjectToDbMapper<Concurso>
+    public class VerificableDbMapper : ObjectToDbMapper<ConcursoVerificable>
     {
-        public ConcursoDbMapper() : base("Concursos")
+        public VerificableDbMapper() : base("Concursos")
         {
         }
         protected override void Map()
         {
             Set(x => x.Id)
-               .PrimaryKey();
+                .PrimaryKey();
             Set(x => x.IsValid)
                 .Ignore();
 
         }
     }
 }
-
-

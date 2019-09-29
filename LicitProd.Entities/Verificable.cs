@@ -25,16 +25,20 @@ namespace LicitProd.Entities
         {
                 
         }
-
     }
+
+    public class ConcursoVerificable : Verificable
+    {
+    }
+
     public  class Verificable : Entity
     {
         private string _hash;
 
         public string Hash
         {
-            get { return GenerateHash(); }
-            set { _hash = value; }
+            get => GenerateHash();
+            set => _hash = value;
         }
 
         public virtual string GenerateHash()

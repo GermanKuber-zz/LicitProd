@@ -2,6 +2,7 @@
 
 namespace LicitProd.Services.Integration.Tests
 {
+
     public class BackupServicesShould : IntegrationTestsBase
     {
         private BackupServices _sut;

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using LicitProd.Data.Infrastructure.Infrastructure;
@@ -19,14 +20,24 @@ namespace LicitProd.Data.Repositories
         public async Task<Concurso> Insert(Concurso concurso)
         {
             await SqlAccessService.InsertDataAsync(concurso);
-            (await new GenericRepository<Verificable>().GetAsync())
+            await new DigitoVerificadorRepository().Validate<ConcursoVerificable>(
+                DigitoVerificadorTablasEnum.Concursos);
+            return concurso;
+        }
+    }
+
+    public class DigitoVerificadorRepository
+    {
+        public async Task Validate<TEntity>(DigitoVerificadorTablasEnum tabla) where TEntity : Verificable, IEntityToDb, new()
+        {
+            (await new GenericRepository<TEntity>().GetAsync())
                 .Success(async x =>
                 {
                     var hasService = new HashService();
                     var codigoVerificador = hasService.Hash(string.Join("", x.Select(s => hasService.Hash(s.Hash))));
                     var digitoVerificadorRepository = new GenericRepository<DigitoVerificadorVertical>();
                     (await digitoVerificadorRepository.GetAsync(
-                        new Parameters().Add(nameof(DigitoVerificadorVertical.Tabla), "Concursos")))
+                            new Parameters().Add(nameof(tabla), tabla.ToString())))
                         .Success(async verificadorVertical =>
                         {
                             var valid = verificadorVertical.First();
@@ -35,12 +46,39 @@ namespace LicitProd.Data.Repositories
                         })
                         .Error(async erros =>
                         {
-                             await digitoVerificadorRepository.InsertDataAsync(new DigitoVerificadorVertical(codigoVerificador,
+                            await digitoVerificadorRepository.InsertDataAsync(new DigitoVerificadorVertical(codigoVerificador,
                                 DigitoVerificadorTablasEnum.Concursos));
                         });
                 });
+        }
 
-            return concurso;
+        public async Task<Response<bool>> IsValid<TEntity>(DigitoVerificadorTablasEnum tabla) where TEntity : Verificable, IEntityToDb, new()
+        {
+            return await CallVarificables<TEntity>(tabla, (vertical, codigoVerificador) =>
+            {
+                if (vertical.Digito == codigoVerificador)
+                    return Task.FromResult(Response<bool>.Ok(true));
+                return Task.FromResult(Response<bool>.Error());
+            }, errors => Task.FromResult(Response<bool>.Error(errors)));
+        }
+
+        private async Task<Response<bool>> CallVarificables<TEntity>(DigitoVerificadorTablasEnum tabla,
+            Func<DigitoVerificadorVertical, string, Task<Response<bool>>> successCall,
+            Func<List<string>, Task<Response<bool>>> errorCall
+        ) where TEntity : Verificable, IEntityToDb, new()
+        {
+            return (await new GenericRepository<TEntity>().GetAsync())
+                .Success(async x =>
+                {
+                    var hasService = new HashService();
+                    var codigoVerificador = hasService.Hash(string.Join("", x.Select(s => hasService.Hash(s.Hash))));
+                    var digitoVerificadorRepository = new GenericRepository<DigitoVerificadorVertical>();
+                    return (await digitoVerificadorRepository.GetAsync(
+                            new Parameters().Add(nameof(tabla), tabla.ToString())))
+                        .Success(async verificadorVertical => await successCall(verificadorVertical.First(), codigoVerificador))
+                        .Error(async g => await errorCall(g));
+                });
+
         }
     }
 }

@@ -135,7 +135,7 @@ namespace LicitProd.Data.Infrastructure.Infrastructure
             return id;
         }
         public async Task UpdateDataAsync(TEntity entity) =>
-            await UpdateDataAsync(_objectToDbMapper.GetParameters(entity), new Parameters().Add(nameof(entity.Id), entity.Id));
+            await UpdateAsync(_objectToDbMapper.GetParameters(entity), new Parameters().Add(nameof(entity.Id), entity.Id));
         public async Task<int> InsertDataAsync(TEntity entity, Parameters parameters)
         {
             if (parameters == null)
@@ -146,7 +146,20 @@ namespace LicitProd.Data.Infrastructure.Infrastructure
             entity.Id = id;
             return id;
         }
-        public async Task UpdateDataAsync(Parameters parameters, Parameters where = default)
+        public async Task DeleteAsync(Parameters where = default)
+        {
+
+            string query = $"DELETE  FROM dbo.{_dataTableName}";
+
+            if (where != null)
+                query = string.Concat(query, " WHERE ", string.Join(" AND ", where.Send().Select(x => $"{x.ColumnName}=@{x.ColumnName}")));
+
+            var parametersToAdd = new List<Parameter>();
+            if (where != null)
+                parametersToAdd.AddRange(where.Send());
+            await ExcecuteQueryAsync(query, parametersToAdd);
+        }
+        public async Task UpdateAsync(Parameters parameters, Parameters where = default)
         {
             var parametersToAdd = parameters.Send();
             string query = $"UPDATE  dbo.{_dataTableName} SET {string.Join(",", parametersToAdd.Select(value => $"{value.ColumnName} = @{value.ColumnName}").ToList())}";
