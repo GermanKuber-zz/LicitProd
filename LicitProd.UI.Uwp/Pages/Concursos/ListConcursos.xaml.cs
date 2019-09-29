@@ -2,6 +2,7 @@
 using LicitProd.Entities;
 using LicitProd.UI.Uwp.Services;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Controls;
 
@@ -19,21 +20,20 @@ namespace LicitProd.UI.Uwp.Pages.Concursos
         }
         private async Task LoadDataAsync()
         {
-            var concursoResponse = (await new ConcursosRepository().Get());
-           if (concursoResponse.SuccessResult)
-            {
-                concursoResponse.Result?.ForEach(x => Concursos.Add(x));
-                LoadingService.LoadingStop();
-
-            }
-           else
+            (await new ConcursosRepository().Get())
+           .Success(concursos =>
            {
-               MessageDialogService.Create("No hay concursos", c =>
+               concursos?.ForEach(x=> Concursos.Add(x));
+               LoadingService.LoadingStop();
+           })
+           .Error(async x =>
+           {
+               MessageDialogService.Create(x.First(), c =>
                {
                    LoadingService.LoadingStop();
-                   NavigationService.NavigatePop<Dashboard>();
+                   NavigationService.Close();
                }, null);
-            }
+           });
         }
         public void Group()
         {

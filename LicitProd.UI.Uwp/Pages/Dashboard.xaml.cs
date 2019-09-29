@@ -20,19 +20,11 @@ namespace LicitProd.UI.Uwp.Pages
         private async Task LoadDataAsync()
         {
             (await new ConcursosRepository().Get())
-           .Success(concursos =>
-           {
-               concursos?.ForEach(x => Concursos.Add(x));
-               LoadingService.LoadingStop();
-           })
-           .Error(async x =>
-           {
-               MessageDialogService.Create("No hay concursos", c =>
-               {
-                   LoadingService.LoadingStop();
-                   NavigationService.NavigatePop<Dashboard>();
-               }, null);
-           });
+                .Success(concursos =>
+                {
+                    concursos?.ForEach(x => Concursos.Add(x));
+                    LoadingService.LoadingStop();
+                });
         }
         public void Group()
         {

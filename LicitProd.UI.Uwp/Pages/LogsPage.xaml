@@ -15,11 +15,10 @@
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal" Margin="12">
             <TextBlock Text="Logs" VerticalAlignment="Center" Margin="5,0" Style="{ThemeResource SubtitleTextBlockStyle}"></TextBlock>
-         
         </StackPanel>
         <controls:DataGrid
             ItemsSource="{x:Bind Logs }"
-      Grid.Row="1"
+           Grid.Row="1"
         x:Name="dataGrid"
         Margin="12"
         VerticalAlignment="Stretch" HorizontalAlignment="Stretch"

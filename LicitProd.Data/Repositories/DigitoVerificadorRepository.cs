@@ -52,27 +52,23 @@ namespace LicitProd.Data.Repositories
             Func<List<string>, Task<Response<bool>>> errorCall
         ) where TEntity : Verificable, IEntityToDb, new()
         {
-            return (await new GenericRepository<TEntity>().GetAsync())
-                .Success2(async x =>
-                {
-                    var hasService = new HashService();
-                    var codigoVerificador = hasService.Hash(string.Join("", x.Select(s => hasService.Hash(s.Hash))));
-                    var digitoVerificadorRepository = new GenericRepository<DigitoVerificadorVertical>();
-                    return (await digitoVerificadorRepository.GetAsync(
-                            new Parameters().Add(nameof(tabla), tabla.ToString())))
-                        .Success(async verificadorVertical =>
-                        {
-                            return await successCall(verificadorVertical.First(), codigoVerificador);
-                        })
-                        .Error(async errors =>
-                        {
-                            await errorCall(errors);
-                        });
-                }).Error(async errors=>
-                {
-                    await errorCall(errors);
-                });
-
+            var returnValue = Response<bool>.Ok(true);
+            (await new GenericRepository<TEntity>().GetAsync())
+               .Success2(async x =>
+               {
+                   var hasService = new HashService();
+                   var codigoVerificador = hasService.Hash(string.Join("", x.Select(s => hasService.Hash(s.Hash))));
+                   var digitoVerificadorRepository = new GenericRepository<DigitoVerificadorVertical>();
+                   returnValue = (await digitoVerificadorRepository.GetAsync(
+                           new Parameters().Add(nameof(tabla), tabla.ToString())))
+                       .Success(async verificadorVertical =>
+                       {
+                           return await successCall(verificadorVertical.First(), codigoVerificador);
+                       })
+                       .Error(async errors => { await errorCall(errors); });
+                   return returnValue;
+               });
+            return returnValue;
         }
     }
 }

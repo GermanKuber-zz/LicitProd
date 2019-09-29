@@ -1,0 +1,55 @@
+﻿<Page
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:LicitProd.UI.Uwp.Pages.Settings"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+
+    x:Class="LicitProd.UI.Uwp.Pages.Settings.IdiomasSettingsPage"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Vertical" >
+            <RelativePanel>
+                <ComboBox
+                    ItemsSource="{x:Bind Idiomas}"
+                    SelectedItem="{x:Bind IdiomaSelected, Mode=TwoWay}"
+                    DisplayMemberPath="Idioma.Nombre"
+                    Header="Idiomas" PlaceholderText="Idiomas" Margin="24,24,10,20"  Width="300" >
+                </ComboBox>
+            </RelativePanel>
+        </StackPanel>
+        <controls:DataGrid
+            ItemsSource="{x:Bind Traducciones, Mode=TwoWay }"
+            HorizontalScrollBarVisibility="Visible"
+            VerticalScrollBarVisibility="Visible"
+            AlternatingRowBackground="Transparent"
+            AlternatingRowForeground="Gray"
+            AreRowDetailsFrozen="False"
+            AreRowGroupHeadersFrozen="True"
+            AutoGenerateColumns="False"
+            CanUserSortColumns="False"
+            CanUserReorderColumns="True"
+            CanUserResizeColumns="True"
+            ColumnHeaderHeight="32"
+            MaxColumnWidth="400"
+            GridLinesVisibility="None"
+            HeadersVisibility="Column"
+            IsReadOnly="false"            
+            RowDetailsTemplate="{StaticResource RowDetailsTemplate}"
+            RowDetailsVisibilityMode="Collapsed"
+            SelectionMode="Extended"
+            RowGroupHeaderPropertyNameAlternative="Range" Margin="0,79,0,0">
+            <controls:DataGrid.Columns>
+                <controls:DataGridTextColumn Header="Key" Binding="{Binding Key}" Width="250"  />
+                <controls:DataGridTextColumn Header="Traduccion" Binding="{Binding Traduccion}" />
+            </controls:DataGrid.Columns>
+        </controls:DataGrid>
+    </Grid>
+</Page>

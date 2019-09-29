@@ -153,6 +153,10 @@
     <Compile Include="Pages\Proveedores\NewProveedor.xaml.cs">
       <DependentUpon>NewProveedor.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\Settings\IdiomasSettingsPage.xaml.cs">
+      <DependentUpon>IdiomasSettingsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Settings\IdiomaViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\LoadingService.cs" />
     <Compile Include="Services\MessageDialogService.cs" />
@@ -221,6 +225,10 @@
     <Page Include="Pages\Proveedores\NewProveedor.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Settings\IdiomasSettingsPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <ItemGroup>

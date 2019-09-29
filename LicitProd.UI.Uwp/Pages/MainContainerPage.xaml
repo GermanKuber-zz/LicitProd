@@ -9,10 +9,8 @@
     x:Class="LicitProd.UI.Uwp.Pages.MainContainerPage"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-
-    
-    <NavigationView x:Name="nvSample"
-                        IsSettingsVisible="True"
+    <NavigationView
+        IsSettingsVisible="True"
                         SelectionChanged="NvSample_SelectionChanged"
                         Header="Header"
                         AlwaysShowHeader="True"
@@ -26,7 +24,6 @@
                             <SymbolIcon Symbol="OtherUser" />
                         </StackPanel>
                     </Button>
-
                 </StackPanel>
             </DataTemplate>
         </NavigationView.HeaderTemplate>
@@ -40,6 +37,7 @@
             <NavigationViewItem Content="Registrar Proveedor" Tag="SamplePage3" x:Name="RegistrarProveedor" Icon="Bold"/>
             <NavigationViewItem Content="Listar Proveedores" Tag="SamplePage3" x:Name="ListarProveedores" Icon="Bold"/>
             <NavigationViewItem Content="Administrar Permisos" Tag="SamplePage3" x:Name="AdminPermisos" Icon="Bold"/>
+            <NavigationViewItem Content="Administrar Idiomas" Tag="SamplePage3" x:Name="AdminIdiomas" Icon="Flag"/>
 
 
 </NavigationView.MenuItems>

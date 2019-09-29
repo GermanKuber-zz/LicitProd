@@ -1,12 +1,18 @@
-﻿using LicitProd.Services;
+﻿using System.Collections.Generic;
+using LicitProd.Services;
 using LicitProd.UI.Uwp.Pages.Concursos;
 using LicitProd.UI.Uwp.Services;
 using System.Linq;
+using System.Reflection;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Animation;
+using LicitProd.Entities;
+using LicitProd.Seguridad;
 using LicitProd.UI.Uwp.Pages.Permisos;
 using LicitProd.UI.Uwp.Pages.Proveedores;
+using LicitProd.UI.Uwp.Pages.Settings;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -38,7 +44,20 @@ namespace LicitProd.UI.Uwp.Pages
             {
                 Application.Current.Exit();
             });
+       
+            
+            this.Loaded += OnLoaded;
+        }
 
+        private void OnLoaded(object sender, RoutedEventArgs e)
+        {
+            IdentityServices.Instance.IsLoggued()
+                .Success(x => ApplyPermissions(x.Rol));
+            TranslationService.Subscribe(trans => ChangeLanguage(trans));
+            TranslationService.GetTranslation()
+                .Success(x => ChangeLanguage(x));
+
+           FindChildren(new List<TextBox>(), this);
         }
 
         private void NvSample_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
@@ -75,13 +94,48 @@ namespace LicitProd.UI.Uwp.Pages
                         case "AdminPermisos":
                             NavigationService.Navigate<AdminPermisos>();
                             break;
+                        case "AdminIdiomas":
+                            NavigationService.Navigate<IdiomasSettingsPage>();
+                            break;
+                            
                         default:
                             break;
                     }
                 }
             }
         }
-
+        public  void ApplyPermissions(Rol rol)
+        {
+        }
+        public void ChangeLanguage(Translations translation)
+        {
+            //translation.TranslationList.ForEach(x =>
+            //{
+            //    var controls = Controls.Find(x.Key, true);
+            //    foreach (var control in controls)
+            //    {
+            //        if (control is Label)
+            //            control.Text = x.Value;
+            //        if (control is Button)
+            //            control.Text = x.Value;
+            //    }
+            //});
+        }
+         private void FindChildren<T>(List<T> results, DependencyObject startNode)
+            where T : DependencyObject
+        {
+            int count = VisualTreeHelper.GetChildrenCount(startNode);
+            for (int i = 0; i < count; i++)
+            {
+                DependencyObject current = VisualTreeHelper.GetChild(startNode, i);
+                if ((current.GetType()).Equals(typeof(T)) || (current.GetType().GetTypeInfo().IsSubclassOf(typeof(T))))
+                {
+                    T asType = (T)current;
+                    results.Add(asType);
+                }
+                FindChildren<T>(results, current);
+            }
+        }
         private void Button_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
             new UsuarioService().Logout();

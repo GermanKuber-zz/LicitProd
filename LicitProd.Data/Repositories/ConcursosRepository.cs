@@ -8,17 +8,17 @@ namespace LicitProd.Data.Repositories
     {
         public new async Task<Response<List<Concurso>>> Get()
         {
-           return (await GetAsync()).Success(concursos =>
-            {
-                var finalResponse = Response<List<Concurso>>.Ok(concursos);
+            return (await GetAsync()).Success(concursos =>
+             {
+                 var finalResponse = Response<List<Concurso>>.Ok(concursos);
 
-                concursos?.ForEach(c =>
-                {
-                    if (!c.IsValid)
-                        finalResponse = Response<List<Concurso>>.Error("Concursos corrompidos");
-                });
-                return finalResponse;
-            });
+                 concursos?.ForEach(c =>
+                 {
+                     if (!c.IsValid)
+                         finalResponse = Response<List<Concurso>>.Error("Concursos corrompidos");
+                 });
+                 return finalResponse;
+             });
 
         }
 

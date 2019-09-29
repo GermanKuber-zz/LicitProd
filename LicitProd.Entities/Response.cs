@@ -75,7 +75,7 @@ namespace LicitProd.Entities
         {
             if (SuccessResult)
             {
-                var returnValue = default( Response<TResult>);
+                var returnValue = default(Response<TResult>);
                 Task.Run(async () =>
                 {
                     returnValue = await callback(Result);
@@ -83,11 +83,12 @@ namespace LicitProd.Entities
                 return returnValue;
             }
             else
-                if (errorDefaultValueCallback != null)
+            if (errorDefaultValueCallback != null)
                 return errorDefaultValueCallback.Invoke();
             else
                 return Response<TResult>.Error(Errors);
         }
+
         public TResult Map<TResult>(Func<TResponse, TResult> callbackSuccess, Func<List<string>, TResult> callbackError)
         {
             if (SuccessResult)
