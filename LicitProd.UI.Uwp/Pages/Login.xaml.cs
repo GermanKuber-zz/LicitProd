@@ -1,9 +1,12 @@
-﻿using LicitProd.Services;
+﻿using System;
+using System.ComponentModel;
+using LicitProd.Services;
 using System.Text.RegularExpressions;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using LicitProd.UI.Uwp.Services;
 using System.Threading.Tasks;
+using Windows.UI.Core;
 using LicitProd.Entities;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
@@ -48,38 +51,66 @@ namespace LicitProd.UI.Uwp.Pages
         private async void BtnLogin_Click(object sender, RoutedEventArgs e)
         {
             Loading.IsLoading = true;
+            var consistency = await ValidateConsistency();
 
-            (await ValidateConsistency()).Success(async s =>
+            if (consistency.SuccessResult)
             {
+                var result = (await new UsuarioService().LoginAsync("german.kuber@outlook.com"));
 
-#if !DEBUG
-                        if (validEmailRegex.IsMatch(txtEmail.Text))
-                        {
-#endif
-                (await new UsuarioService()
-#if DEBUG
-                             .LoginAsync("german.kuber@outlook.com"))
-#else
-                             .Login(txtEmail.Text, txtPassword.Text)
-#endif
-                             .Success(usuario =>
-                             {
-                                 this.Frame.Navigate(typeof(MainContainerPage));
+                if (result.SuccessResult)
+                {
+                    await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(
+                        CoreDispatcherPriority.Normal,
+                        () => Frame.Navigate(typeof(MainContainerPage)));
+                }
+                else
+                {
+                    MessageDialogService.Create("Verifique los datos ingresados!!");
+                }
 
-                             })
-                     .Error(errors =>
-                     {
-                         MessageDialogService.Create("Verifique los datos ingresados!!");
-                     });
-#if !DEBUG
-                        }
-                        else
-                        {
-                            MessageBox.Show("No ingreso un email valido", "Error!");
-                            return;
-                        }
-#endif
-            });
+            }
+            //().Success(async s =>
+            //{
+
+
+
+
+
+            //#if !DEBUG
+            //                        if (validEmailRegex.IsMatch(txtEmail.Text))
+            //                        {
+            //#endif
+            //                (await new UsuarioService()
+            //#if DEBUG
+            //                             .LoginAsync("german.kuber@outlook.com"))
+            //#else
+            //                             .Login(txtEmail.Text, txtPassword.Text)
+            //#endif
+            //                             .Success(usuario =>
+            //                             {
+
+            //                                 Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+            //                                     () =>
+            //                                     {
+            //                                         Frame.Navigate(typeof(MainContainerPage));
+
+            //                                     }
+            //                                 );
+
+            //                             })
+            //                     .Error(errors =>
+            //                     {
+            //                         MessageDialogService.Create("Verifique los datos ingresados!!");
+            //                     });
+            //#if !DEBUG
+            //                        }
+            //                        else
+            //                        {
+            //                            MessageBox.Show("No ingreso un email valido", "Error!");
+            //                            return;
+            //                        }
+            //#endif
+            //});
         }
 
         private void BtnCancel_Click(object sender, RoutedEventArgs e)

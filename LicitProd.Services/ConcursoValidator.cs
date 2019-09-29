@@ -15,9 +15,13 @@ namespace LicitProd.Services
         public ConcursoValidator()
         {
         }
-        public async Task<Response<string>> Validate()=>
-            await (await new DigitoVerificadorRepository().IsValid<ConcursoVerificable>(DigitoVerificadorTablasEnum
-                .Concursos)).Map(async b => await Task.FromResult(Response<string>.Ok("Concursos")),
-                async list => await Task.FromResult(Response<string>.Error("Concursos")));
+        public async Task<Response<string>> Validate()
+        {
+            var result = await new DigitoVerificadorRepository().IsValid<ConcursoVerificable>(DigitoVerificadorTablasEnum
+                  .Concursos);
+            if (result.SuccessResult)
+                return Response<string>.Ok("Concursos");
+            return Response<string>.Error("Concursos");
+        }
     }
 }

@@ -71,15 +71,22 @@ namespace LicitProd.Entities
                 return default(TResult);
         }
 
-        public TResult Success2<TResult>(Func<TResponse, TResult> callback, Func<TResult> errorDefaultValueCallback = null)
+        public Response<TResult> Success2<TResult>(Func<TResponse, Task<Response<TResult>>> callback, Func<Response<TResult>> errorDefaultValueCallback = null)
         {
             if (SuccessResult)
-                return callback(Result);
+            {
+                var returnValue = default( Response<TResult>);
+                Task.Run(async () =>
+                {
+                    returnValue = await callback(Result);
+                }).Wait();
+                return returnValue;
+            }
             else
                 if (errorDefaultValueCallback != null)
                 return errorDefaultValueCallback.Invoke();
             else
-                return default(TResult);
+                return Response<TResult>.Error(Errors);
         }
         public TResult Map<TResult>(Func<TResponse, TResult> callbackSuccess, Func<List<string>, TResult> callbackError)
         {

@@ -19,20 +19,21 @@ namespace LicitProd.UI.Uwp.Pages.Concursos
         }
         private async Task LoadDataAsync()
         {
-            (await new ConcursosRepository().Get())
-           .Success(concursos =>
-           {
-               concursos?.ForEach(x=> Concursos.Add(x));
-               LoadingService.LoadingStop();
-           })
-           .Error(async x =>
+            var concursoResponse = (await new ConcursosRepository().Get());
+           if (concursoResponse.SuccessResult)
+            {
+                concursoResponse.Result?.ForEach(x => Concursos.Add(x));
+                LoadingService.LoadingStop();
+
+            }
+           else
            {
                MessageDialogService.Create("No hay concursos", c =>
                {
                    LoadingService.LoadingStop();
                    NavigationService.NavigatePop<Dashboard>();
                }, null);
-           });
+            }
         }
         public void Group()
         {

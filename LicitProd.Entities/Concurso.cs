@@ -38,8 +38,8 @@ namespace LicitProd.Entities
             return HashValue(Status +
                              Presupuesto.ToString() + 
                              Nombre +
-                             FechaInicio +
-                             FechaApertura +
+                             FechaInicio.ToShortDateString() +
+                             FechaApertura.ToShortDateString()+
                              AdjudicacionDirecta +
                              Descripcion);
         }

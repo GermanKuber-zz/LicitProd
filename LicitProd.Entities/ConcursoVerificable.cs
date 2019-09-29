@@ -2,5 +2,9 @@
 {
     public class ConcursoVerificable : Verificable
     {
+        public ConcursoVerificable()
+        {
+            
+        }
     }
 }
