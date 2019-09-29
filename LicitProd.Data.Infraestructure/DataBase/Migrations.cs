@@ -20,11 +20,11 @@ namespace LicitProd.Data.Infrastructure.DataBase
             string creationSqlScript = Path.Combine(Directory.GetCurrentDirectory(), "Data", "Creation.sql");
             string script = string.Join(" ",File.ReadAllText(creationSqlScript));
 
-            _dataBaseManager.CallDataBase(cmd =>
-            {
-                cmd.CommandText = script;
-                return cmd.ExecuteNonQuery();
-            });
+            //_dataBaseManager.CallDataBase(cmd =>
+            //{
+            //    cmd.CommandText = script;
+            //    return cmd.ExecuteNonQuery();
+            //});
         }
     }
 }

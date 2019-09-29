@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Threading.Tasks;
+using Windows.UI.Core;
 using Windows.UI.Popups;
+using LicitProd.Mappers;
 
 namespace LicitProd.UI.Uwp.Services
 {
@@ -31,7 +34,8 @@ namespace LicitProd.UI.Uwp.Services
             messageDialog.CancelCommandIndex = 1;
 
             // Show the message dialog
-            messageDialog.ShowAsync();
+            Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+                () => { messageDialog.ShowAsync(); });
         }
 
 

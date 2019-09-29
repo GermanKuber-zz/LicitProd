@@ -2,6 +2,8 @@
 using LicitProd.UI.Uwp.Pages.Concursos;
 using LicitProd.UI.Uwp.Services;
 using System.Linq;
+using System.Net.Mime;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Animation;
 using LicitProd.UI.Uwp.Pages.Permisos;
@@ -32,6 +34,10 @@ namespace LicitProd.UI.Uwp.Pages
                     contentFrame.BackStack.Remove(contentFrame.BackStack.ElementAt(contentFrame.BackStack.Count - 1));
                 contentFrame.Navigate(page, new DrillInNavigationTransitionInfo());
 
+            },
+            () =>
+            {
+                Application.Current.Exit();
             });
 
         }

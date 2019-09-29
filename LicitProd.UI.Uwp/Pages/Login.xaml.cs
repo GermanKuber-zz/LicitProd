@@ -8,6 +8,7 @@ using LicitProd.Infrastructure;
 using LicitProd.UI.Uwp.Services;
 using System.Threading.Tasks;
 using LicitProd.Entities;
+using LicitProd.Mappers;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -28,17 +29,38 @@ namespace LicitProd.UI.Uwp.Pages
         public Login()
         {
             this.InitializeComponent();
+            //Task.Run(async () => await ValidateConsistency()).Wait();
+
+        }
+
+        public async Task<Response<string>> ValidateConsistency()
+        {
+            LoadingService.LoadingStart();
+            return (await new ConsistencyValidator().Validate())
+                .Error(errors =>
+               {
+
+                   MessageDialogService.Create("La base de datos se encuentra corrompida. Verifique con el administrador", c =>
+                   {
+                       LoadingService.LoadingStop();
+                       Application.Current.Exit();
+
+                   }, null);
+               });
         }
 
         private async void BtnLogin_Click(object sender, RoutedEventArgs e)
         {
             Loading.IsLoading = true;
 
+            (await ValidateConsistency()).Success(async s =>
+            {
+
 #if !DEBUG
                         if (validEmailRegex.IsMatch(txtEmail.Text))
                         {
 #endif
-            (await new UsuarioService()
+                (await new UsuarioService()
 #if DEBUG
                              .LoginAsync("german.kuber@outlook.com"))
 #else
@@ -49,10 +71,10 @@ namespace LicitProd.UI.Uwp.Pages
                                  this.Frame.Navigate(typeof(MainContainerPage));
 
                              })
-                 .Error(errors =>
-                 {
-                     MessageDialogService.Create("Verifique los datos ingresados!!");
-                 });
+                     .Error(errors =>
+                     {
+                         MessageDialogService.Create("Verifique los datos ingresados!!");
+                     });
 #if !DEBUG
                         }
                         else
@@ -61,6 +83,7 @@ namespace LicitProd.UI.Uwp.Pages
                             return;
                         }
 #endif
+            });
         }
 
         private void BtnCancel_Click(object sender, RoutedEventArgs e)
@@ -69,6 +92,6 @@ namespace LicitProd.UI.Uwp.Pages
 
         }
 
-      
+
     }
 }
