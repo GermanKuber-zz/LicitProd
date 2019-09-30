@@ -16,7 +16,7 @@ namespace LicitProd.UI.Uwp.Controls
 
         private void DoesNotHavePermissionCallback()
         {
-            this.Visibility = Visibility.Collapsed;
+            Visibility = Visibility.Collapsed;
         }
 
         private void ChangeLanguage(string value)

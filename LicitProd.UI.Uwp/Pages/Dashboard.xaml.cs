@@ -13,7 +13,7 @@ namespace LicitProd.UI.Uwp.Pages
         public string Titulo { get; set; } = "Lalalalallala";
         public Dashboard()
         {
-            this.InitializeComponent();
+            InitializeComponent();
             LoadingService.LoadingStart();
             LoadDataAsync();
         }

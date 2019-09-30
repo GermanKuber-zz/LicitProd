@@ -1,4 +1,5 @@
-﻿using LicitProd.Data.Infrastructure.Objects;
+﻿using System.Data;
+using LicitProd.Data.Infrastructure.Objects;
 using LicitProd.Entities;
 
 namespace LicitProd.Data.ToDbMapper
@@ -13,7 +14,12 @@ namespace LicitProd.Data.ToDbMapper
         {
             Set(x => x.Id).PrimaryKey();
             Set(x => x.Rol).Ignore();
-            Set(x => x.HashPassword).Column("Password");
+            Set(x => x.HashPassword)
+                .Column("Password")
+                .Type(SqlDbType.NVarChar);
+            Set(x => x.RolId)
+                .Column("Rol_Id");
+            
         }
     }
 }

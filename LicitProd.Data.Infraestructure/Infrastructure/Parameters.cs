@@ -10,7 +10,7 @@ namespace LicitProd.Data.Infrastructure.Infrastructure
 
         protected Parameters(List<Parameter> parameters)
         {
-            this._parameters = parameters;
+            _parameters = parameters;
         }
         public Parameters()
         {

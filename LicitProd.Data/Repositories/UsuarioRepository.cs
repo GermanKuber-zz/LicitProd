@@ -15,7 +15,7 @@ namespace LicitProd.Data.Repositories
         }
 
         public new Task<Response<List<Usuario>>> Get() =>
-                         base.GetAsync();
+                         GetAsync();
 
         public async Task<Response<Usuario>> GetUsuarioAsync(string email, string password) =>
             ReturnResult((await GetAsync(new Parameters()

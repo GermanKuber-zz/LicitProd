@@ -16,7 +16,7 @@ namespace LicitProd.UI.Uwp.Pages.Proveedores
             var @enum = value as Enum;
             var description = @enum.ToString();
 
-            var attrib = this.GetAttribute<DisplayAttribute>(@enum);
+            var attrib = GetAttribute<DisplayAttribute>(@enum);
             if (attrib != null)
             {
                 var resource = new ResourceLoader();

@@ -38,7 +38,7 @@ namespace LicitProd.UI.Uwp.Pages.Settings
 
         public IdiomasSettingsPage()
         {
-            this.InitializeComponent();
+            InitializeComponent();
             LoadingService.LoadingStart();
 
             LoadData();

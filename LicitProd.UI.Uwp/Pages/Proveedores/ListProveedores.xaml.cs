@@ -12,7 +12,7 @@ namespace LicitProd.UI.Uwp.Pages.Proveedores
         public ObservableCollection<Proveedor> Proveedores { get; set; } = new ObservableCollection<Proveedor>();
         public ListProveedores()
         {
-            this.InitializeComponent();
+            InitializeComponent();
             LoadingService.LoadingStart();
             LoadDataAsync();
         }

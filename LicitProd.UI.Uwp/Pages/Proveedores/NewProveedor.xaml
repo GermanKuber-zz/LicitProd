@@ -18,6 +18,8 @@
             <controls:TextBoxTranslatable TranslatableKey="NEW_PROVEEDOR_CELULAR"  Text="{x:Bind Mode=TwoWay, Path=Proveedor.Celular}"  Margin="10" TextWrapping="Wrap"  />
             <controls:TextBoxTranslatable TranslatableKey="NEW_PROVEEDOR_DIRECCION"  Text="{x:Bind Mode=TwoWay, Path=Proveedor.Direccion}"  Margin="10" TextWrapping="Wrap"/>
             <controls:TextBoxTranslatable TranslatableKey="NEW_PROVEEDOR_TELEFONO"  Text="{x:Bind Mode=TwoWay, Path=Proveedor.Telefono}"  Margin="10" TextWrapping="Wrap" />
+            <controls:TextBoxTranslatable TranslatableKey="EMAIL"  Text="{x:Bind Mode=TwoWay, Path=Email}"  Margin="10" TextWrapping="Wrap" />
+            <controls:TextBoxTranslatable TranslatableKey="PASSWORD"  Text="{x:Bind Mode=TwoWay, Path=Password}"  Margin="10" TextWrapping="Wrap" />
         </StackPanel>
     </Grid>
     <Page.BottomAppBar>

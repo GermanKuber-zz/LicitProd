@@ -1,6 +1,9 @@
-﻿using Windows.UI.Xaml;
+﻿using System.Linq;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using LicitProd.Data.Repositories;
 using LicitProd.Entities;
+using LicitProd.Seguridad;
 using LicitProd.Services;
 using LicitProd.UI.Uwp.Services;
 
@@ -8,21 +11,25 @@ using LicitProd.UI.Uwp.Services;
 
 namespace LicitProd.UI.Uwp.Pages.Proveedores
 {
-    /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
-    /// </summary>
+
     public sealed partial class NewProveedor : Page
     {
         public Proveedor Proveedor { get; set; } = new Proveedor();
+        public string Email { get; set; }
+        public string Password { get; set; }
+
         public NewProveedor()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         private async void BtnAccept_Click(object sender, RoutedEventArgs e)
         {
             LoadingService.LoadingStart();
-           
+
+            
+            var rol = (await new RolRepository().Get()).Result.FirstOrDefault(x => x.Nombre == "Proveedor");
+            Proveedor.Usuario = new Usuario(Email, new HashService().Hash(Password), rol);
 
             (await new ProveedoresServices().Registrar(Proveedor))
                 .Success(s =>

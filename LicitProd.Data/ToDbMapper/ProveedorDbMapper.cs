@@ -15,6 +15,12 @@ namespace LicitProd.Data.ToDbMapper
             Set(x => x.Status)
                 .Column("Status")
                 .Type(System.Data.SqlDbType.NVarChar);
+
+            Set(x => x.UsuarioId)
+                .Column("Usuario_Id");
+            
+            Set(x => x.Usuario)
+                .Ignore();
         }
     }
 }

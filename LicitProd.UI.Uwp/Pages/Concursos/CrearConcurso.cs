@@ -31,7 +31,7 @@ namespace LicitProd.UI.Uwp.Pages.Concursos
 
         public CrearConcurso()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         private void TxtPresupuesto_BeforeTextChanging(TextBox sender, TextBoxBeforeTextChangingEventArgs args)

@@ -7,6 +7,7 @@ using Windows.UI.Xaml.Controls;
 using LicitProd.Data.Repositories;
 using LicitProd.Entities;
 using LicitProd.Services;
+using LicitProd.UI.Uwp.Pages.Usuarios;
 using LicitProd.UI.Uwp.Services;
 
 
@@ -14,13 +15,14 @@ namespace LicitProd.UI.Uwp.Pages.Settings
 {
     public sealed partial class IdiomasNewPage : Page
     {
+        private PageUtilities _pageUtilities = new  PageUtilities();
         public ObservableCollection<TraduccionValue> Traducciones { get; set; } =
             new ObservableCollection<TraduccionValue>();
 
         public string NewIdiomaName { get; set; }
         public IdiomasNewPage()
         {
-            this.InitializeComponent();
+            InitializeComponent();
             LoadData();
         }
         private async void LoadData()
@@ -32,20 +34,12 @@ namespace LicitProd.UI.Uwp.Pages.Settings
                 {
                     x.ForEach(s => Traducciones.Add(s));
                     LoadingService.LoadingStop();
-                }).Error(errors => ShowMessageDialog(errors.First()));
+                }).Error(errors => _pageUtilities.ShowMessageDialog(errors.First()));
 
         }
 
-        private void ShowMessageDialog(string message, Action callBackSuccess = null)
-        {
-            MessageDialogService.Create(message, c =>
-            {
-                callBackSuccess?.Invoke();
-                LoadingService.LoadingStop();
-            }, null);
-
-        }
-        private void ApbCancel_OnClick(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+       
+        private void ApbCancel_OnClick(object sender, RoutedEventArgs e)
         {
             LoadingService.LoadingStart();
 
@@ -62,8 +56,8 @@ namespace LicitProd.UI.Uwp.Pages.Settings
 
             var newIdioma = new Idioma(NewIdiomaName, Traducciones.ToList());
             (await new IdiomaServices().Crear(newIdioma))
-                .Success(x => { ShowMessageDialog($"El idioma {newIdioma.Nombre} fue creado existosamente"); })
-                .Error(errors => { ShowMessageDialog(errors.First()); });
+                .Success(x => { _pageUtilities.ShowMessageDialog($"El idioma {newIdioma.Nombre} fue creado existosamente"); })
+                .Error(errors => { _pageUtilities.ShowMessageDialog(errors.First()); });
         }
     }
 }

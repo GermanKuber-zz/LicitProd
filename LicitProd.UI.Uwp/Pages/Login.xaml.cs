@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using LicitProd.Services;
 using System.Text.RegularExpressions;
@@ -8,6 +9,7 @@ using LicitProd.UI.Uwp.Services;
 using System.Threading.Tasks;
 using Windows.UI.Core;
 using Windows.UI.Xaml.Media.Animation;
+using LicitProd.Data.Repositories;
 using LicitProd.Entities;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
@@ -19,6 +21,8 @@ namespace LicitProd.UI.Uwp.Pages
     /// </summary>
     public sealed partial class Login : Page
     {
+        public ObservableCollection<Usuario> Usuarios { get; set; } = new ObservableCollection<Usuario>();
+        public Usuario UsuarioSelected { get; set; }
         private readonly Regex _validEmailRegex = new Regex(
                                       @"^(([^<>()[\]\\.,;:\s@\""]+"
                                       + @"(\.[^<>()[\]\\.,;:\s@\""]+)*)|(\"".+\""))@"
@@ -28,9 +32,15 @@ namespace LicitProd.UI.Uwp.Pages
                                       RegexOptions.Compiled);
         public Login()
         {
-            this.InitializeComponent();
+            InitializeComponent();
             //Task.Run(async () => await ValidateConsistency()).Wait();
+            LoadData();
+        }
 
+        private async Task LoadData()
+        {
+            (await new UsuarioRepository().Get())
+                .Success(users => users?.ForEach(x => Usuarios.Add(x)));
         }
 
         public async Task<Response<string>> ValidateConsistency()
@@ -56,7 +66,11 @@ namespace LicitProd.UI.Uwp.Pages
 
             if (consistency.SuccessResult)
             {
-                var result = (await new UsuarioService().LoginAsync("german.kuber@outlook.com"));
+                Response<Usuario> result;
+                if (UsuarioSelected != null)
+                    result = (await new UsuarioService().LoginAsync(UsuarioSelected.Email));
+                else
+                    result = (await new UsuarioService().LoginAsync(txtUser.Text, txtPassword.Password));
 
                 if (result.SuccessResult)
                 {
@@ -67,6 +81,8 @@ namespace LicitProd.UI.Uwp.Pages
                 else
                 {
                     MessageDialogService.Create("Verifique los datos ingresados!!");
+                    Loading.IsLoading = false;
+
                 }
 
             }

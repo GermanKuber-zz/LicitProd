@@ -8,12 +8,16 @@
     xmlns:controls1="using:LicitProd.UI.Uwp.Controls"
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:entities="using:LicitProd.Entities"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
         <StackPanel Orientation="Vertical">
             <controls:DataGrid
+                ItemsSource="{x:Bind Usuarios}"
+                SelectedItem="{x:Bind SelectedUsuario, Mode=TwoWay}"
+                SelectionChanged="DataGrid_OnSelectionChanged"
            Grid.Row="1"
         x:Name="dataGrid"
         Margin="12"
@@ -39,47 +43,32 @@
         SelectionMode="Extended"
         RowGroupHeaderPropertyNameAlternative="Range">
                 <controls:DataGrid.Columns>
-                    <controls1:DataGridTextColumnTranslatable TranslatableKey="LOGS_LIST_NOMBRE"  Binding="{Binding Nombre}" Tag="Rank" />
-                    <controls1:DataGridTextColumnTranslatable TranslatableKey="LOGS_LIST_DESCRIPCION"  Binding="{Binding Descripcion}" Tag="Rank" />
-                    <controls1:DataGridTextColumnTranslatable TranslatableKey="LOGS_LIST_TIPO" Binding="{Binding Type}" Tag="Rank" />
-                    <controls1:DataGridTextColumnTranslatable TranslatableKey="LOGS_LIST_FECHA"  Binding="{Binding Fecha}" Tag="Rank" />
+                    <controls1:DataGridTextColumnTranslatable Header="Email"  Binding="{Binding Email}" Tag="Rank" />
                 </controls:DataGrid.Columns>
             </controls:DataGrid>
-            <TextBlock x:Name="textBlock" TextWrapping="Wrap"><Run Text="Permisos"/><LineBreak/><Run/></TextBlock>
-            <muxc:TreeView x:Name="trvPermisos" SelectionMode="Multiple" >
+            <TextBlock Style="{ThemeResource SubtitleTextBlockStyle}"  Text="Permisos" Margin="10" ></TextBlock>
 
-            </muxc:TreeView>
+            <StackPanel BorderBrush="LightGray" BorderThickness="1" Margin="10">
+
+                <ListView x:Name="ListViewPermisos" CanDragItems="True" ItemsSource="{x:Bind Permisos, Mode=TwoWay}"  CanReorderItems="True" AllowDrop="True"
+    SelectionMode="Single">
+                    <ListView.ItemTemplate>
+                        <DataTemplate x:DataType="entities:Rol">
+                            <TextBlock Text="{x:Bind Nombre}"/>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+
+                </ListView>
+            </StackPanel>
         </StackPanel>
-        <Grid HorizontalAlignment="Center" Margin="5" Background="{ThemeResource CustomAcrylicInAppBrush}" RequestedTheme="Light">
-            <StackPanel Orientation="Vertical">
-                <StackPanel Orientation="Horizontal">
-                    <AppBarButton Style="{ThemeResource AppBarButtonRevealStyle}" Icon="World" Margin="1, 2, 0, 0"/>
-                    <AppBarButton Style="{ThemeResource AppBarButtonRevealStyle}" Icon="CellPhone" Margin="0, 2, 1, 0"/>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <AppBarButton Style="{ThemeResource AppBarButtonRevealStyle}" Icon="Delete" Margin="1, 2, 0, 2"/>
-                    <AppBarButton Style="{ThemeResource AppBarButtonRevealStyle}" Icon="Comment" Margin="0, 2, 1, 2"/>
-                </StackPanel>
-            </StackPanel>
-        </Grid>
 
-        <Grid HorizontalAlignment="Center" Margin="5" Background="{ThemeResource CustomAcrylicInAppBrush_dark}" RequestedTheme="Dark">
-            <StackPanel Orientation="Vertical">
-                <StackPanel Orientation="Horizontal">
-                    <AppBarButton Style="{ThemeResource AppBarButtonRevealStyle}" Icon="World" Margin="1, 2, 0, 0"/>
-                    <AppBarButton Style="{ThemeResource AppBarButtonRevealStyle}" Icon="CellPhone" Margin="0, 2, 1, 0"/>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <AppBarButton Style="{ThemeResource AppBarButtonRevealStyle}" Icon="Delete" Margin="1, 2, 0, 2"/>
-                    <AppBarButton Style="{ThemeResource AppBarButtonRevealStyle}" Icon="Comment" Margin="0, 2, 1, 2"/>
-                </StackPanel>
-            </StackPanel>
-        </Grid>
+
     </Grid>
     <Page.BottomAppBar >
         <CommandBar IsOpen="False"  >
-            <controls1:AppBarButtonTranslatable Style="{ThemeResource AppBarButtonRevealStyle}" Icon="Save" TranslatableKey="APPBAR_BUTTON_SALVAR"  Click="BtnAccept_Click"/>
+            <controls1:AppBarButtonTranslatable  Style="{ThemeResource AppBarButtonRevealStyle}" Icon="Save" TranslatableKey="APPBAR_BUTTON_SALVAR"  Click="BtnAccept_Click"/>
             <controls1:AppBarButtonTranslatable  Style="{ThemeResource AppBarButtonRevealStyle}" Icon="Cancel" TranslatableKey="APPBAR_BUTTON_CANCELAR" />
+            <controls1:AppBarButtonTranslatable  Style="{ThemeResource AppBarButtonRevealStyle}" Icon="Edit" Label="Editar" Click="ButtonBase_OnClick" />
         </CommandBar>
     </Page.BottomAppBar>
 </Page>

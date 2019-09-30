@@ -14,7 +14,7 @@ namespace LicitProd.UI.Uwp.Pages.Concursos
         public ObservableCollection<Concurso> Concursos { get; set; } = new ObservableCollection<Concurso>();
         public ListConcursos()
         {
-            this.InitializeComponent();
+            InitializeComponent();
             LoadingService.LoadingStart();
             LoadDataAsync();
         }

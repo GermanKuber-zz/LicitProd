@@ -9,7 +9,7 @@ namespace LicitProd.Infrastructure
 
         private Option(T[] content)
         {
-            this.Content = content;
+            Content = content;
         }
 
         public static Option<T> Some(T value) =>
@@ -19,7 +19,7 @@ namespace LicitProd.Infrastructure
             new Option<T>(new T[0]);
 
         public IEnumerator<T> GetEnumerator() =>
-            ((IEnumerable<T>)this.Content).GetEnumerator();
+            ((IEnumerable<T>)Content).GetEnumerator();
 
         IEnumerator IEnumerable.GetEnumerator() =>
                  GetEnumerator();

@@ -12,6 +12,7 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
     <NavigationView
         IsSettingsVisible="True"
+
                         SelectionChanged="NvSample_SelectionChanged"
                         Header="Header"
                         AlwaysShowHeader="True"
@@ -43,18 +44,17 @@
         <NavigationView.MenuItems>
             <controls:NavigationViewItemTranslatable TranslatableKey="PRINCIPAL_MENU_LEFT_DASHBOARD" Content="Dashboard" Tag="SamplePage1" x:Name="Dashboard" Icon="Page"/>
             <NavigationViewItemHeader Content="Actions"/>
-            <controls:NavigationViewItemTranslatable TranslatableKey="PRINCIPAL_MENU_LEFT_LOGS" PermissionKey="LISTAR_LOGS"  Tag="Logs"  x:Name="Logs" SelectsOnInvoked="True" Icon="Save"/>
-            <controls:NavigationViewItemTranslatable TranslatableKey="PRINCIPAL_MENU_LEFT_CREAR_CONCURSOS" Tag="SamplePage3" x:Name="CrearConcurso" Icon="NewFolder"/>
-            <controls:NavigationViewItemTranslatable TranslatableKey="PRINCIPAL_MENU_LEFT_LISTAR_CONCURSOS"  Tag="SamplePage3" x:Name="ListConcursos" Icon="Bold"/>
-            <controls:NavigationViewItemTranslatable TranslatableKey="PRINCIPAL_MENU_LEFT_REGISTRAR_PROVEEDOR"  Tag="SamplePage3" x:Name="RegistrarProveedor" Icon="Bold"/>
-            <controls:NavigationViewItemTranslatable TranslatableKey="PRINCIPAL_MENU_LEFT_LISTAR_PROVEEDOR" Tag="SamplePage3" x:Name="ListarProveedores" Icon="Bold"/>
-            <controls:NavigationViewItemTranslatable TranslatableKey="PRINCIPAL_MENU_LEFT_ADMINISTRAR_PERMISOS"  Tag="SamplePage3" x:Name="AdminPermisos" Icon="Bold"/>
-            <controls:NavigationViewItemTranslatable TranslatableKey="PRINCIPAL_MENU_LEFT_BACKUPS"  Tag="SamplePage3" x:Name="BackupsPage" Icon="Flag"/>
-            <controls:NavigationViewItemTranslatable TranslatableKey="PRINCIPAL_MENU_LEFT_EDITAR_IDIOMAS"  Tag="SamplePage3" x:Name="AdminIdiomas" Icon="Flag"/>
-            <controls:NavigationViewItemTranslatable TranslatableKey="PRINCIPAL_MENU_CREAR_IDIOMA"  Tag="SamplePage3" x:Name="IdiomasNewPage" Icon="Flag"/>
-            <controls:NavigationViewItemTranslatable TranslatableKey="PRINCIPAL_MENU_ADMINISTRAR_USUARIOS"  Tag="SamplePage3" x:Name="UsuariosRolesPage" Icon="Flag"/>
-
-            
+            <controls:NavigationViewItemTranslatable TranslatableKey="PRINCIPAL_MENU_LEFT_LOGS" PermissionKey="LISTAR_LOGS" Tag="Logs"  x:Name="Logs" SelectsOnInvoked="True" Icon="Save"/>
+            <controls:NavigationViewItemTranslatable TranslatableKey="PRINCIPAL_MENU_LEFT_CREAR_CONCURSOS" PermissionKey="CREAR_CONCURSO" Tag="SamplePage3" x:Name="CrearConcurso" Icon="NewFolder"/>
+            <controls:NavigationViewItemTranslatable TranslatableKey="PRINCIPAL_MENU_LEFT_LISTAR_CONCURSOS" PermissionKey="LISTAR_CONCURSOS"  Tag="SamplePage3" x:Name="ListConcursos" Icon="Bold"/>
+            <controls:NavigationViewItemTranslatable TranslatableKey="PRINCIPAL_MENU_LEFT_OFERTAR_CONCURSO" PermissionKey="OFERTAR_CONCURSO"  Tag="SamplePage3" x:Name="OfertarConcursoPage" Icon="Bold"/>
+            <controls:NavigationViewItemTranslatable TranslatableKey="PRINCIPAL_MENU_LEFT_REGISTRAR_PROVEEDOR" PermissionKey="REGISTRAR_PROVEEDOR"  Tag="SamplePage3" x:Name="RegistrarProveedor" Icon="Bold"/>
+            <controls:NavigationViewItemTranslatable TranslatableKey="PRINCIPAL_MENU_LEFT_LISTAR_PROVEEDOR" PermissionKey="LISTAR_PROVEEDOR" Tag="SamplePage3" x:Name="ListarProveedores" Icon="Bold"/>
+            <controls:NavigationViewItemTranslatable TranslatableKey="PRINCIPAL_MENU_LEFT_ADMINISTRAR_PERMISOS" PermissionKey="ADMINISTRAR_PERMISOS"  Tag="SamplePage3" x:Name="AdminPermisos" Icon="Bold"/>
+            <controls:NavigationViewItemTranslatable TranslatableKey="PRINCIPAL_MENU_LEFT_BACKUPS" PermissionKey="BACKUPS"  Tag="SamplePage3" x:Name="BackupsPage" Icon="Flag"/>
+            <controls:NavigationViewItemTranslatable TranslatableKey="PRINCIPAL_MENU_LEFT_EDITAR_IDIOMAS" PermissionKey="EDITAR_IDIOMAS"  Tag="SamplePage3" x:Name="AdminIdiomas" Icon="Flag"/>
+            <controls:NavigationViewItemTranslatable TranslatableKey="PRINCIPAL_MENU_CREAR_IDIOMA" PermissionKey="CREAR_IDIOMA"  Tag="SamplePage3" x:Name="IdiomasNewPage" Icon="Flag"/>
+            <controls:NavigationViewItemTranslatable TranslatableKey="PRINCIPAL_MENU_ADMINISTRAR_USUARIOS" PermissionKey="ADMINISTRAR_USUARIOS"  Tag="SamplePage3" x:Name="UsuariosRolesPage" Icon="Flag"/>
         </NavigationView.MenuItems>
 
         <NavigationView.PaneCustomContent>

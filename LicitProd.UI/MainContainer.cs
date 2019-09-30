@@ -51,16 +51,16 @@ namespace LicitProd.UI
         }
         public override void ApplyPermissions(Rol rol)
         {
-            rol.HasAccess(PermissionsEnum.AdminRoles)
-                .Error(x =>
-                {
-                    administracionMainMenu.Visible = false;
-                });
-            rol.HasAccess(PermissionsEnum.CrearConcurso)
-           .Error(x =>
-           {
-               crearToolStripMenuItem.Visible = false;
-           });
+           // rol.HasAccess(PermissionsEnum.AdminRoles)
+           //     .Error(x =>
+           //     {
+           //         administracionMainMenu.Visible = false;
+           //     });
+           // rol.HasAccess(PermissionsEnum.CrearConcurso)
+           //.Error(x =>
+           //{
+           //    crearToolStripMenuItem.Visible = false;
+           //});
         }
         private void InglesToolStripMenuItem_Click(object sender, EventArgs e)
         {

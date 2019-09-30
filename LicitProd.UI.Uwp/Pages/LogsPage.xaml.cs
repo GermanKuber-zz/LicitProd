@@ -18,7 +18,7 @@ namespace LicitProd.UI.Uwp.Pages
         public ObservableCollection<Log> Logs { get; set; } = new ObservableCollection<Log>();
         public LogsPage()
         {
-            this.InitializeComponent();
+            InitializeComponent();
             LoadingService.LoadingStart();
             LoadDataAsync();
         }

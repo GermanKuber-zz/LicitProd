@@ -15,6 +15,6 @@ namespace LicitProd.Data.Repositories
         }
 
         public new Task<Response<List<Log>>> Get() =>
-            base.GetAsync();
+            GetAsync();
     }
 }

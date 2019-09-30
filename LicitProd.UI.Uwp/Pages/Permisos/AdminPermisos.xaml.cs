@@ -22,7 +22,7 @@ namespace LicitProd.UI.Uwp.Pages.Permisos
 
         public AdminPermisos()
         {
-            this.InitializeComponent();
+            InitializeComponent();
             LoadDataAsync();
         }
         private async Task LoadDataAsync()

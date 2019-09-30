@@ -25,7 +25,7 @@ using TranslationService = LicitProd.Services.TranslationService;
 
 namespace LicitProd.UI.Uwp.Pages
 {
- 
+
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
@@ -35,7 +35,7 @@ namespace LicitProd.UI.Uwp.Pages
 
         public MainContainerPage()
         {
-            this.InitializeComponent();
+            InitializeComponent();
             LoadingService.SetLoadingCallBack(() => Loading.IsLoading = true,
                                               () => Loading.IsLoading = false);
             NavigationService.Register(page =>
@@ -46,16 +46,16 @@ namespace LicitProd.UI.Uwp.Pages
             {
                 if (contentFrame.CanGoBack)
                     contentFrame.BackStack.Remove(contentFrame.BackStack.ElementAt(contentFrame.BackStack.Count - 1));
-                contentFrame.Navigate(page, new DrillInNavigationTransitionInfo());
+                contentFrame.Navigate(page, null, new DrillInNavigationTransitionInfo());
 
             },
             () =>
             {
                 Application.Current.Exit();
             });
-       
-            
-            this.Loaded += OnLoaded;
+
+
+            Loaded += OnLoaded;
         }
 
         private void OnLoaded(object sender, RoutedEventArgs e)
@@ -70,7 +70,8 @@ namespace LicitProd.UI.Uwp.Pages
         {
             if (args.IsSettingsSelected)
             {
-                contentFrame.Navigate(typeof(Login));
+                NavigationService.Navigate<SettingsPage>();
+
             }
             else
             {
@@ -112,21 +113,24 @@ namespace LicitProd.UI.Uwp.Pages
                         case "UsuariosRolesPage":
                             NavigationService.Navigate<UsuariosRolesPage>();
                             break;
-                            
+                        case "OfertarConcursoPage":
+                            NavigationService.Navigate<OfertarConcursoPage>();
+                            break;
+
                         default:
                             break;
                     }
                 }
             }
         }
-        public  void ApplyPermissions(Rol rol)
+        public void ApplyPermissions(Rol rol)
         {
         }
-       
-        private void Button_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
             new UsuarioService().Logout();
-            this.Frame.Navigate(typeof(Login));
+            Frame.Navigate(typeof(Login));
         }
 
         private void MenuFlyoutItem_OnClick(object sender, RoutedEventArgs e)

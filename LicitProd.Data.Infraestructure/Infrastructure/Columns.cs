@@ -9,7 +9,7 @@ namespace LicitProd.Data.Infrastructure.Infrastructure
 
         protected Columns(List<Column> columns)
         {
-            this._columns = columns;
+            _columns = columns;
         }
         public Columns()
         {

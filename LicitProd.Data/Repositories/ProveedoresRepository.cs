@@ -9,7 +9,7 @@ namespace LicitProd.Data.Repositories
     public class ProveedoresRepository : BaseRepository<Proveedor>
     {
         public new Task<Response<List<Proveedor>>> Get() =>
-            base.GetAsync();
+            GetAsync();
 
 
         public async Task<Response<Proveedor>> GetByRazonSocial(string razonSocial) =>

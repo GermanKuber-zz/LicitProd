@@ -8,7 +8,7 @@ namespace LicitProd.UI.Uwp.Pages
 
         public DashboardPage()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
     }
 }

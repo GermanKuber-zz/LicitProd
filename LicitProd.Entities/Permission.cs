@@ -5,6 +5,8 @@ namespace LicitProd.Entities
     public abstract class Permission : Entity
     {
         public string Nombre { get; set; }
+        public bool ByDefault { get; set; }
+        
         public abstract void Add(Permission permission);
         public abstract void Remove(Permission permission);
         public List<Permission> Permissions = new List<Permission>();

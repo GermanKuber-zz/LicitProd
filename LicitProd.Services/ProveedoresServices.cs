@@ -17,6 +17,8 @@ namespace LicitProd.Services
                  })
                  .Error(async e=>
                  {
+                     var usuarioRepository = new UsuarioRepository();
+                     var response = await usuarioRepository.InsertDataAsync(proveedor.Usuario);
                      await _proveedoresRepository.InsertDataAsync(proveedor);
                  });
              return Response<Proveedor>.Ok(proveedor);
