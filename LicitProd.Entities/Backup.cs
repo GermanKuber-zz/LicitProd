@@ -1,4 +1,8 @@
 ﻿namespace LicitProd.Entities
 {
-    public class Backup: Entity { }
+    public class Backup : Entity
+    {
+
+
+    }
 }

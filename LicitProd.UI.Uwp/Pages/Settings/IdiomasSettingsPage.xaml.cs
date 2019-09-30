@@ -5,6 +5,8 @@ using System.Linq;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using LicitProd.Entities;
+using LicitProd.Mappers;
+using LicitProd.Services;
 using LicitProd.UI.Uwp.Services;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
@@ -90,6 +92,9 @@ namespace LicitProd.UI.Uwp.Pages.Settings
                         await new IdiomasRepository()
                             .UpdateDataAsync(idioma.Idioma);
                     }
+                    AsyncHelper.CallAsyncMethod(() => new IdiomasRepository().GetByName(SettingsServices.Idioma.Nombre))
+                        .Success(idioma =>
+                            SettingsServices.SetIdioma(idioma));
                     LoadingService.LoadingStop();
                 },
                 command =>

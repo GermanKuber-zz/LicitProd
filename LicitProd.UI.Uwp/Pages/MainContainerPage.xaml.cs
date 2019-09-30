@@ -14,6 +14,7 @@ using LicitProd.Data.Repositories;
 using LicitProd.Entities;
 using LicitProd.Mappers;
 using LicitProd.Seguridad;
+using LicitProd.UI.Uwp.Pages.Backups;
 using LicitProd.UI.Uwp.Pages.Permisos;
 using LicitProd.UI.Uwp.Pages.Proveedores;
 using LicitProd.UI.Uwp.Pages.Settings;
@@ -60,11 +61,7 @@ namespace LicitProd.UI.Uwp.Pages
         {
             IdentityServices.Instance.IsLoggued()
                 .Success(x => ApplyPermissions(x.Rol));
-            TranslationService.Subscribe(trans => ChangeLanguage(trans));
-            TranslationService.GetTranslation()
-                .Success(x => ChangeLanguage(x));
 
-           FindChildren(new List<TextBox>(), this);
 
         }
 
@@ -105,6 +102,9 @@ namespace LicitProd.UI.Uwp.Pages
                         case "AdminIdiomas":
                             NavigationService.Navigate<IdiomasSettingsPage>();
                             break;
+                        case "BackupsPage":
+                            NavigationService.Navigate<BackupsPage>();
+                            break;
                             
                         default:
                             break;
@@ -115,38 +115,7 @@ namespace LicitProd.UI.Uwp.Pages
         public  void ApplyPermissions(Rol rol)
         {
         }
-        public void ChangeLanguage(Translations translation)
-        {
-            //translation.TranslationList.ForEach(x =>
-            //{
-            //    var controls = Controls.Find(x.Key, true);
-            //    foreach (var control in controls)
-            //    {
-            //        if (control is Label)
-            //            control.Text = x.Value;
-            //        if (control is Button)
-            //            control.Text = x.Value;
-            //    }
-            //});
-
-            var list = new List<NavigationViewItem>();
-            FindChildren(list,this);
-        }
-         private void FindChildren<T>(List<T> results, DependencyObject startNode)
-            where T : DependencyObject
-        {
-            int count = VisualTreeHelper.GetChildrenCount(startNode);
-            for (int i = 0; i < count; i++)
-            {
-                DependencyObject current = VisualTreeHelper.GetChild(startNode, i);
-                if ((current.GetType()).Equals(typeof(T)) || (current.GetType().GetTypeInfo().IsSubclassOf(typeof(T))))
-                {
-                    T asType = (T)current;
-                    results.Add(asType);
-                }
-                FindChildren<T>(results, current);
-            }
-        }
+       
         private void Button_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
             new UsuarioService().Logout();

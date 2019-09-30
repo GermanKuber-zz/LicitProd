@@ -119,11 +119,15 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\AppBarButtonTranslatable.cs" />
     <Compile Include="Controls\ButtonTranslatable.cs" />
     <Compile Include="Controls\DataGridTextColumnTranslatable.cs" />
     <Compile Include="Controls\DatePickerTranslatable.cs" />
     <Compile Include="Controls\TextBoxTranslatable.cs" />
     <Compile Include="Converters\DateTimeToDateTimeOfSetConverter.cs" />
+    <Compile Include="Pages\Backups\BackupsPage.xaml.cs">
+      <DependentUpon>BackupsPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\Concursos\CrearConcurso.cs">
       <DependentUpon>CrearConcursoPage.xaml</DependentUpon>
     </Compile>
@@ -177,6 +181,9 @@
       <Link>Data\Creation.sql</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Backups\Backup.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />
@@ -191,6 +198,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Pages\Backups\BackupsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\Concursos\CrearConcursoPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
