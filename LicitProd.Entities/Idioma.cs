@@ -7,6 +7,16 @@ namespace LicitProd.Entities
         public string Nombre { get; set; }
         public List<TraduccionValue> Traducciones { get; protected set; }
 
+        public Idioma(string nombre, List<TraduccionValue> traducciones)
+        {
+            Nombre = nombre;
+            Traducciones = traducciones;
+        }
+
+        public Idioma()
+        {
+            
+        }
         public void SetTraducciones(List<TraduccionValue> traducciones) => Traducciones = traducciones;
     }
 }

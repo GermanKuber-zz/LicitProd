@@ -41,7 +41,9 @@ namespace LicitProd.Data.Repositories
                             });
                     });
             });
-            return Response<Idioma>.Ok(result.Result.First());
+            return result.Success(x => Response<Idioma>.Ok(x.First()),
+                    () => Response<Idioma>.Error(""))
+                .Error(e => Response<Idioma>.Error(e));
         }
         public async Task<Response<Idioma>> UpdateDataAsync(Idioma idioma)
         {

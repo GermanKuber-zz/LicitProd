@@ -140,6 +140,9 @@
     <Compile Include="Pages\DashboardPage.xaml.cs">
       <DependentUpon>DashboardPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\ExtendedSplash.xaml.cs">
+      <DependentUpon>ExtendedSplash.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\GroupInfoCollection.cs" />
     <Compile Include="Pages\Login.xaml.cs">
       <DependentUpon>Login.xaml</DependentUpon>
@@ -162,6 +165,9 @@
     <Compile Include="Pages\Proveedores\NewProveedor.xaml.cs">
       <DependentUpon>NewProveedor.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\Settings\IdiomasNewPage.xaml.cs">
+      <DependentUpon>IdiomasNewPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\Settings\IdiomasSettingsPage.xaml.cs">
       <DependentUpon>IdiomasSettingsPage.xaml</DependentUpon>
     </Compile>
@@ -181,6 +187,17 @@
       <Link>Data\Creation.sql</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Assets\backgrup-login.jpg" />
+    <Content Include="Assets\backgrup-login.scale-100.jpg" />
+    <Content Include="Assets\backgrup-login.scale-125.jpg" />
+    <Content Include="Assets\backgrup-login.scale-150.jpg" />
+    <Content Include="Assets\backgrup-login.scale-200.jpg" />
+    <Content Include="Assets\backgrup-login.scale-400.jpg" />
+    <Content Include="Assets\SplashScreen.scale-100.png" />
+    <Content Include="Assets\SplashScreen.scale-125.png" />
+    <Content Include="Assets\SplashScreen.scale-150.png" />
+    <Content Include="Assets\SplashScreen.scale-400.png" />
+    <Content Include="Assets\user_avatar.png" />
     <Content Include="Backups\Backup.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -218,6 +235,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Pages\ExtendedSplash.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\Login.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -239,6 +260,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Pages\Proveedores\NewProveedor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Settings\IdiomasNewPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

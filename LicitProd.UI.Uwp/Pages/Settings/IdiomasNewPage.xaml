@@ -1,4 +1,5 @@
 ﻿<Page
+    x:Class="LicitProd.UI.Uwp.Pages.Settings.IdiomasNewPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:LicitProd.UI.Uwp.Pages.Settings"
@@ -6,8 +7,6 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:controls1="using:LicitProd.UI.Uwp.Controls"
-
-    x:Class="LicitProd.UI.Uwp.Pages.Settings.IdiomasSettingsPage"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
@@ -16,15 +15,9 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <StackPanel Orientation="Vertical"  >
-            <RelativePanel>
-                <ComboBox
-                    ItemsSource="{x:Bind Idiomas}"
-                    SelectedItem="{x:Bind IdiomaSelected, Mode=TwoWay}"
-                    DisplayMemberPath="Idioma.Nombre"
-                    Header="Idiomas" PlaceholderText="Idiomas" Margin="24,24,10,20"  Width="300" >
-                </ComboBox>
-            </RelativePanel>
+
+        <StackPanel Orientation="Vertical" >
+            <controls1:TextBoxTranslatable TranslatableKey="IDIOMA_NUEVO_NOMBRE" Text="{x:Bind Mode=TwoWay, Path=NewIdiomaName}" ></controls1:TextBoxTranslatable>
         </StackPanel>
         <controls:DataGrid
             ItemsSource="{x:Bind Traducciones, Mode=TwoWay }"
@@ -46,7 +39,6 @@
             RowDetailsTemplate="{StaticResource RowDetailsTemplate}"
             RowDetailsVisibilityMode="Collapsed"
             SelectionMode="Extended"
-            
             RowGroupHeaderPropertyNameAlternative="Range" Margin="0,79,0,0">
             <controls:DataGrid.Columns>
                 <controls1:DataGridTextColumnTranslatable TranslatableKey="IDIOMA_LIST_KEY"  Binding="{Binding KeyValue}" Width="250"  />
@@ -57,15 +49,15 @@
     </Grid>
     <Page.BottomAppBar>
         <CommandBar IsOpen="False" >
-            <AppBarButton Name="ApbAccept" Icon="Save" Label="Guardar" Click="ApbAccept_OnClick"/>
-            <AppBarButton Name="ApbCancel" Icon="Cancel" Label="Cancelar" Click="ApbCancel_OnClick"/>
-            <AppBarButton Icon="Preview" Label="Acciones">
+            <controls1:AppBarButtonTranslatable Name="ApbAccept" Icon="Save" TranslatableKey="APPBAR_BUTTON_SALVAR"  Click="ApbAccept_OnClick"/>
+            <controls1:AppBarButtonTranslatable Name="ApbCancel" Icon="Cancel" TranslatableKey="APPBAR_BUTTON_CANCELAR" Click="ApbCancel_OnClick"/>
+            <!--<AppBarButton Icon="Preview" Label="Acciones">
                 <AppBarButton.Flyout>
                     <MenuFlyout>
                         <MenuFlyoutItem Text="Nuevo Idioma" Click="MenuFlyoutItem_OnClick" />
                     </MenuFlyout>
                 </AppBarButton.Flyout>
-            </AppBarButton>
+            </AppBarButton>-->
         </CommandBar>
 
     </Page.BottomAppBar>

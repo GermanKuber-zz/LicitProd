@@ -115,8 +115,7 @@ namespace LicitProd.UI.Uwp.Pages.Settings
 
         private void MenuFlyoutItem_OnClick(object sender, RoutedEventArgs e)
         {
-            PanelNewIdioma.Visibility = Visibility.Visible;
-            PanelIdiomas.Visibility = Visibility.Collapsed;
+
         }
     }
 }

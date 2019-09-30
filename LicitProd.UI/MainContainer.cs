@@ -99,7 +99,6 @@ namespace LicitProd.UI
 
         private void CrearToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            new BackupServices().CreateBackup();
         }
     }
 }

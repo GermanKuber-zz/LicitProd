@@ -7,6 +7,7 @@ using Windows.UI.Xaml.Controls;
 using LicitProd.UI.Uwp.Services;
 using System.Threading.Tasks;
 using Windows.UI.Core;
+using Windows.UI.Xaml.Media.Animation;
 using LicitProd.Entities;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
@@ -61,7 +62,7 @@ namespace LicitProd.UI.Uwp.Pages
                 {
                     await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(
                         CoreDispatcherPriority.Normal,
-                        () => Frame.Navigate(typeof(MainContainerPage)));
+                        () => Frame.Navigate(typeof(MainContainerPage), null, new DrillInNavigationTransitionInfo()));
                 }
                 else
                 {

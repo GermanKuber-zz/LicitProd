@@ -49,15 +49,14 @@
             <controls:NavigationViewItemTranslatable TranslatableKey="PRINCIPAL_MENU_LEFT_REGISTRAR_PROVEEDOR"  Tag="SamplePage3" x:Name="RegistrarProveedor" Icon="Bold"/>
             <controls:NavigationViewItemTranslatable TranslatableKey="PRINCIPAL_MENU_LEFT_LISTAR_PROVEEDOR" Tag="SamplePage3" x:Name="ListarProveedores" Icon="Bold"/>
             <controls:NavigationViewItemTranslatable TranslatableKey="PRINCIPAL_MENU_LEFT_ADMINISTRAR_PERMISOS"  Tag="SamplePage3" x:Name="AdminPermisos" Icon="Bold"/>
-            <controls:NavigationViewItemTranslatable TranslatableKey="PRINCIPAL_MENU_LEFT_LISTAR_PERMISOS"  Tag="SamplePage3" x:Name="AdminIdiomas" Icon="Flag"/>
             <controls:NavigationViewItemTranslatable TranslatableKey="PRINCIPAL_MENU_LEFT_BACKUPS"  Tag="SamplePage3" x:Name="BackupsPage" Icon="Flag"/>
-            
-
+            <controls:NavigationViewItemTranslatable TranslatableKey="PRINCIPAL_MENU_LEFT_EDITAR_IDIOMAS"  Tag="SamplePage3" x:Name="AdminIdiomas" Icon="Flag"/>
+            <controls:NavigationViewItemTranslatable TranslatableKey="PRINCIPAL_MENU_CREAR_IDIOMA"  Tag="SamplePage3" x:Name="IdiomasNewPage" Icon="Flag"/>
         </NavigationView.MenuItems>
 
         <NavigationView.PaneCustomContent>
             <HyperlinkButton x:Name="PaneHyperlink" Content="More info" Margin="12,0" Visibility="Collapsed" />
-        </NavigationView.PaneCustomContent>
+        </NavigationView.PaneCustomContent> 
 
         <NavigationView.AutoSuggestBox>
             <AutoSuggestBox QueryIcon="Find" AutomationProperties.Name="Search" />

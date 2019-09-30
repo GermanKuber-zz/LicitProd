@@ -105,6 +105,9 @@ namespace LicitProd.UI.Uwp.Pages
                         case "BackupsPage":
                             NavigationService.Navigate<BackupsPage>();
                             break;
+                        case "IdiomasNewPage":
+                            NavigationService.Navigate<IdiomasNewPage>();
+                            break;
                             
                         default:
                             break;

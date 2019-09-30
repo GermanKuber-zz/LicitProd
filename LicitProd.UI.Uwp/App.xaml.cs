@@ -34,7 +34,7 @@ namespace LicitProd.UI.Uwp
         {
             new Migrations().Run();
             Frame rootFrame = Window.Current.Content as Frame;
-            this.UnhandledException += App_UnhandledException; ;
+            this.UnhandledException += App_UnhandledException;
             // Do not repeat app initialization when the Window already has content,
             // just ensure that the window is active
             if (rootFrame == null)

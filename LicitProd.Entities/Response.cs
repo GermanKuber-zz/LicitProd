@@ -146,6 +146,7 @@ namespace LicitProd.Entities
         {
             SuccessResult = false;
             Errors = new List<string>();
+
             Errors.AddRange(errors);
         }
     }

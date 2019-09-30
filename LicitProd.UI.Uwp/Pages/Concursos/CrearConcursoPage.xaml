@@ -33,9 +33,8 @@
     </Grid>
     <Page.BottomAppBar>
         <CommandBar IsOpen="False" >
-            <AppBarButton Name="ApbAccept" Icon="Save" Label="Guardar" Click="BtnAcept_Click"/>
-            <AppBarButton Name="ApbCancel" Icon="Cancel" Label="Cancelar" />
+            <controls:AppBarButtonTranslatable Icon="Save" TranslatableKey="APPBAR_BUTTON_SALVAR"  Click="BtnAcept_Click"/>
+            <controls:AppBarButtonTranslatable  Icon="Cancel" TranslatableKey="APPBAR_BUTTON_CANCELAR" />
         </CommandBar>
-
     </Page.BottomAppBar>
 </Page>
