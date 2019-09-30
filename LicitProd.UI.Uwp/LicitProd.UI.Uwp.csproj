@@ -129,6 +129,12 @@
     <Compile Include="Pages\Backups\BackupsPage.xaml.cs">
       <DependentUpon>BackupsPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\Compradores\ListCompradoresPage.xaml.cs">
+      <DependentUpon>ListCompradoresPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Compradores\NewCompradorPage.xaml.cs">
+      <DependentUpon>NewCompradorPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\Concursos\CrearConcurso.cs">
       <DependentUpon>CrearConcursoPage.xaml</DependentUpon>
     </Compile>
@@ -158,8 +164,11 @@
       <DependentUpon>MainContainerPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\NavigationViewItemTranslatable.cs" />
-    <Compile Include="Pages\Permisos\AdminPermisos.xaml.cs">
-      <DependentUpon>AdminPermisos.xaml</DependentUpon>
+    <Compile Include="Pages\Permisos\AdministrarPermisosPage.xaml.cs">
+      <DependentUpon>AdministrarPermisosPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Permisos\CrearPermisosPage.xaml.cs">
+      <DependentUpon>CrearPermisosPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\Permisos\TreeViewNodeCustom.cs" />
     <Compile Include="Pages\Proveedores\EnumToStringConverter.cs" />
@@ -210,6 +219,24 @@
     <Content Include="Assets\SplashScreen.scale-125.png" />
     <Content Include="Assets\SplashScreen.scale-150.png" />
     <Content Include="Assets\SplashScreen.scale-400.png" />
+    <Content Include="Assets\Square44x44Logo.altform-lightunplated_targetsize-16.png" />
+    <Content Include="Assets\Square44x44Logo.altform-lightunplated_targetsize-24.png" />
+    <Content Include="Assets\Square44x44Logo.altform-lightunplated_targetsize-256.png" />
+    <Content Include="Assets\Square44x44Logo.altform-lightunplated_targetsize-32.png" />
+    <Content Include="Assets\Square44x44Logo.altform-lightunplated_targetsize-48.png" />
+    <Content Include="Assets\Square44x44Logo.altform-unplated_targetsize-16.png" />
+    <Content Include="Assets\Square44x44Logo.altform-unplated_targetsize-256.png" />
+    <Content Include="Assets\Square44x44Logo.altform-unplated_targetsize-32.png" />
+    <Content Include="Assets\Square44x44Logo.altform-unplated_targetsize-48.png" />
+    <Content Include="Assets\Square44x44Logo.scale-100.png" />
+    <Content Include="Assets\Square44x44Logo.scale-125.png" />
+    <Content Include="Assets\Square44x44Logo.scale-150.png" />
+    <Content Include="Assets\Square44x44Logo.scale-400.png" />
+    <Content Include="Assets\Square44x44Logo.targetsize-16.png" />
+    <Content Include="Assets\Square44x44Logo.targetsize-24.png" />
+    <Content Include="Assets\Square44x44Logo.targetsize-256.png" />
+    <Content Include="Assets\Square44x44Logo.targetsize-32.png" />
+    <Content Include="Assets\Square44x44Logo.targetsize-48.png" />
     <Content Include="Assets\user_avatar.png" />
     <Content Include="Backups\Backup.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -231,6 +258,14 @@
     <Page Include="Pages\Backups\BackupsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Compradores\ListCompradoresPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\Compradores\NewCompradorPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Pages\Concursos\CrearConcursoPage.xaml">
       <SubType>Designer</SubType>
@@ -268,7 +303,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\Permisos\AdminPermisos.xaml">
+    <Page Include="Pages\Permisos\AdministrarPermisosPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Permisos\CrearPermisosPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

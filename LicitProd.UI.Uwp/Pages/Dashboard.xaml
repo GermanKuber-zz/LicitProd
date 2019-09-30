@@ -20,7 +20,7 @@
 
     </Page.Resources>
 
-    <Grid>
+    <Grid >
         <ListView  ItemTemplate="{StaticResource ListViewItemTemplate1}" x:Name="listView"
                   
                   ItemsSource="{x:Bind Concursos}">

@@ -2,7 +2,9 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using LicitProd.Data.Infrastructure.Extensions;
 using LicitProd.Data.Repositories;
 using LicitProd.Entities;
 using LicitProd.UI.Uwp.Services;
@@ -16,11 +18,11 @@ namespace LicitProd.UI.Uwp.Pages.Permisos
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class AdminPermisos : Page
+    public sealed partial class CrearPermisosPage : Page
     {
         public ObservableCollection<Permission> Permisos { get; set; } = new ObservableCollection<Permission>();
 
-        public AdminPermisos()
+        public CrearPermisosPage()
         {
             InitializeComponent();
             LoadDataAsync();
@@ -30,6 +32,7 @@ namespace LicitProd.UI.Uwp.Pages.Permisos
             (await new RolRepository().Get())
                 .Success(roles =>
                 {
+                    Permisos.Remove(x => true);
                     roles?.ForEach(x => Permisos.Add(x));
                     var list = FillTree(roles, new List<TreeViewNode>());
                     list.ToList().ForEach(x => trvPermisos.RootNodes.Add(x));
@@ -62,8 +65,41 @@ namespace LicitProd.UI.Uwp.Pages.Permisos
 
         private async void Button_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-            var roles = trvPermisos.SelectedNodes.ToList().Where(x =>
+            if (!string.IsNullOrWhiteSpace(txtNewPermiso.Text))
             {
+                var selectedPermissiosn = GetSelectedPermissions();
+                var newRol = new Rol(txtNewPermiso.Text);
+
+                newRol.Permissions.AddRange(selectedPermissiosn);
+                var response = await new RolesServices().CreatAsync(newRol);
+                if (response.SuccessResult)
+                    MessageDialogService.Create("Permiso creado exitosamente", async c =>
+                    {
+                        LoadingService.LoadingStop();
+                        await LoadDataAsync();
+                    }, null);
+            }
+        }
+
+
+        private bool ExistPermission(List<Permission> list, Permission toCheck)
+        {
+            var valueToReturn = false;
+            foreach (var permission in list)
+            {
+                if (permission.Permissions.Any()) { }
+                valueToReturn = ExistPermission(permission.Permissions, toCheck);
+
+                if (permission == toCheck)
+                    valueToReturn = true;
+            }
+
+            return valueToReturn;
+        }
+        private List<Permission> GetSelectedPermissions()
+        {
+            var roles = trvPermisos.SelectedNodes.ToList().Where(x =>
+             {
                 var node = (TreeViewNodeCustom)x;
                 if (node.Data is Rol)
                     return true;
@@ -77,12 +113,12 @@ namespace LicitProd.UI.Uwp.Pages.Permisos
                     return true;
                 return false;
             }).ToList();
-            var newRol = new Rol(txtNewPermiso.Text);
-            newRol.Permissions.AddRange(roles?.Select(node => ((TreeViewNodeCustom)node).Data));
-            newRol.Permissions.AddRange(permisos?.Select(node => ((TreeViewNodeCustom)node).Data));
-            (await new RolesServices().CreatAsync(newRol))
-                                 .Success(async x => await LoadDataAsync()); ;
+            var selectedPermissiosn = new List<Permission>();
+            selectedPermissiosn.AddRange(roles?.Select(node => ((TreeViewNodeCustom)node).Data));
+            selectedPermissiosn.AddRange(permisos?.Select(node => ((TreeViewNodeCustom)node).Data));
+            return selectedPermissiosn;
         }
+
 
 
     }

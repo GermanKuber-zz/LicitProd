@@ -57,7 +57,12 @@ namespace LicitProd.Data.Repositories
             return Response<TEntity>.Ok(entity);
         }
 
-        
+       public async Task DeleteAsync(Parameters where)
+        {
+            await SqlAccessService.DeleteAsync(where);
+        }
+
+
         protected static Response<List<TEntity>> ReturnResult(List<TEntity> result) =>
             Response<TEntity>.From(result);
         protected static Response<TEntity> ReturnResult(TEntity result) =>

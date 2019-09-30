@@ -3,22 +3,15 @@ using LicitProd.Entities;
 
 namespace LicitProd.Data.ToDbMapper
 {
-
-  
-    public class ConcursoDbMapper : ObjectToDbMapper<Concurso>
+    public class BackupDbMapper : ObjectToDbMapper<Backup>
     {
-        public ConcursoDbMapper() : base("Concursos")
+        public BackupDbMapper() : base("Backups")
         {
         }
         protected override void Map()
         {
             Set(x => x.Id)
-               .PrimaryKey();
-            Set(x => x.IsValid)
-                .Ignore();
-
+                .PrimaryKey();
         }
     }
 }
-
-

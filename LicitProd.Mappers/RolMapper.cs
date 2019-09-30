@@ -23,7 +23,8 @@ namespace LicitProd.Mappers
                 else if (item["Type"].ToString() == "Rol")
                     roles.Add((TryParse(item["RolId"].ToString()),
                                         new Rol(int.Parse(item["Id"].ToString()),
-                                                item["Nombre"].ToString())));
+                                                item["Nombre"].ToString(),
+                                                bool.Parse(item["ByDefault"].ToString()))));
             }
             permissions.ForEach(permission =>
                 roles.FirstOrDefault(x => x.Rol.Id == permission.ParentRolId).Rol.Add(permission.Permission));
@@ -50,7 +51,8 @@ namespace LicitProd.Mappers
                     var existRoll = permissions.FirstOrDefault(x => x.Permission.Nombre.ToString() == item["Nombre"].ToString());
                     if (existRoll.Permission == null)
                         existRoll.Permission = new Rol(int.Parse(item["Id"].ToString()),
-                                               item["Nombre"].ToString());
+                                               item["Nombre"].ToString(),
+                                               bool.Parse(item["ByDefault"].ToString()));
                     permissions.Add((TryParse(item["RolId"].ToString()), existRoll.Permission));
                 }
 

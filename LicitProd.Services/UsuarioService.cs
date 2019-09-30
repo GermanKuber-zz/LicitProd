@@ -55,6 +55,4 @@ namespace LicitProd.Services
             return await _usuarioRepository.UpdateDataAsync(usuario);
         }
     }
-
-
 }

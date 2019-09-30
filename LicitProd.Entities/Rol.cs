@@ -12,8 +12,9 @@
         {
             Nombre = roleName;
         }
-        public Rol(int id, string roleName)
+        public Rol(int id, string roleName, bool byDefault)
         {
+            ByDefault = byDefault;
             Nombre = roleName;
             Id = id;
         }

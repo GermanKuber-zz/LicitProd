@@ -15,6 +15,7 @@ using LicitProd.Entities;
 using LicitProd.Mappers;
 using LicitProd.Seguridad;
 using LicitProd.UI.Uwp.Pages.Backups;
+using LicitProd.UI.Uwp.Pages.Compradores;
 using LicitProd.UI.Uwp.Pages.Permisos;
 using LicitProd.UI.Uwp.Pages.Proveedores;
 using LicitProd.UI.Uwp.Pages.Settings;
@@ -49,6 +50,12 @@ namespace LicitProd.UI.Uwp.Pages
                 contentFrame.Navigate(page, null, new DrillInNavigationTransitionInfo());
 
             },
+            () =>
+            {
+                if (contentFrame.CanGoBack)
+                    contentFrame.BackStack.Remove(contentFrame.BackStack.ElementAt(contentFrame.BackStack.Count - 1));
+
+            } ,
             () =>
             {
                 Application.Current.Exit();
@@ -99,7 +106,7 @@ namespace LicitProd.UI.Uwp.Pages
                             NavigationService.Navigate<ListProveedores>();
                             break;
                         case "AdminPermisos":
-                            NavigationService.Navigate<AdminPermisos>();
+                            NavigationService.Navigate<AdministrarPermisosPage>();
                             break;
                         case "AdminIdiomas":
                             NavigationService.Navigate<IdiomasSettingsPage>();
@@ -115,6 +122,12 @@ namespace LicitProd.UI.Uwp.Pages
                             break;
                         case "OfertarConcursoPage":
                             NavigationService.Navigate<OfertarConcursoPage>();
+                            break;
+                        case "ListCompradoresPage":
+                            NavigationService.Navigate<ListCompradoresPage>();
+                            break;
+                        case "NewCompradorPage":
+                            NavigationService.Navigate<NewCompradorPage>();
                             break;
 
                         default:
@@ -139,6 +152,11 @@ namespace LicitProd.UI.Uwp.Pages
             AsyncHelper.CallAsyncMethod(() => new IdiomasRepository().GetByName(languaje))
                 .Success(idioma =>
                     SettingsServices.SetIdioma(idioma));
+        }
+
+        private void PaneHyperlink_OnClick(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
         }
     }
 }

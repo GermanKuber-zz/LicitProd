@@ -18,10 +18,10 @@
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Width="300">
 
             <PersonPicture Width="200" Height="200" ProfilePicture="/Assets/user_avatar.png" />
-            <TextBox Header="Usuario" x:Name="txtUser"  PlaceholderText="Usuario"  TextWrapping="Wrap" Margin="20,20,20,20"/>
-            <ComboBox Header="Usurios" ItemsSource="{x:Bind  Path= Usuarios }" SelectedItem="{x:Bind Path=UsuarioSelected, Mode=TwoWay}" DisplayMemberPath="Email" Margin="20,20,20,20"></ComboBox>
+            <TextBox Header="Usuario" x:Name="txtUser"  PlaceholderText="Usuario"  TextWrapping="Wrap" Margin="20,20,20,0"/>
+            <ComboBox Width="260" Header="Usurios" ItemsSource="{x:Bind  Path= Usuarios }" SelectedItem="{x:Bind Path=UsuarioSelected, Mode=TwoWay}" DisplayMemberPath="Email" Margin="20"></ComboBox>
             
-            <PasswordBox Width="300" Header="Password" x:Name="txtPassword" PlaceholderText="Password"  Margin="20,0,20,0"/>
+            <PasswordBox  Header="Password" x:Name="txtPassword" PlaceholderText="Password"  Margin="20,0,20,0"/>
             <Button x:Name="btnLogin" Style="{StaticResource ButtonRevealStyle}" Content="Loguear" Click="BtnLogin_Click" Width="260" Margin="20"/>
         </StackPanel>
     </Grid>
