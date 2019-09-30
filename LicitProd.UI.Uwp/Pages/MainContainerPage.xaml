@@ -52,6 +52,9 @@
             <controls:NavigationViewItemTranslatable TranslatableKey="PRINCIPAL_MENU_LEFT_BACKUPS"  Tag="SamplePage3" x:Name="BackupsPage" Icon="Flag"/>
             <controls:NavigationViewItemTranslatable TranslatableKey="PRINCIPAL_MENU_LEFT_EDITAR_IDIOMAS"  Tag="SamplePage3" x:Name="AdminIdiomas" Icon="Flag"/>
             <controls:NavigationViewItemTranslatable TranslatableKey="PRINCIPAL_MENU_CREAR_IDIOMA"  Tag="SamplePage3" x:Name="IdiomasNewPage" Icon="Flag"/>
+            <controls:NavigationViewItemTranslatable TranslatableKey="PRINCIPAL_MENU_ADMINISTRAR_USUARIOS"  Tag="SamplePage3" x:Name="UsuariosRolesPage" Icon="Flag"/>
+
+            
         </NavigationView.MenuItems>
 
         <NavigationView.PaneCustomContent>

@@ -5,33 +5,25 @@
     xmlns:local="using:LicitProd.UI.Uwp.Pages.Proveedores"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:LicitProd.UI.Uwp.Controls"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition MaxWidth="500"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
         <StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <TextBlock  TextAlignment="Right" Width="100" Text="Razón Social" TextWrapping="Wrap" Margin="10,15,10,10"/>
-                <TextBox Text="{x:Bind Mode=TwoWay, Path=Proveedor.RazonSocial}" TextWrapping="Wrap" Width="300" Margin="10,10,10,10"/>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <TextBlock  TextAlignment="Right" Width="100" Text="Celular" TextWrapping="Wrap" Margin="10,15,10,10"/>
-                <TextBox  Text="{x:Bind Mode=TwoWay, Path=Proveedor.Celular}"  TextWrapping="Wrap" Width="300" Margin="10,10,10,10"/>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <TextBlock  TextAlignment="Right" Width="100" Text="Dirección" TextWrapping="Wrap" Margin="10,15,10,10"/>
-                <TextBox  Text="{x:Bind Mode=TwoWay, Path=Proveedor.Direccion}"  TextWrapping="Wrap" Width="300" Margin="10,10,10,10" />
-            </StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <TextBlock  TextAlignment="Right" Width="100" Text="Telefono" TextWrapping="Wrap" Margin="10,15,10,10"/>
-                <TextBox  Text="{x:Bind Mode=TwoWay, Path=Proveedor.Telefono}"  TextWrapping="Wrap" Width="300" Margin="10,10,10,10"/>
-            </StackPanel>
-         
-            <StackPanel Orientation="Horizontal">
-                <Button  Content="Crear" d:LayoutOverrides="TopPosition, BottomPosition" Margin="20,20,20,20" Click="BtnAccept_Click"/>
-                <Button  Content="Cancelar" Margin="20,20,20,20"/>
-            </StackPanel>
-
+            <controls:TextBoxTranslatable TranslatableKey="NEW_PROVEEDOR_RAZON_SOCIAL" Text="{x:Bind Mode=TwoWay, Path=Proveedor.RazonSocial}" Margin="10" TextWrapping="Wrap"  />
+            <controls:TextBoxTranslatable TranslatableKey="NEW_PROVEEDOR_CELULAR"  Text="{x:Bind Mode=TwoWay, Path=Proveedor.Celular}"  Margin="10" TextWrapping="Wrap"  />
+            <controls:TextBoxTranslatable TranslatableKey="NEW_PROVEEDOR_DIRECCION"  Text="{x:Bind Mode=TwoWay, Path=Proveedor.Direccion}"  Margin="10" TextWrapping="Wrap"/>
+            <controls:TextBoxTranslatable TranslatableKey="NEW_PROVEEDOR_TELEFONO"  Text="{x:Bind Mode=TwoWay, Path=Proveedor.Telefono}"  Margin="10" TextWrapping="Wrap" />
         </StackPanel>
     </Grid>
+    <Page.BottomAppBar>
+        <CommandBar IsOpen="False" >
+            <controls:AppBarButtonTranslatable Style="{ThemeResource AppBarButtonRevealStyle}" Icon="Save" TranslatableKey="APPBAR_BUTTON_SALVAR"  Click="BtnAccept_Click"/>
+            <controls:AppBarButtonTranslatable  Style="{ThemeResource AppBarButtonRevealStyle}" Icon="Cancel" TranslatableKey="APPBAR_BUTTON_CANCELAR" />
+        </CommandBar>
+    </Page.BottomAppBar>
 </Page>

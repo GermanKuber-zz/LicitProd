@@ -18,6 +18,7 @@ using LicitProd.UI.Uwp.Pages.Backups;
 using LicitProd.UI.Uwp.Pages.Permisos;
 using LicitProd.UI.Uwp.Pages.Proveedores;
 using LicitProd.UI.Uwp.Pages.Settings;
+using LicitProd.UI.Uwp.Pages.Usuarios;
 using TranslationService = LicitProd.Services.TranslationService;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
@@ -107,6 +108,9 @@ namespace LicitProd.UI.Uwp.Pages
                             break;
                         case "IdiomasNewPage":
                             NavigationService.Navigate<IdiomasNewPage>();
+                            break;
+                        case "UsuariosRolesPage":
+                            NavigationService.Navigate<UsuariosRolesPage>();
                             break;
                             
                         default:
