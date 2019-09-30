@@ -27,14 +27,17 @@
         {
             Permissions.Remove(permission);
         }
-        public override Response<bool> HasAccess(PermissionsEnum permission)
+
+        public override Response<bool> HasAccess(PermissionsEnum permission) =>
+            HasAccess(permission.ToString());
+        public override Response<bool> HasAccess(string permission)
         {
             foreach (var item in Permissions)
             {
                 var result = item.HasAccess(permission);
                 if (result.SuccessResult)
                     return Response<bool>.Ok(result.Result);
-                else if(Nombre == permission.ToString())
+                else if (Nombre == permission)
                     return Response<bool>.Ok(true);
 
             }

@@ -43,7 +43,7 @@
         <NavigationView.MenuItems>
             <controls:NavigationViewItemTranslatable TranslatableKey="PRINCIPAL_MENU_LEFT_DASHBOARD" Content="Dashboard" Tag="SamplePage1" x:Name="Dashboard" Icon="Page"/>
             <NavigationViewItemHeader Content="Actions"/>
-            <controls:NavigationViewItemTranslatable TranslatableKey="PRINCIPAL_MENU_LEFT_LOGS"   Tag="Logs"  x:Name="Logs" SelectsOnInvoked="True" Icon="Save"/>
+            <controls:NavigationViewItemTranslatable TranslatableKey="PRINCIPAL_MENU_LEFT_LOGS" PermissionKey="LISTAR_LOGS"  Tag="Logs"  x:Name="Logs" SelectsOnInvoked="True" Icon="Save"/>
             <controls:NavigationViewItemTranslatable TranslatableKey="PRINCIPAL_MENU_LEFT_CREAR_CONCURSOS" Tag="SamplePage3" x:Name="CrearConcurso" Icon="NewFolder"/>
             <controls:NavigationViewItemTranslatable TranslatableKey="PRINCIPAL_MENU_LEFT_LISTAR_CONCURSOS"  Tag="SamplePage3" x:Name="ListConcursos" Icon="Bold"/>
             <controls:NavigationViewItemTranslatable TranslatableKey="PRINCIPAL_MENU_LEFT_REGISTRAR_PROVEEDOR"  Tag="SamplePage3" x:Name="RegistrarProveedor" Icon="Bold"/>

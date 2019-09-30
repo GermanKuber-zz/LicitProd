@@ -13,7 +13,10 @@ namespace LicitProd.Entities
         {
 
         }
+
         public virtual Response<bool> HasAccess(PermissionsEnum permiso) =>
+            HasAccess(permiso.ToString());
+        public virtual Response<bool> HasAccess(string permiso) =>
             Response<bool>.From(() => Nombre == permiso.ToString(), true);
     }
 }

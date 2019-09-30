@@ -10,6 +10,7 @@
         OfertarConcurso,
         PreguntarConcurso,
         CrearConcurso,
-        AdminRoles
+        AdminRoles,
+        LISTAR_LOGS
     }
 }
