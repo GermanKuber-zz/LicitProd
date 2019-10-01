@@ -8,7 +8,7 @@ namespace LicitProd.Services
     {
         private BackupsRepository _backupsRepository = new BackupsRepository();
         public async Task<Response<string>> CreateBackup(string folderPath) => await _backupsRepository.CreateBackup(folderPath);
-        public Response<Backup> RestoreLastBackup() => _backupsRepository.RestoreLastBackup();
+        public async Task<Response<Backup>> RestoreLastBackup(string path ) => await _backupsRepository.RestoreLastBackup(path);
 
     }
 }

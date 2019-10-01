@@ -17,6 +17,7 @@
         </StackPanel>
         <controls:DataGrid
             ItemsSource="{x:Bind Backups}"
+            SelectedItem="{x:Bind BackupSelected, Mode=TwoWay}"
            Grid.Row="1"
         x:Name="dataGrid"
         Margin="12"
@@ -50,6 +51,7 @@
     <Page.BottomAppBar>
         <CommandBar IsOpen="False" >
             <controls1:AppBarButtonTranslatable TranslatableKey="BACKUP_CREAR"  Name="ApbAccept" Icon="Save" Click="ButtonBase_OnClick"/>
+            <controls1:AppBarButtonTranslatable Content="Restaurar"   Icon="Upload" Click="ButtonRestore_OnClick"/>
         </CommandBar>
 
     </Page.BottomAppBar>

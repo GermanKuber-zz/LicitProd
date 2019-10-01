@@ -15,7 +15,7 @@ namespace LicitProd.UI.Uwp.Pages.Backups
     {
         private PageUtilities _pageUtilities = new PageUtilities();
         public ObservableCollection<StorageFile> Backups { get; set; } = new ObservableCollection<StorageFile>();
-
+        public StorageFile BackupSelected { get; set; }
         public BackupsPage()
         {
             InitializeComponent();
@@ -24,9 +24,11 @@ namespace LicitProd.UI.Uwp.Pages.Backups
 
         private async Task GetFiles()
         {
-            StorageFolder appInstalledFolder = Windows.ApplicationModel.Package.Current.InstalledLocation;
-            StorageFolder assets = await appInstalledFolder.GetFolderAsync("Backups");
-            
+            var folder = await StorageFolder.GetFolderFromPathAsync(UserDataPaths.GetDefault().Music);
+
+            StorageFolder assets = await folder.GetFolderAsync("Backups");
+
+            Backups.Clear();
             var files = await assets.GetFilesAsync();
             foreach (var fileToAdd in files)
             {
@@ -36,14 +38,28 @@ namespace LicitProd.UI.Uwp.Pages.Backups
         }
         private async void ButtonBase_OnClick(object sender, RoutedEventArgs e)
         {
+            var folder = await StorageFolder.GetFolderFromPathAsync(UserDataPaths.GetDefault().Music);
             LoadingService.LoadingStart();
-            StorageFolder appInstalledFolder = Windows.ApplicationModel.Package.Current.InstalledLocation;
-            StorageFolder assets = await appInstalledFolder.GetFolderAsync("Backups");
-            
+            StorageFolder assets = await folder.GetFolderAsync("Backups");
+
             (await new BackupServices().CreateBackup(assets.Path)).Success(x =>
+           {
+               _pageUtilities.ShowMessageDialog($"El backup {x}, fue creado correctamente");
+               GetFiles();
+           });
+        }
+        private async void ButtonRestore_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (BackupSelected != null)
             {
-                _pageUtilities.ShowMessageDialog($"El backup {x}, fue creado correctamente");
-            });
+                LoadingService.LoadingStart();
+
+                (await new BackupServices().RestoreLastBackup(BackupSelected.Path)).Success(x =>
+                {
+                    _pageUtilities.ShowMessageDialog($"El backup {x}, fue Restaurado correctamente");
+                    GetFiles();
+                });
+            }
         }
     }
 }

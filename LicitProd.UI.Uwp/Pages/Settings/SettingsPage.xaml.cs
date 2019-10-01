@@ -55,11 +55,32 @@ namespace LicitProd.UI.Uwp.Pages.Settings
                 .Success(x =>
                 {
                     _configuracion = x.First();
-
+                    SetSettings(_configuracion);
                 });
 
         }
 
+        private void SetSettings(Configuracion settings)
+        {
+            switch (settings.Theme)
+            {
+                case "Dark":
+                    RbDark.IsChecked = true;
+                    break;
+                case "Light":
+                    RbLight.IsChecked = true;
+                    break;
+                case "Default":
+                    RbDefault.IsChecked = true;
+                    break;
+            }
+            IdiomaPanel.Children.ToList().ForEach(x =>
+            {
+                var control = ((RadioButtonCustom)x);
+                if (((Idioma)control.DataContext).Id == settings.IdiomaId)
+                    control.IsChecked = true;
+            });
+        }
 
         private void RadioOnClick(object sender, RoutedEventArgs e)
         {
@@ -108,7 +129,7 @@ namespace LicitProd.UI.Uwp.Pages.Settings
 
         private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
         {
-            _themeName = ((RadioButton)sender).Content as string;
+            _themeName = ((RadioButton)sender).Tag as string;
 
         }
     }

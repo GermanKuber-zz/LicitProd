@@ -13,14 +13,17 @@ namespace LicitProd.Data.Repositories
         {
 
             var nameBack = string.Concat(DateTime.Now.ToShortDateString().Replace("/", "-"), "-", Guid.NewGuid(), ".back");
-            var directory = Path.Combine(ConfigurationManagerKeys.Configuration().BackupsFolder, nameBack);
+            //var directory = Path.Combine(ConfigurationManagerKeys.Configuration().BackupsFolder, nameBack);
+            var directory = Path.Combine(folderPath, nameBack);
+
             //var directory = Path.Combine(folderPath, nameBack);
             await (new SqlAccessService<Backup>()).ExcecuteQueryAsync($"Backup database LicitProd to disk='{directory}'", new Parameters().Send());
             return Response<string>.Ok(nameBack);
         }
-        public Response<Backup> RestoreLastBackup()
+        public async Task<Response<Backup>> RestoreLastBackup(string path)
         {
-            (new SqlAccessService<Backup>()).ExcecuteQueryAsync("BackUp ", new Parameters().Send());
+            await (new SqlAccessService<Backup>()).ExcecuteQueryAsync($"USE master", new Parameters().Send());
+            await (new SqlAccessService<Backup>()).ExcecuteQueryAsync($"RESTORE DATABASE LicitProd FROM DISK = '{path}' WITH REPLACE ", new Parameters().Send());
             return Response<Backup>.Ok(default);
         }
     }
