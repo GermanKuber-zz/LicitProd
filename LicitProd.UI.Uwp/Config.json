@@ -1,4 +1,5 @@
 ﻿{
-  "ConnectionString": "Server=DESKTOP-1MAPVAT\\SQLEXPRESS;Database=LicitProd;Trusted_Connection=True;"
-  //"ConnectionString": "Data Source=DESKTOP-1MAPVAT\\SQLEXPRESS;Initial Catalog=LicitProd;Integrated Security=SSPI"
+  //"ConnectionString": "Server=DESKTOP-1MAPVAT\\SQLEXPRESS;Database=LicitProd;Trusted_Connection=True;",
+  "ConnectionString": "Data Source=GERMANKUBER-DEV\\SQLEXPRESS;Initial Catalog=LicitProd;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False"
+
 }

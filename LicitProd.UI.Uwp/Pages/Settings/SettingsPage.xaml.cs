@@ -60,6 +60,15 @@ namespace LicitProd.UI.Uwp.Pages.Settings
 
         }
 
+        private void CheckThee()
+        {
+            if (RbDark.IsChecked.Value)
+                _themeName = "Dark";
+            if (RbDark.IsChecked.Value)
+                _themeName = "Light";
+            if (RbDark.IsChecked.Value)
+                _themeName = "RbLight";
+        }
         private void SetSettings(Configuracion settings)
         {
             switch (settings.Theme)
@@ -101,7 +110,7 @@ namespace LicitProd.UI.Uwp.Pages.Settings
         private async void BtnAccept_Click(object sender, RoutedEventArgs e)
         {
             LoadingService.LoadingStart();
-
+            CheckThee();
             if (_configuracion == null)
                 (await _configuracionesRepository.InsertDataAsync(new Configuracion
                 {

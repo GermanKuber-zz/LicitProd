@@ -8,7 +8,13 @@ namespace LicitProd.Data.Repositories
 {
     public class ConfiguracionesRepository : BaseRepository<Configuracion>
     {
-
+        public async Task<Response<Configuracion>> GetByUserId(int userId)
+        {
+            var result = await GetAsync(new Parameters().Add("Usuario_Id", userId));
+            if (result.SuccessResult)
+                return Response<Configuracion>.Ok(result.Result.First());
+            return Response<Configuracion>.Error();
+        }
     }
     public class IdiomasRepository : BaseRepository<Idioma>
     {
