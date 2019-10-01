@@ -21,8 +21,37 @@ namespace LicitProd.UI.Uwp.Pages
     /// </summary>
     public sealed partial class Login : Page
     {
+        public bool EnableToLogin { get; set; } = false;
+        private string password = string.Empty;
+        private string email = string.Empty;
+        private Usuario usuarioSelected;
+
+        public string Email
+        {
+            get => email; set
+            {
+                email = value;
+                CheckIfIfEnableToLogin();
+            }
+        }
+        public string Password
+        {
+            get => password; set
+            {
+                password = value;
+                CheckIfIfEnableToLogin();
+
+            }
+        }
         public ObservableCollection<Usuario> Usuarios { get; set; } = new ObservableCollection<Usuario>();
-        public Usuario UsuarioSelected { get; set; }
+        public Usuario UsuarioSelected
+        {
+            get => usuarioSelected; set
+            {
+                usuarioSelected = value;
+                CheckIfIfEnableToLogin();
+            }
+        }
         private readonly Regex _validEmailRegex = new Regex(
                                       @"^(([^<>()[\]\\.,;:\s@\""]+"
                                       + @"(\.[^<>()[\]\\.,;:\s@\""]+)*)|(\"".+\""))@"
@@ -30,13 +59,25 @@ namespace LicitProd.UI.Uwp.Pages
                                       + @"\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+"
                                       + @"[a-zA-Z]{2,}))$",
                                       RegexOptions.Compiled);
+
+
         public Login()
         {
             InitializeComponent();
             //Task.Run(async () => await ValidateConsistency()).Wait();
             LoadData();
         }
+        private void CheckIfIfEnableToLogin()
+        {
+            if (!string.IsNullOrWhiteSpace(Password) && !string.IsNullOrWhiteSpace(email))
+                btnLogin.IsEnabled = true;
+            else
+                btnLogin.IsEnabled = false;
 
+            if (UsuarioSelected != null)
+                btnLogin.IsEnabled = true;
+
+        }
         private async Task LoadData()
         {
             (await new UsuarioRepository().Get())
@@ -70,7 +111,7 @@ namespace LicitProd.UI.Uwp.Pages
                 if (UsuarioSelected != null)
                     result = (await new UsuarioService().LoginAsync(UsuarioSelected.Email));
                 else
-                    result = (await new UsuarioService().LoginAsync(txtUser.Text, txtPassword.Password));
+                    result = (await new UsuarioService().LoginAsync(Email, Password));
 
                 if (result.SuccessResult)
                 {
