@@ -57,8 +57,8 @@
     </Grid>
     <Page.BottomAppBar>
         <CommandBar IsOpen="False" >
-            <AppBarButton Name="ApbAccept" Icon="Save" Label="Guardar" Click="ApbAccept_OnClick"/>
-            <AppBarButton Name="ApbCancel" Icon="Cancel" Label="Cancelar" Click="ApbCancel_OnClick"/>
+            <controls1:AppBarButtonTranslatable  Icon="Save" TranslatableKey="APPBAR_BUTTON_SALVAR"  Click="ApbAccept_OnClick"/>
+            <controls1:AppBarButtonTranslatable  Icon="Cancel" TranslatableKey="APPBAR_BUTTON_CANCELAR" Label="Cancelar" Click="ApbCancel_OnClick"/>
             <AppBarButton Icon="Preview" Label="Acciones">
                 <AppBarButton.Flyout>
                     <MenuFlyout>
@@ -70,3 +70,4 @@
 
     </Page.BottomAppBar>
 </Page>
+    

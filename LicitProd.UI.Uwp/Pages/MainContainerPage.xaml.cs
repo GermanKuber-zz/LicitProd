@@ -1,14 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using LicitProd.Services;
 using LicitProd.UI.Uwp.Pages.Concursos;
 using LicitProd.UI.Uwp.Services;
 using System.Linq;
-using System.Reflection;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Animation;
 using LicitProd.Data.Repositories;
 using LicitProd.Entities;
@@ -20,19 +17,14 @@ using LicitProd.UI.Uwp.Pages.Permisos;
 using LicitProd.UI.Uwp.Pages.Proveedores;
 using LicitProd.UI.Uwp.Pages.Settings;
 using LicitProd.UI.Uwp.Pages.Usuarios;
-using TranslationService = LicitProd.Services.TranslationService;
 
-// The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace LicitProd.UI.Uwp.Pages
 {
 
-    /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
-    /// </summary>
     public sealed partial class MainContainerPage : Page
     {
-        public ObservableCollection<string> Idiomas { get; set; } = new ObservableCollection<string>();
+        public ObservableCollection<Idioma> Idiomas { get; set; } = new ObservableCollection<Idioma>();
 
         public MainContainerPage()
         {
@@ -69,8 +61,7 @@ namespace LicitProd.UI.Uwp.Pages
         {
             IdentityServices.Instance.IsLoggued()
                 .Success(x => ApplyPermissions(x.Rol));
-
-
+        
         }
 
         private void NvSample_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)

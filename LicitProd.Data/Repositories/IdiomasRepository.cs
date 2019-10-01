@@ -6,6 +6,10 @@ using LicitProd.Entities;
 
 namespace LicitProd.Data.Repositories
 {
+    public class ConfiguracionesRepository : BaseRepository<Configuracion>
+    {
+
+    }
     public class IdiomasRepository : BaseRepository<Idioma>
     {
         public async Task<Response<List<Idioma>>> Get()
@@ -24,6 +28,10 @@ namespace LicitProd.Data.Repositories
                             });
                     });
             });
+        }
+        public async Task<Response<List<Idioma>>> GetIdiomaAlone()
+        {
+            return await GetAsync();
         }
         public async Task<Response<Idioma>> GetByName(string name)
         {

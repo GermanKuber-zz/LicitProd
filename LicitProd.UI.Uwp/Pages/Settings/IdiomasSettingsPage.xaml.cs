@@ -115,7 +115,7 @@ namespace LicitProd.UI.Uwp.Pages.Settings
 
         private void MenuFlyoutItem_OnClick(object sender, RoutedEventArgs e)
         {
-
+            NavigationService.Navigate<IdiomasNewPage>();
         }
     }
 }
