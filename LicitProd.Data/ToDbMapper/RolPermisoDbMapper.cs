@@ -3,9 +3,9 @@ using LicitProd.Entities;
 
 namespace LicitProd.Data.ToDbMapper
 {
-    public class UsuarioRolDbMapper : ObjectToDbMapper<UsuarioRolDbMapper.UsuarioRol>
+    public class RolPermisoDbMapper : ObjectToDbMapper<RolPermisoDbMapper.RolPermiso>
     {
-        public UsuarioRolDbMapper() : base("Usuario_Rol")
+        public RolPermisoDbMapper() : base("Rol_Permiso")
         {
         }
         protected override void Map()
@@ -13,9 +13,9 @@ namespace LicitProd.Data.ToDbMapper
             Set(x => x.Id)
                 .PrimaryKey();
         }
-        public class UsuarioRol: Entity
+        public class RolPermiso : Entity
         {
-            public int UsuarioId { get; set; }
+            public int PermisoId { get; set; }
             public int RolId { get; set; }
         }
     }

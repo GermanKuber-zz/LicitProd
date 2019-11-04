@@ -3,8 +3,9 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:converters="using:LicitProd.UI.Uwp.Converters"
+    
     xmlns:controls="using:LicitProd.UI.Uwp.Controls"
+    xmlns:controls1="using:Microsoft.Toolkit.Uwp.UI.Controls"
     x:Class="LicitProd.UI.Uwp.Pages.Concursos.CrearConcurso"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
@@ -22,12 +23,55 @@
             <controls:DatePickerTranslatable TranslatableKey="CONCURSO_CREAR_FECHA_INICIO" x:Name="dtpInicio" Date="{x:Bind Path=FechaInicio}"    Margin="10"/>
             <controls:DatePickerTranslatable TranslatableKey="CONCURSO_CREAR_FECHA_APERTURA" x:Name="dtpApertura" Date="{x:Bind Path=FechaApertura}"     Margin="10"/>
             <StackPanel Orientation="Horizontal">
-                <TextBlock  x:Name="textBlock4" TextAlignment="Right" Width="100" Text="Adjudicación Directa" TextWrapping="Wrap" Margin="10,15,10,10"/>
+                <TextBlock  x:Name="textBlock4" TextAlignment="Right" Width="100" Text="Borrador" TextWrapping="Wrap" Margin="10,15,10,10"/>
+                <CheckBox x:Name="chkBorrador"  IsChecked="{x:Bind Mode=TwoWay, Path=Concurso.Borrador}"  Content=""/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock   TextAlignment="Right" Width="100" Text="Adjudicación Directa" TextWrapping="Wrap" Margin="10,15,10,10"/>
                 <CheckBox x:Name="chkDirecta"  IsChecked="{x:Bind Mode=TwoWay, Path=Concurso.AdjudicacionDirecta}"  Content=""/>
             </StackPanel>
             <controls:TextBoxTranslatable TranslatableKey="CONCURSO_CREAR_DESCRIPCION"  
                     AcceptsReturn="True"
                     x:Name="txtDescripcion" Text="{x:Bind Mode=TwoWay, Path=Concurso.Descripcion}"  TextWrapping="Wrap"  Margin="10,10,10,10" Height="200" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto"/>
+            <controls1:DataGrid
+            ItemsSource="{x:Bind Proveedores }"
+      Grid.Row="1"
+        x:Name="dataGrid"
+        Margin="12"
+                Height="300px"
+        VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
+        HorizontalScrollBarVisibility="Visible"
+        VerticalScrollBarVisibility="Visible"
+        AlternatingRowBackground="Transparent"
+        AlternatingRowForeground="Gray"
+        AreRowDetailsFrozen="False"
+        AreRowGroupHeadersFrozen="True"
+        AutoGenerateColumns="False"
+        CanUserSortColumns="False"
+        CanUserReorderColumns="True"
+        CanUserResizeColumns="True"
+        ColumnHeaderHeight="32"
+        MaxColumnWidth="400"
+        FrozenColumnCount="0"
+        GridLinesVisibility="None"
+        HeadersVisibility="Column"
+        IsReadOnly="True"            
+        RowDetailsTemplate="{StaticResource RowDetailsTemplate}"
+        RowDetailsVisibilityMode="Collapsed"
+        SelectionMode="Extended"
+        RowGroupHeaderPropertyNameAlternative="Range">
+                <controls1:DataGrid.Columns>
+                    <controls1:DataGridTextColumn Header="RazonSocial" Binding="{Binding Proveedor.RazonSocial}" Tag="Rank" />
+                    <controls1:DataGridTextColumn Header="Status" Binding="{Binding Proveedor.Status}" Tag="Rank" />
+                    <controls1:DataGridTemplateColumn>
+                        <controls1:DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <CheckBox IsChecked="{Binding Path=Selected, Mode=TwoWay}" Name="theCheckbox" />
+                            </DataTemplate>
+                        </controls1:DataGridTemplateColumn.CellTemplate>
+                    </controls1:DataGridTemplateColumn>
+                </controls1:DataGrid.Columns>
+            </controls1:DataGrid>
         </StackPanel>
 
     </Grid>

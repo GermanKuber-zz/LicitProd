@@ -17,4 +17,8 @@ namespace LicitProd.Data.Repositories
         public new Task<Response<List<Log>>> Get() =>
             GetAsync();
     }
+    public class HitoConcursoRepository : BaseRepository<HitoConcurso>
+    {
+
+    }
 }

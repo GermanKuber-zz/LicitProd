@@ -2,7 +2,12 @@
 
 namespace LicitProd.Entities
 {
-
+    public class HitoConcurso : Entity
+    {
+        public int ConcursoId { get; set; }
+        public string Hito { get; set; }
+        public DateTime Fecha { get; set; } = DateTime.Now;
+    }
     public class Concurso : Verificable
     {
         public int Status { get; set; }
@@ -11,6 +16,7 @@ namespace LicitProd.Entities
         public DateTime FechaInicio { get; set; } = DateTime.Now.AddDays(1);
         public DateTime FechaApertura { get; set; } = DateTime.Now.AddDays(2);
         public bool AdjudicacionDirecta { get; set; }
+        public bool Borrador { get; set; }
         public string Descripcion { get; set; } = string.Empty;
 
         public Concurso(decimal presupuesto,
@@ -23,6 +29,8 @@ namespace LicitProd.Entities
             Status = 1;
             Presupuesto = presupuesto;
             Nombre = nombre ?? throw new ArgumentNullException(nameof(nombre));
+            if (fechaInicio <= DateTime.Now.AddDays(2))
+                throw new Exception("La fecha de inicio debe de ser mayor a 2 días.");
             FechaInicio = fechaInicio;
             FechaApertura = fechaApertura;
             AdjudicacionDirecta = adjudicacionDirecta;
@@ -33,13 +41,14 @@ namespace LicitProd.Entities
 
         }
 
+
         public override string GenerateHash()
         {
             return HashValue(Status +
-                             Presupuesto.ToString() + 
+                             Presupuesto.ToString() +
                              Nombre +
                              FechaInicio.ToShortDateString() +
-                             FechaApertura.ToShortDateString()+
+                             FechaApertura.ToShortDateString() +
                              AdjudicacionDirecta +
                              Descripcion);
         }
