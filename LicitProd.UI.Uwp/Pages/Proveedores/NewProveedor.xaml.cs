@@ -27,11 +27,9 @@ namespace LicitProd.UI.Uwp.Pages.Proveedores
         {
             LoadingService.LoadingStart();
 
-            
-            var rol = (await new RolRepository().Get()).Result.FirstOrDefault(x => x.Nombre == "Proveedor");
-            Proveedor.Usuario = new Usuario(Email, new HashService().Hash(Password), rol);
 
-            (await new ProveedoresServices().Registrar(Proveedor))
+
+            (await new ProveedoresServices().Registrar(Proveedor, Email, Password))
                 .Success(s =>
                 {
                     MessageDialogService.Create("Proveedor Registrador Existosamente", c =>

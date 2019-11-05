@@ -6,9 +6,44 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
+      xmlns:controls="using:LicitProd.UI.Uwp.Controls"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition MaxWidth="500"></ColumnDefinition>
+            <ColumnDefinition MaxWidth="500"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <StackPanel>
+
+            <controls:TextBoxTranslatable  TranslatableKey="CONCURSO_CREAR_NOMBRE" IsEnabled="False" x:Name="Nombre"   Text="{x:Bind Mode=TwoWay, Path=Concurso.Nombre}" TextWrapping="Wrap"   Margin="10"/>
+            <controls:TextBoxTranslatable TranslatableKey="CONCURSO_CREAR_PRESUPUESTO" IsEnabled="False"  x:Name="txtPresupuesto" Text="{x:Bind Mode=TwoWay, Path=Concurso.Presupuesto}"  TextWrapping="Wrap" Margin="10" />
+            <controls:DatePickerTranslatable TranslatableKey="CONCURSO_CREAR_FECHA_INICIO" IsEnabled="False"  x:Name="dtpInicio" Date="{x:Bind Path=FechaInicio}"    Margin="10"/>
+            <controls:DatePickerTranslatable TranslatableKey="CONCURSO_CREAR_FECHA_APERTURA" IsEnabled="False"  x:Name="dtpApertura" Date="{x:Bind Path=FechaApertura}"     Margin="10"/>
+
+            <StackPanel Orientation="Horizontal">
+                <TextBlock   TextAlignment="Right" Width="100" Text="Adjudicación Directa" TextWrapping="Wrap" Margin="10,15,10,10"/>
+                <CheckBox x:Name="chkDirecta"  IsEnabled="False"  IsChecked="{x:Bind Mode=TwoWay, Path=Concurso.AdjudicacionDirecta}"  Content=""/>
+            </StackPanel>
+            <controls:TextBoxTranslatable TranslatableKey="CONCURSO_CREAR_DESCRIPCION"  
+                    AcceptsReturn="True"
+                    IsEnabled="False" 
+                    x:Name="txtDescripcion" Text="{x:Bind Mode=TwoWay, Path=Concurso.Descripcion}"  TextWrapping="Wrap"  Margin="10,10,10,10" Height="200" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto"/>
+
+        </StackPanel>
+        <StackPanel Grid.Column="1">
+            <controls:TextBoxTranslatable  TranslatableKey="CONCURSO_OFERTAR_OFERTA"  Text="{x:Bind Mode=TwoWay, Path=Oferta}" TextWrapping="Wrap"   Margin="10"/>
+            <controls:TextBoxTranslatable TranslatableKey="CONCURSO_CREAR_DESCRIPCION"  
+                    AcceptsReturn="True"
+                                         Text="{x:Bind Mode=TwoWay, Path=Detalle}"  TextWrapping="Wrap"  Margin="10,10,10,10" Height="200" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto"/>
+        </StackPanel>
 
     </Grid>
+    <Page.BottomAppBar>
+        <CommandBar IsOpen="False" >
+            <controls:AppBarButtonTranslatable Icon="Save" TranslatableKey="CONCURSO_OFERTAR_OFERTAR"  Click="BtnAcept_Click"/>
+            <controls:AppBarButtonTranslatable  Icon="Cancel" TranslatableKey="APPBAR_BUTTON_CANCELAR" />
+        </CommandBar>
+    </Page.BottomAppBar>
 </Page>

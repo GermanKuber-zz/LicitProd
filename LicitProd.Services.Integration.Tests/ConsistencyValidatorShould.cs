@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using FluentAssertions;
 using LicitProd.Data.Infrastructure.Infrastructure;
+using LicitProd.Data.Repositories;
 using LicitProd.Entities;
 using LicitProd.Mappers;
 using Xunit;
@@ -12,16 +14,22 @@ namespace LicitProd.Services.Integration.Tests
     {
         private readonly ConsistencyValidator _sut;
         private readonly Concurso _newConcurso;
-
+        private readonly ConcursosRepository _concursoRepository;
+        private List<Proveedor> proveedors = new List<Proveedor>();
         public ConsistencyValidatorShould()
         {
             _sut = new ConsistencyValidator();
             var concursoServices = new ConcursoServices();
             _newConcurso = new Concurso(1234, "Test", new DateTime(2019, 2, 2), new DateTime(2019, 2, 4), false, "Descripion");
-            AsyncHelper.CallAsyncMethodVoid(() => concursoServices.Crear(_newConcurso));
-            AsyncHelper.CallAsyncMethodVoid(() => concursoServices.Crear(_newConcurso));
-            AsyncHelper.CallAsyncMethodVoid(() => concursoServices.Crear(_newConcurso));
-            AsyncHelper.CallAsyncMethodVoid(() => concursoServices.Crear(_newConcurso));
+            var proveedor = new Proveedor();
+            proveedors.Add(proveedor);
+            var proveedoresRepository = new ProveedoresRepository();
+
+            proveedoresRepository.InsertDataAsync(proveedor).GetAwaiter().GetResult();
+            AsyncHelper.CallAsyncMethodVoid(() => concursoServices.Crear(_newConcurso, proveedors));
+            AsyncHelper.CallAsyncMethodVoid(() => concursoServices.Crear(_newConcurso, proveedors));
+            AsyncHelper.CallAsyncMethodVoid(() => concursoServices.Crear(_newConcurso, proveedors));
+            AsyncHelper.CallAsyncMethodVoid(() => concursoServices.Crear(_newConcurso, proveedors));
         }
         [Fact]
         public async Task Validate_Consistency_Of_Concursos()

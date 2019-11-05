@@ -19,7 +19,12 @@ namespace LicitProd.Data.Repositories
                  .Send()))));
 
         public async Task<Response<List<TEntity>>> GetAsync(List<Parameter> parameters, List<string> selectColumns) =>
-            ReturnResult((await CreateMapper()).MapList((await SqlAccessService.SelectData(parameters, selectColumns))));
+            ReturnResult((await CreateMapper()).MapList(await SqlAccessService.SelectData(parameters, selectColumns)));
+
+        public async Task<Response<List<TEntity>>> GetAsync(string query) =>
+    ReturnResult((await CreateMapper()).MapList(await SqlAccessService.SelectData(query)));
+        public async Task<Response<List<TReturnEntity>>> GetAsync<TReturnEntity>(string query) where TReturnEntity : IEntityToDb, new() =>
+                        Response<TReturnEntity>.From((await CreateMapper<TReturnEntity>()).MapList(await SqlAccessService.SelectData(query)));
         public async Task<Response<List<TEntity>>> GetAsync(List<Parameter> parameters) =>
             ReturnResult((await CreateMapper()).MapList((await SqlAccessService.SelectData(parameters, (await EntityToColumns<TEntity>.MapAsync())
                 .Send()))));
@@ -57,7 +62,7 @@ namespace LicitProd.Data.Repositories
             return Response<TEntity>.Ok(entity);
         }
 
-       public async Task DeleteAsync(Parameters where)
+        public async Task DeleteAsync(Parameters where)
         {
             await SqlAccessService.DeleteAsync(where);
         }
@@ -70,9 +75,18 @@ namespace LicitProd.Data.Repositories
 
         protected async Task<IDbToObjectMapper<TEntity>> CreateMapper()
         {
+            return await CreateMapperGeneric<TEntity>();
+        }
+        protected async Task<IDbToObjectMapper<TEntityReturn>> CreateMapper<TEntityReturn>() where TEntityReturn : IEntityToDb, new()
+        {
+            return await CreateMapperGeneric<TEntityReturn>();
+        }
+
+        private static async Task<IDbToObjectMapper<TEntityReturn>> CreateMapperGeneric<TEntityReturn>() where TEntityReturn : IEntityToDb, new()
+        {
             return await Task.Run(() =>
             {
-                var loadableTypes = ReflectionHelper.GetClassesImplementingAnInterface<IDbToObjectMapper<TEntity>>();
+                var loadableTypes = ReflectionHelper.GetClassesImplementingAnInterface<IDbToObjectMapper<TEntityReturn>>();
 
 
                 var type = loadableTypes.FirstOrDefault(x => x.Name.Contains(typeof(TEntity).Name));
@@ -82,10 +96,10 @@ namespace LicitProd.Data.Repositories
                     type = loadableTypes.FirstOrDefault(x => x.Name.Contains("All"));
                     if (type == null)
                         throw new Exception("El mapper requerido no existe : " + type.ToString());
-                    Type[] typeArgs = { typeof(TEntity) };
-                    return (IDbToObjectMapper<TEntity>)Activator.CreateInstance(type.MakeGenericType(typeArgs));
+                    Type[] typeArgs = { typeof(TEntityReturn) };
+                    return (IDbToObjectMapper<TEntityReturn>)Activator.CreateInstance(type.MakeGenericType(typeArgs));
                 }
-                return (IDbToObjectMapper<TEntity>)Activator.CreateInstance(type);
+                return (IDbToObjectMapper<TEntityReturn>)Activator.CreateInstance(type);
             });
         }
     }

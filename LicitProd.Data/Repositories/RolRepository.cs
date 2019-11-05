@@ -5,10 +5,6 @@ using LicitProd.Entities;
 
 namespace LicitProd.Data.Repositories
 {
-    public class CompradorRepository : BaseRepository<Comprador>
-    {
-
-    }
     public class RolRepository : BaseRepository<Rol>
     {
 

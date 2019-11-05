@@ -20,6 +20,7 @@ namespace LicitProd.UI.Uwp.Pages.Concursos
         }
         private async Task LoadDataAsync()
         {
+            
             (await new ConcursosRepository().Get())
            .Success(concursos =>
            {
@@ -40,5 +41,10 @@ namespace LicitProd.UI.Uwp.Pages.Concursos
 
         }
 
+        private void dataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var concurso = (Concurso)e.AddedItems.First();
+            NavigationService.Navigate<DetalleConcursoPage>(new { ConcursoId = concurso.Id });
+        }
     }
 }

@@ -18,6 +18,8 @@ namespace LicitProd.Entities
         public bool AdjudicacionDirecta { get; set; }
         public bool Borrador { get; set; }
         public string Descripcion { get; set; } = string.Empty;
+        public int TerminosYCondicionesId { get; set; }
+        public int CompradorId { get; set; }
 
         public Concurso(decimal presupuesto,
             string nombre,

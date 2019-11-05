@@ -19,7 +19,6 @@ namespace LicitProd.Services
                 foreach (var traduccion in idioma.Traducciones)
                 {
                     await traduccionesRepository.InsertDataAsync(idioma, traduccion);
-
                 }
             }
             else

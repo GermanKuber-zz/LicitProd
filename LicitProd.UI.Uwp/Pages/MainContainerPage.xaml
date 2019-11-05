@@ -54,7 +54,8 @@
             <controls:NavigationViewItemTranslatable TranslatableKey="PRINCIPAL_MENU_ADMINISTRAR_USUARIOS" PermissionKey="ADMINISTRAR_USUARIOS"  Tag="SamplePage3" x:Name="UsuariosRolesPage" Icon="Flag"/>
             <controls:NavigationViewItemTranslatable TranslatableKey="PRINCIPAL_MENU_LEFT_ADMINISTRAR_COMPRADORES" PermissionKey="ADMINISTRAR_COMPRADORES"  Tag="SamplePage3" x:Name="ListCompradoresPage" Icon="Flag"/>
             <controls:NavigationViewItemTranslatable TranslatableKey="PRINCIPAL_MENU_LEFT_CREAR_COMPRADOR" PermissionKey="CREAR_COMPRADORES" Tag="SamplePage3" x:Name="NewCompradorPage" Icon="Flag"/>
-            
+            <controls:NavigationViewItemTranslatable TranslatableKey="PRINCIPAL_MENU_LEFT_CREAR_TERMINOSYCONDICIONES" PermissionKey="CREAR_TERMINOSYCONDICIONES" Tag="SamplePage3" x:Name="CrearTerminosYCondiciones" Icon="NewFolder"/>
+
         </NavigationView.MenuItems>
 
         <NavigationView.PaneCustomContent>

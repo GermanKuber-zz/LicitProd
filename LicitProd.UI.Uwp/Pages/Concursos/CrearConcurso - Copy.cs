@@ -8,20 +8,16 @@ using System.Collections.ObjectModel;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using LicitProd.Data.Repositories;
+using Windows.UI.Xaml.Navigation;
+using LicitProd.Mappers;
 
 namespace LicitProd.UI.Uwp.Pages.Concursos
 {
-    public class ProveedorSelectionViewModel
+
+    public sealed partial class DetalleConcursoPage : Page
     {
-        public Proveedor Proveedor { get; set; }
-        public bool Selected { get; set; }
-        public ProveedorSelectionViewModel(Proveedor proveedor)
-        {
-            Proveedor = proveedor;
-        }
-    }
-    public sealed partial class CrearConcurso : Page
-    {
+        private int  _concursoId;
+
         public ObservableCollection<ProveedorSelectionViewModel> Proveedores { get; set; } = new ObservableCollection<ProveedorSelectionViewModel>();
         public ObservableCollection<Entities.TerminosYCondiciones> TerminosYCondiciones { get; set; } = new ObservableCollection<Entities.TerminosYCondiciones>();
         public Entities.TerminosYCondiciones TerminosYCondicionesSelected { get; set; }
@@ -43,10 +39,26 @@ namespace LicitProd.UI.Uwp.Pages.Concursos
         }
 
 
-        public CrearConcurso()
+        public DetalleConcursoPage()
         {
             InitializeComponent();
-            LoadDataAsync();
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            _concursoId = int.Parse(((dynamic)e.Parameter).ConcursoId.ToString());
+            base.OnNavigatedTo(e);
+            AsyncHelper.CallAsyncMethodVoid(() => LoadConcurso(_concursoId));
+
+        }
+        private async Task LoadConcurso(int concursoId)
+        {
+            var concursoService = new ConcursoServices();
+
+            (await concursoService.GetConcursoParaOfertarAsync(concursoId)).Success(x =>
+            {
+                Concurso = x;
+            });
         }
 
         private async Task LoadDataAsync()

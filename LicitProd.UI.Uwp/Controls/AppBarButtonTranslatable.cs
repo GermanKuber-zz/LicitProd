@@ -7,7 +7,7 @@ namespace LicitProd.UI.Uwp.Controls
     {
         private readonly ControlsTranslatable _controlsTranslatable;
 
-        public RadioButtonCustom( )
+        public RadioButtonCustom()
         {
             _controlsTranslatable = new ControlsTranslatable(ChangeLanguage);
         }
@@ -33,7 +33,8 @@ namespace LicitProd.UI.Uwp.Controls
 
         private void ChangeLanguage(string value)
         {
-            Label = value;
+            if (value != null)
+                Label = value;
         }
 
         public string TranslatableKey

@@ -3,19 +3,17 @@ using LicitProd.Entities;
 
 namespace LicitProd.Data.ToDbMapper
 {
-    public class CompradorDbMapper : ObjectToDbMapper<Comprador>
+    public class TerminosYCondicionesDbMapper : ObjectToDbMapper<TerminosYCondiciones>
     {
-        public CompradorDbMapper() : base("Compradores")
+        public TerminosYCondicionesDbMapper() : base("TerminosYCondiciones")
         {
         }
         protected override void Map()
         {
             Set(x => x.Id)
                 .PrimaryKey();
-            Set(x => x.Usuario)
-                .Ignore();
-            Set(x => x.UsuarioId)
-                .Column("Usuario_Id");
+    
+            
         }
     }
 }

@@ -16,7 +16,7 @@ namespace LicitProd.Data.ToDbMapper
                 .Column("Idioma_Id");
             Set(x => x.UsuarioId)
                 .Column("Usuario_Id");
-            
+
         }
     }
 }

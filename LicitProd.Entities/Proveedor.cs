@@ -9,6 +9,7 @@
         public string Telefono { get; set; }
         public Usuario Usuario { get; set; } = new Usuario();
         public void SetUsuario(Usuario usuario) => Usuario = usuario;
+        public bool Activo { get; set; }
         public int UsuarioId
         {
             get { return Usuario.Id; }
@@ -17,7 +18,5 @@
                 var a = "";
             }
         }
-
-
     }
 }

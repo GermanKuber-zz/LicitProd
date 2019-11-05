@@ -10,43 +10,40 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
+    <ScrollViewer>
+        <Grid>
 
-        <StackPanel Orientation="Vertical" >
-            <controls1:TextBoxTranslatable TranslatableKey="IDIOMA_NUEVO_NOMBRE" Text="{x:Bind Mode=TwoWay, Path=NewIdiomaName}" ></controls1:TextBoxTranslatable>
-        </StackPanel>
-        <controls:DataGrid
-            ItemsSource="{x:Bind Traducciones, Mode=TwoWay }"
-            HorizontalScrollBarVisibility="Visible"
-            VerticalScrollBarVisibility="Visible"
-            AlternatingRowBackground="Transparent"
-            AlternatingRowForeground="Gray"
-            AreRowDetailsFrozen="False"
-            AreRowGroupHeadersFrozen="True"
-            AutoGenerateColumns="False"
-            CanUserSortColumns="False"
-            CanUserReorderColumns="True"
-            CanUserResizeColumns="True"
-            ColumnHeaderHeight="32"
-            MaxColumnWidth="400"
-            GridLinesVisibility="None"
-            HeadersVisibility="Column"
-            IsReadOnly="false"            
-            RowDetailsTemplate="{StaticResource RowDetailsTemplate}"
-            RowDetailsVisibilityMode="Collapsed"
-            SelectionMode="Extended"
-            RowGroupHeaderPropertyNameAlternative="Range" Margin="0,79,0,0">
-            <controls:DataGrid.Columns>
-                <controls1:DataGridTextColumnTranslatable TranslatableKey="IDIOMA_LIST_KEY"  Binding="{Binding KeyValue}" Width="250"  />
-                <controls1:DataGridTextColumnTranslatable TranslatableKey="IDIOMA_LIST_TRADUCCION"  Binding="{Binding Traduccion}" />
-            </controls:DataGrid.Columns>
-        </controls:DataGrid>
-
-    </Grid>
+            <StackPanel Orientation="Vertical" Height="111" VerticalAlignment="Top" >
+                <controls1:TextBoxTranslatable TranslatableKey="IDIOMA_NUEVO_NOMBRE" Text="{x:Bind Mode=TwoWay, Path=NewIdiomaName}" />
+            </StackPanel>
+            <controls:DataGrid
+                ItemsSource="{x:Bind Mode=TwoWay, Path=Traducciones}"
+                HorizontalScrollBarVisibility="Visible"
+                VerticalScrollBarVisibility="Visible"
+                AlternatingRowBackground="Transparent"
+                AlternatingRowForeground="Gray"
+                AreRowDetailsFrozen="False"
+                AreRowGroupHeadersFrozen="True"
+                AutoGenerateColumns="False"
+                CanUserSortColumns="False"
+                CanUserReorderColumns="True"
+                CanUserResizeColumns="True"
+                ColumnHeaderHeight="32"
+                MaxColumnWidth="400"
+                GridLinesVisibility="None"
+                HeadersVisibility="Column"
+                IsReadOnly="false"            
+                RowDetailsTemplate="{StaticResource RowDetailsTemplate}"
+                RowDetailsVisibilityMode="Collapsed"
+                SelectionMode="Extended"
+                RowGroupHeaderPropertyNameAlternative="Range" Margin="0,79,0,889">
+                <controls:DataGrid.Columns>
+                    <controls1:DataGridTextColumnTranslatable TranslatableKey="IDIOMA_LIST_KEY"  Binding="{Binding KeyValue}" Width="250"  />
+                    <controls1:DataGridTextColumnTranslatable TranslatableKey="IDIOMA_LIST_TRADUCCION"  Binding="{Binding Traduccion}" />
+                </controls:DataGrid.Columns>
+            </controls:DataGrid>
+        </Grid>
+    </ScrollViewer>
     <Page.BottomAppBar>
         <CommandBar IsOpen="False" >
             <controls1:AppBarButtonTranslatable Name="ApbAccept" Icon="Save" TranslatableKey="APPBAR_BUTTON_SALVAR"  Click="ApbAccept_OnClick"/>

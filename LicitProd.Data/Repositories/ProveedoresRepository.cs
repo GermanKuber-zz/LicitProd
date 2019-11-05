@@ -19,5 +19,12 @@ namespace LicitProd.Data.Repositories
                 .Map(result => Response<Proveedor>.Ok(result.First()),
                     errors => Response<Proveedor>.Error(errors))
                 .Success(p => p));
+        public async Task<Response<Proveedor>> GetByUserId(int userId) =>
+            ReturnResult((await GetAsync(new Parameters()
+                    .Add("Usuario_Id", userId)
+                    .Send()))
+                .Map(result => Response<Proveedor>.Ok(result.First()),
+                    errors => Response<Proveedor>.Error(errors))
+                .Success(p => p));
     }
 }

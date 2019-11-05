@@ -1,5 +1,5 @@
 ﻿<Page
-    x:Class="LicitProd.UI.Uwp.Pages.Concursos.ListConcursos"
+    x:Class="LicitProd.UI.Uwp.Pages.Concursos.ListConcursosOfertarPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -37,12 +37,9 @@
         RowGroupHeaderPropertyNameAlternative="Range">
         <controls:DataGrid.Columns>
             <controls:DataGridTextColumn Header="Nombre" Binding="{Binding Nombre}" Tag="Rank" />
-            <controls:DataGridTextColumn Header="Descripción" Binding="{Binding Descripcion}" Tag="Rank" />
-            <controls:DataGridTextColumn Header="Status" Binding="{Binding Status}" Tag="Rank" />
-            <controls:DataGridTextColumn Header="Presupuesto" Binding="{Binding Presupuesto}" Tag="Rank" />
             <controls:DataGridTextColumn Header="FechaInicio" Binding="{Binding FechaInicio}" Tag="Rank" />
             <controls:DataGridTextColumn Header="FechaApertura" Binding="{Binding FechaApertura}" Tag="Rank" />
-            <controls:DataGridCheckBoxColumn Header="AdjudicacionDirecta" Binding="{Binding AdjudicacionDirecta}" Tag="Rank" />
+                <controls:DataGridCheckBoxColumn Header="Acepto Terminos Y Condiciones" Binding="{Binding AceptoTerminosYCondiciones}" Tag="Rank" />
         </controls:DataGrid.Columns>
     </controls:DataGrid>
     </Grid>

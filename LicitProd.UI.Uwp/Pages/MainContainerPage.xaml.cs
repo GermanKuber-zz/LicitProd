@@ -17,7 +17,7 @@ using LicitProd.UI.Uwp.Pages.Permisos;
 using LicitProd.UI.Uwp.Pages.Proveedores;
 using LicitProd.UI.Uwp.Pages.Settings;
 using LicitProd.UI.Uwp.Pages.Usuarios;
-
+using LicitProd.UI.Uwp.Pages.TerminosYCondiciones;
 
 namespace LicitProd.UI.Uwp.Pages
 {
@@ -31,9 +31,9 @@ namespace LicitProd.UI.Uwp.Pages
             InitializeComponent();
             LoadingService.SetLoadingCallBack(() => Loading.IsLoading = true,
                                               () => Loading.IsLoading = false);
-            NavigationService.Register(page =>
+            NavigationService.Register((page, parameter) =>
             {
-                contentFrame.Navigate(page, new DrillInNavigationTransitionInfo());
+                contentFrame.Navigate(page, parameter, new DrillInNavigationTransitionInfo());
             },
             page =>
             {
@@ -47,7 +47,7 @@ namespace LicitProd.UI.Uwp.Pages
                 if (contentFrame.CanGoBack)
                     contentFrame.BackStack.Remove(contentFrame.BackStack.ElementAt(contentFrame.BackStack.Count - 1));
 
-            } ,
+            },
             () =>
             {
                 Application.Current.Exit();
@@ -61,7 +61,7 @@ namespace LicitProd.UI.Uwp.Pages
         {
             IdentityServices.Instance.IsLoggued()
                 .Success(x => ApplyPermissions(x.Rol));
-        
+
         }
 
         private void NvSample_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
@@ -112,7 +112,7 @@ namespace LicitProd.UI.Uwp.Pages
                             NavigationService.Navigate<UsuariosRolesPage>();
                             break;
                         case "OfertarConcursoPage":
-                            NavigationService.Navigate<OfertarConcursoPage>();
+                            NavigationService.Navigate<ListConcursosOfertarPage>();
                             break;
                         case "ListCompradoresPage":
                             NavigationService.Navigate<ListCompradoresPage>();
@@ -120,7 +120,9 @@ namespace LicitProd.UI.Uwp.Pages
                         case "NewCompradorPage":
                             NavigationService.Navigate<NewCompradorPage>();
                             break;
-
+                        case "CrearTerminosYCondiciones":
+                            NavigationService.Navigate<CrearTerminosYCondicionesPage>();
+                            break;
                         default:
                             break;
                     }

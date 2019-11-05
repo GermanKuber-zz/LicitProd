@@ -4,6 +4,7 @@ using System;
 using LicitProd.Data.Repositories;
 using Xunit;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace LicitProd.Services.Integration.Tests
 {
@@ -12,20 +13,29 @@ namespace LicitProd.Services.Integration.Tests
         readonly ConcursoServices _sut;
         private readonly ConcursosRepository _concursoRepository;
         private readonly Concurso _newConcurso;
-
+        private List<Proveedor> proveedors = new List<Proveedor>();
         public ConcursoServicesShould()
         {
             _sut = new ConcursoServices();
             _concursoRepository = new ConcursosRepository();
+            var proveedor = new Proveedor
+            {
+                Celular = "1234",
+                Direccion = "Direccion",
+                RazonSocial = "Empresa",
+                Telefono = "123456"
+            };
+            proveedors.Add(proveedor);
+            (new ProveedoresServices().Registrar(proveedor, "emai@mail.com", "12345")).GetAwaiter().GetResult(); 
             _newConcurso = new Concurso(1234, "Test", new DateTime(2019, 2, 2), new DateTime(2019, 2, 4), false, "Descripion");
         }
 
         [Fact]
         public async Task Create_Multiples_Concursos()
         {
-            await _sut.Crear(_newConcurso);
-            await _sut.Crear(_newConcurso);
-            await _sut.Crear(_newConcurso);
+            await _sut.Crear(_newConcurso, proveedors);
+            await _sut.Crear(_newConcurso, proveedors);
+            await _sut.Crear(_newConcurso, proveedors);
             (await _concursoRepository.Get())
                 .Success(x =>
                 {
@@ -35,7 +45,7 @@ namespace LicitProd.Services.Integration.Tests
         [Fact]
         public async Task Create_Complete_Concurso()
         {
-            await _sut.Crear(_newConcurso);
+            await _sut.Crear(_newConcurso, proveedors);
 
             (await _concursoRepository.GetByIdAsync(_newConcurso.Id))
                 .Success(concurso =>
@@ -51,7 +61,7 @@ namespace LicitProd.Services.Integration.Tests
         [Fact]
         public async Task Be_Invalid_Differnet_Hash()
         {
-            await _sut.Crear(_newConcurso);
+            await _sut.Crear(_newConcurso, proveedors);
 
             (await _concursoRepository.GetByIdAsync(_newConcurso.Id))
                 .Success(x =>

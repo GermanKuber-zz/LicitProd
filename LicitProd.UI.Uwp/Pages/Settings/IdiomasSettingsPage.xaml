@@ -11,50 +11,47 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-        <StackPanel Orientation="Vertical"  >
-            <RelativePanel>
-                <ComboBox
-                    ItemsSource="{x:Bind Idiomas}"
-                    SelectedItem="{x:Bind IdiomaSelected, Mode=TwoWay}"
-                    DisplayMemberPath="Idioma.Nombre"
-                    Header="Idiomas" PlaceholderText="Idiomas" Margin="24,24,10,20"  Width="300" >
-                </ComboBox>
-            </RelativePanel>
-        </StackPanel>
-        <controls:DataGrid
-            ItemsSource="{x:Bind Traducciones, Mode=TwoWay }"
-            HorizontalScrollBarVisibility="Visible"
-            VerticalScrollBarVisibility="Visible"
-            AlternatingRowBackground="Transparent"
-            AlternatingRowForeground="Gray"
-            AreRowDetailsFrozen="False"
-            AreRowGroupHeadersFrozen="True"
-            AutoGenerateColumns="False"
-            CanUserSortColumns="False"
-            CanUserReorderColumns="True"
-            CanUserResizeColumns="True"
-            ColumnHeaderHeight="32"
-            MaxColumnWidth="400"
-            GridLinesVisibility="None"
-            HeadersVisibility="Column"
-            IsReadOnly="false"            
-            RowDetailsTemplate="{StaticResource RowDetailsTemplate}"
-            RowDetailsVisibilityMode="Collapsed"
-            SelectionMode="Extended"
+    <ScrollViewer>
+        <Grid>
+            <StackPanel Orientation="Vertical"  Height="111" VerticalAlignment="Top"  >
+                <RelativePanel>
+                    <ComboBox
+                        ItemsSource="{x:Bind Path=Idiomas}"
+                        SelectedItem="{x:Bind Mode=TwoWay, Path=IdiomaSelected}"
+                        DisplayMemberPath="Idioma.Nombre"
+                        Header="Idiomas" PlaceholderText="Idiomas" Margin="24,24,10,20"  Width="300" />
+                </RelativePanel>
+            </StackPanel>
+            <controls:DataGrid
+                ItemsSource="{x:Bind Mode=TwoWay, Path=Traducciones}"
+                HorizontalScrollBarVisibility="Visible"
+                VerticalScrollBarVisibility="Visible"
+                AlternatingRowBackground="Transparent"
+                AlternatingRowForeground="Gray"
+                AreRowDetailsFrozen="False"
+                AreRowGroupHeadersFrozen="True"
+                AutoGenerateColumns="False"
+                CanUserSortColumns="False"
+                CanUserReorderColumns="True"
+                CanUserResizeColumns="True"
+                ColumnHeaderHeight="32"
+                MaxColumnWidth="400"
+                GridLinesVisibility="None"
+                HeadersVisibility="Column"
+                IsReadOnly="false"            
+                RowDetailsTemplate="{StaticResource RowDetailsTemplate}"
+                RowDetailsVisibilityMode="Collapsed"
+                SelectionMode="Extended"
             
-            RowGroupHeaderPropertyNameAlternative="Range" Margin="0,79,0,0">
-            <controls:DataGrid.Columns>
-                <controls1:DataGridTextColumnTranslatable TranslatableKey="IDIOMA_LIST_KEY"  Binding="{Binding KeyValue}" Width="250"  />
-                <controls1:DataGridTextColumnTranslatable TranslatableKey="IDIOMA_LIST_TRADUCCION"  Binding="{Binding Traduccion}" />
-            </controls:DataGrid.Columns>
-        </controls:DataGrid>
+                RowGroupHeaderPropertyNameAlternative="Range" Margin="0,79,0,889">
+                <controls:DataGrid.Columns>
+                    <controls1:DataGridTextColumnTranslatable TranslatableKey="IDIOMA_LIST_KEY"  Binding="{Binding KeyValue}" Width="250"  />
+                    <controls1:DataGridTextColumnTranslatable TranslatableKey="IDIOMA_LIST_TRADUCCION"  Binding="{Binding Traduccion}" />
+                </controls:DataGrid.Columns>
+            </controls:DataGrid>
 
-    </Grid>
+        </Grid>
+    </ScrollViewer>
     <Page.BottomAppBar>
         <CommandBar IsOpen="False" >
             <controls1:AppBarButtonTranslatable  Icon="Save" TranslatableKey="APPBAR_BUTTON_SALVAR"  Click="ApbAccept_OnClick"/>

@@ -1,0 +1,33 @@
+﻿<Page
+    x:Class="LicitProd.UI.Uwp.Pages.TerminosYCondiciones.CrearTerminosYCondicionesPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:LicitProd.UI.Uwp.Pages.TerminosYCondiciones"
+    xmlns:controls="using:LicitProd.UI.Uwp.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition MaxWidth="500"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <StackPanel>
+
+            <controls:TextBoxTranslatable  TranslatableKey="TERMINOSYCONDICIONES_CREAR_NOMBRE"    Text="{x:Bind Mode=TwoWay, Path=Nombre}" TextWrapping="Wrap"   Margin="10"/>
+            <controls:TextBoxTranslatable TranslatableKey="TERMINOSYCONDICIONES_CREAR_DESCRIPCION"  
+                    AcceptsReturn="True"
+                    x:Name="txtDescripcion" Text="{x:Bind Mode=TwoWay, Path=Descripcion}"  TextWrapping="Wrap"  Margin="10,10,10,10" Height="200" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto"/>
+            
+        </StackPanel>
+
+    </Grid>
+    <Page.BottomAppBar>
+        <CommandBar IsOpen="False" >
+            <controls:AppBarButtonTranslatable Icon="Save" TranslatableKey="APPBAR_BUTTON_SALVAR"  Click="BtnAcept_Click"/>
+            <controls:AppBarButtonTranslatable  Icon="Cancel" TranslatableKey="APPBAR_BUTTON_CANCELAR" />
+        </CommandBar>
+    </Page.BottomAppBar>
+</Page>

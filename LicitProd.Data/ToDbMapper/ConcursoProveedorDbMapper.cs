@@ -18,6 +18,7 @@ namespace LicitProd.Data.ToDbMapper
             public int ProveedorId { get; set; }
             public int ConcursoId { get; set; }
             public int Status { get; set; }
+            public bool AceptoTerminosYCondiciones { get; set; }
         }
     }
 }
