@@ -29,7 +29,7 @@ namespace LicitProd.Services
             _usuarioRepository.UpdateLastLoginDate(usuario.Email, DateTime.Now);
             IdentityServices.Instance.SetUserLogged(usuario);
 
-            var responeConfiguration = AsyncHelper.CallAsyncMethod(() => (new ConfiguracionesRepository()).GetByUserId(usuario.Id));
+            var responeConfiguration = AsyncHelper.CallAsyncMethod(() => (new ConfiguracionesRepository()).GetByIdAsync(usuario.Id));
             if (responeConfiguration.SuccessResult)
             {
                 var idiomaWithId = AsyncHelper.CallAsyncMethod(() => new IdiomasRepository().GetByIdAsync(responeConfiguration.Result.IdiomaId));
