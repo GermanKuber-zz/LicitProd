@@ -22,8 +22,7 @@ namespace LicitProd.Data.Repositories
         }
         public async Task<Response<Backup>> RestoreLastBackup(string path)
         {
-            await (new SqlAccessService<Backup>()).ExcecuteQueryAsync($"USE master", new Parameters().Send());
-            await (new SqlAccessService<Backup>()).ExcecuteQueryAsync($"RESTORE DATABASE LicitProd FROM DISK = '{path}' WITH REPLACE ", new Parameters().Send());
+            await (new SqlAccessService<Backup>()).ExcecuteQueryAsync($"ALTER DATABASE LicitProd  SET OFFLINE WITH ROLLBACK IMMEDIATE RESTORE DATABASE LicitProd FROM DISK = '{path}' WITH REPLACE ALTER DATABASE LicitProd SET ONLINE", new Parameters().Send());
             return Response<Backup>.Ok(default);
         }
     }

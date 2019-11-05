@@ -29,9 +29,18 @@ namespace LicitProd.Services
             _usuarioRepository.UpdateLastLoginDate(usuario.Email, DateTime.Now);
             IdentityServices.Instance.SetUserLogged(usuario);
 
-            AsyncHelper.CallAsyncMethod(() => new IdiomasRepository().GetByName("Español"))
-                .Success(idioma =>
-                    SettingsServices.SetIdioma(idioma));
+            var responeConfiguration = AsyncHelper.CallAsyncMethod(() => (new ConfiguracionesRepository()).GetByUserId(usuario.Id));
+            if (responeConfiguration.SuccessResult)
+            {
+                var idiomaWithId = AsyncHelper.CallAsyncMethod(() => new IdiomasRepository().GetByIdAsync(responeConfiguration.Result.IdiomaId));
+                AsyncHelper.CallAsyncMethod(() => new IdiomasRepository().GetByName(idiomaWithId.Result.Nombre))
+                     .Success(idioma =>
+                         SettingsServices.SetIdioma(idioma));
+            }
+            else
+                AsyncHelper.CallAsyncMethod(() => new IdiomasRepository().GetByName("Español"))
+                    .Success(idioma =>
+                        SettingsServices.SetIdioma(idioma));
 
 
             LogManager.LogInformacion("Login", $"{usuario.Email}");

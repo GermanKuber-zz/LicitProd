@@ -46,8 +46,12 @@ namespace LicitProd.UI.Uwp.Controls
 
         private void ChangeLanguage(Translations trans, Action<string> changeValue)
         {
-            var value = trans.GetTranslation(_translatableKey);
-            changeValue(value);
+            if (!string.IsNullOrWhiteSpace(_translatableKey))
+            {
+                var value = trans.GetTranslation(_translatableKey);
+
+                changeValue(value);
+            }
         }
 
 
