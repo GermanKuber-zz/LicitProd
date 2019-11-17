@@ -17,7 +17,7 @@ namespace LicitProd.UI.Uwp.Pages.Concursos
         public Concurso Concurso { get; set; }
         public ConcursoProveedor ConcursoProveedor { get; set; }
 
-        public bool Oferte => ConcursoProveedor != null;
+        public bool Oferte => ConcursoProveedor?.Oferta != null;
         public ConcursoParaOfertar(Concurso concurso, ConcursoProveedor concursoProveedor)
         {
             Concurso = concurso;

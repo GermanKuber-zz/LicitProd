@@ -98,6 +98,8 @@ namespace LicitProd.UI.Uwp.Pages.Concursos
                 if (chkBorrador.IsChecked.Value)
                     Concurso.Status = (int) ConcursoStatusEnum.Borrador;
 
+                Concurso.FechaApertura = FechaApertura.Date;
+                Concurso.FechaInicio = FechaInicio.Date;
                 (await new ConcursoServices().Crear(Concurso, Proveedores.Where(x => x.Selected).Select(x => x.Proveedor).ToList()))
                                         .Success(s =>
                                         {

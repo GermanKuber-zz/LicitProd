@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using LicitProd.Entities;
@@ -9,7 +10,7 @@ namespace LicitProd.Data.Repositories
 
     public class ConcursosRepository : BaseRepository<Concurso>
     {
-        private ConcursoProveedorRepository  _concursoProveedorRepository = new ConcursoProveedorRepository();
+        private ConcursoProveedorRepository _concursoProveedorRepository = new ConcursoProveedorRepository();
         private CompradorRepository _compradorRepository = new CompradorRepository();
         public new async Task<Response<List<Concurso>>> Get()
         {
@@ -32,7 +33,17 @@ namespace LicitProd.Data.Repositories
         {
             var concursos = await base.GetAsync();
             foreach (var concurso in concursos.Result)
+            {
+
                 await FillConcurso(concurso);
+                if (concurso.FechaApertura < DateTime.Now && concurso.Status != (int)ConcursoStatusEnum.Abierto)
+                {
+                    concurso.Status = (int)ConcursoStatusEnum.Abierto;
+                    await UpdateDataAsync(concurso);
+                }
+
+            }
+
 
             return concursos;
         }

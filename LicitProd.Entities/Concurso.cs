@@ -7,7 +7,7 @@ namespace LicitProd.Entities
     {
         Borrador = 0,
         Nuevo = 1,
-        Open = 2,
+        Abierto = 2,
         Cancelado = 3,
         Cerrado = 4
     }
