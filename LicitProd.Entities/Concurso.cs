@@ -1,12 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace LicitProd.Entities
 {
-    public class HitoConcurso : Entity
+    public enum ConcursoStatusEnum
     {
-        public int ConcursoId { get; set; }
-        public string Hito { get; set; }
-        public DateTime Fecha { get; set; } = DateTime.Now;
+        Borrador = 0,
+        Nuevo = 1,
+        Open = 2,
+        Cancelado = 3,
+        Cerrado = 4
     }
     public class Concurso : Verificable
     {
@@ -20,7 +23,8 @@ namespace LicitProd.Entities
         public string Descripcion { get; set; } = string.Empty;
         public int TerminosYCondicionesId { get; set; }
         public int CompradorId { get; set; }
-
+        public Comprador Comprador { get; set; }
+        public List<ConcursoProveedor> ConcursoProveedores { get; set; } =new List<ConcursoProveedor>();
         public Concurso(decimal presupuesto,
             string nombre,
             DateTime fechaInicio,
@@ -28,7 +32,7 @@ namespace LicitProd.Entities
             bool adjudicacionDirecta,
             string descripcion)
         {
-            Status = 1;
+            Status = (int)ConcursoStatusEnum.Nuevo;
             Presupuesto = presupuesto;
             Nombre = nombre ?? throw new ArgumentNullException(nameof(nombre));
             if (fechaInicio <= DateTime.Now.AddDays(2))
@@ -40,7 +44,7 @@ namespace LicitProd.Entities
         }
         public Concurso()
         {
-
+            Status = (int)ConcursoStatusEnum.Nuevo;
         }
 
 

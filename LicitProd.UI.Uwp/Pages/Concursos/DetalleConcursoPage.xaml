@@ -6,11 +6,12 @@
     
     xmlns:controls="using:LicitProd.UI.Uwp.Controls"
     xmlns:controls1="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:proveedores="using:LicitProd.UI.Uwp.Pages.Proveedores"
     x:Class="LicitProd.UI.Uwp.Pages.Concursos.DetalleConcursoPage"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-    <Page.Resources>
-    </Page.Resources>
+
+    <ScrollViewer>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition MaxWidth="500"></ColumnDefinition>
@@ -35,51 +36,80 @@
                     AcceptsReturn="True"
                     x:Name="txtDescripcion" Text="{x:Bind Mode=TwoWay, Path=Concurso.Descripcion}"  TextWrapping="Wrap"  Margin="10,10,10,10" Height="200" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto"/>
             <controls1:DataGrid
-            ItemsSource="{x:Bind Proveedores }"
-      Grid.Row="1"
-        x:Name="dataGrid"
-        Margin="12"
-                 IsEnabled="False"
+                ItemsSource="{x:Bind ConcursoProveedores }"
+                Grid.Row="1"
+                x:Name="dataGrid"
+                Margin="12"
+                IsEnabled="False"
                 Height="300px"
-        VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
-        HorizontalScrollBarVisibility="Visible"
-        VerticalScrollBarVisibility="Visible"
-        AlternatingRowBackground="Transparent"
-        AlternatingRowForeground="Gray"
-        AreRowDetailsFrozen="False"
-        AreRowGroupHeadersFrozen="True"
-        AutoGenerateColumns="False"
-        CanUserSortColumns="False"
-        CanUserReorderColumns="True"
-        CanUserResizeColumns="True"
-        ColumnHeaderHeight="32"
-        MaxColumnWidth="400"
-        FrozenColumnCount="0"
-        GridLinesVisibility="None"
-        HeadersVisibility="Column"
-        IsReadOnly="True"            
-        RowDetailsTemplate="{StaticResource RowDetailsTemplate}"
-        RowDetailsVisibilityMode="Collapsed"
-        SelectionMode="Extended"
-        RowGroupHeaderPropertyNameAlternative="Range">
+                VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
+                HorizontalScrollBarVisibility="Visible"
+                VerticalScrollBarVisibility="Visible"
+                AlternatingRowBackground="Transparent"
+                AlternatingRowForeground="Gray"
+                AreRowDetailsFrozen="False"
+                AreRowGroupHeadersFrozen="True"
+                AutoGenerateColumns="False"
+                CanUserSortColumns="False"
+                CanUserReorderColumns="True"
+                CanUserResizeColumns="True"
+                ColumnHeaderHeight="32"
+                MaxColumnWidth="400"
+                FrozenColumnCount="0"
+                GridLinesVisibility="None"
+                HeadersVisibility="Column"
+                IsReadOnly="True"            
+                RowDetailsTemplate="{StaticResource RowDetailsTemplate}"
+                RowDetailsVisibilityMode="Collapsed"
+                SelectionMode="Extended"
+                RowGroupHeaderPropertyNameAlternative="Range">
                 <controls1:DataGrid.Columns>
                     <controls1:DataGridTextColumn Header="RazonSocial" Binding="{Binding Proveedor.RazonSocial}" Tag="Rank" />
-                    <controls1:DataGridTextColumn Header="Status" Binding="{Binding Proveedor.Status}" Tag="Rank" />
-                    <controls1:DataGridTemplateColumn>
-                        <controls1:DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <CheckBox IsChecked="{Binding Path=Selected, Mode=TwoWay}" Name="theCheckbox" />
-                            </DataTemplate>
-                        </controls1:DataGridTemplateColumn.CellTemplate>
-                    </controls1:DataGridTemplateColumn>
+                        <controls1:DataGridTextColumn Header="Status" Binding="{Binding Status, Converter={StaticResource DefaultEnumToStringConverter}}" Tag="Rank" />
+                        <controls1:DataGridTextColumn Header="Acepto Terminos Y Condiciones" Binding="{Binding AceptoTerminosYCondiciones}" Tag="Rank" />
+                </controls1:DataGrid.Columns>
+            </controls1:DataGrid>
+
+            <controls1:DataGrid
+                ItemsSource="{x:Bind Proveedores }"
+                Grid.Row="1"
+                x:Name="dataGridProveedores"
+                Margin="12"
+                IsEnabled="False"
+                Height="300px"
+                VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
+                HorizontalScrollBarVisibility="Visible"
+                VerticalScrollBarVisibility="Visible"
+                AlternatingRowBackground="Transparent"
+                AlternatingRowForeground="Gray"
+                AreRowDetailsFrozen="False"
+                AreRowGroupHeadersFrozen="True"
+                AutoGenerateColumns="False"
+                CanUserSortColumns="False"
+                CanUserReorderColumns="True"
+                CanUserResizeColumns="True"
+                ColumnHeaderHeight="32"
+                MaxColumnWidth="400"
+                FrozenColumnCount="0"
+                GridLinesVisibility="None"
+                HeadersVisibility="Column"
+                IsReadOnly="True"            
+                RowDetailsTemplate="{StaticResource RowDetailsTemplate}"
+                RowDetailsVisibilityMode="Collapsed"
+                SelectionMode="Extended"
+                RowGroupHeaderPropertyNameAlternative="Range">
+                <controls1:DataGrid.Columns>
+                    <controls1:DataGridTextColumn Header="RazonSocial" Binding="{Binding RazonSocial}" Tag="Rank" />
+                    <controls1:DataGridTextColumn Header="Status" Binding="{Binding Status, Converter={StaticResource DefaultEnumToStringConverter}}" Tag="Rank" />
                 </controls1:DataGrid.Columns>
             </controls1:DataGrid>
         </StackPanel>
-
     </Grid>
+    </ScrollViewer>
     <Page.BottomAppBar>
         <CommandBar IsOpen="False" >
             <controls:AppBarButtonTranslatable Icon="Save" TranslatableKey="APPBAR_BUTTON_SALVAR"  Click="BtnAcept_Click"/>
+            <controls:AppBarButtonTranslatable Icon="Save" TranslatableKey="APPBAR_BUTTON_EDITAR"  Click="BtnEditar_Click" />
             <controls:AppBarButtonTranslatable  Icon="Cancel" TranslatableKey="APPBAR_BUTTON_CANCELAR" />
         </CommandBar>
     </Page.BottomAppBar>

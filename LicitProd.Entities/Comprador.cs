@@ -4,15 +4,17 @@
     {
         public string Nombre { get; set; }
         public string Apellido { get; set; }
-        public Usuario Usuario { get;   set; } = new Usuario();
-        public void SetUsuario(Usuario usuario) => Usuario = usuario;
+        private int _usuarioId;
+        public Usuario Usuario { get; set; } = new Usuario();
         public int UsuarioId
         {
-            get { return Usuario.Id; }
-            set
+            get
             {
-                var a = "";
+                if (Usuario != null)
+                    return Usuario.Id;
+                return _usuarioId;
             }
+            set => _usuarioId = value;
         }
     }
 }

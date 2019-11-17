@@ -10,6 +10,18 @@ namespace LicitProd.Entities
         public bool SuccessResult { get; }
         public List<string> Errors { get; set; } = new List<string>();
         public TResponse Result { get; set; }
+        private int _usuarioId;
+        public Usuario Usuario { get; set; } = new Usuario();
+        public int UsuarioId
+        {
+            get
+            {
+                if (Usuario != null)
+                    return Usuario.Id;
+                return _usuarioId;
+            }
+            set => _usuarioId = value;
+        }
 
         public Response<TResponse> Success(Func<TResponse, Task> callback)
         {

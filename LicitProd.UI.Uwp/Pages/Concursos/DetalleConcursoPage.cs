@@ -7,6 +7,7 @@ using LicitProd.UI.Uwp.Services;
 using System.Collections.ObjectModel;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Windows.UI.Core;
 using LicitProd.Data.Repositories;
 using Windows.UI.Xaml.Navigation;
 using LicitProd.Mappers;
@@ -25,6 +26,7 @@ namespace LicitProd.UI.Uwp.Pages.Concursos
 
         public string Presupuesto { get; set; }
         public Concurso Concurso { get; set; } = new Concurso();
+        public ObservableCollection<ConcursoProveedor> ConcursoProveedores { get; set; } = new ObservableCollection<ConcursoProveedor>();
 
         public DateTimeOffset FechaInicio
         {
@@ -49,6 +51,8 @@ namespace LicitProd.UI.Uwp.Pages.Concursos
             _concursoId = int.Parse(((dynamic)e.Parameter).ConcursoId.ToString());
             base.OnNavigatedTo(e);
             AsyncHelper.CallAsyncMethodVoid(() => LoadConcurso(_concursoId));
+            AsyncHelper.CallAsyncMethodVoid(() => LoadDataAsync());
+
 
         }
         private async Task LoadConcurso(int concursoId)
@@ -58,6 +62,7 @@ namespace LicitProd.UI.Uwp.Pages.Concursos
             (await concursoService.GetConcursoParaOfertarAsync(concursoId)).Success(x =>
             {
                 Concurso = x;
+                x?.ConcursoProveedores.ForEach(c=> ConcursoProveedores.Add(c));
             });
         }
 
@@ -67,8 +72,9 @@ namespace LicitProd.UI.Uwp.Pages.Concursos
            .Success(proveedores =>
            {
                proveedores?.ForEach(x => ProveedoresToShow.Add(x));
-               proveedores?.ForEach(x => Proveedores.Add(new ProveedorSelectionViewModel(x)));
-               LoadingService.LoadingStop();
+
+               proveedores?.Where(p=> !Concurso.ConcursoProveedores.Any(c=> c.ProveedorId == p.Id)).ToList()?
+                   .ForEach(x => Proveedores.Add(new ProveedorSelectionViewModel(x)));
            })
            .Error(async x =>
            {
@@ -89,6 +95,11 @@ namespace LicitProd.UI.Uwp.Pages.Concursos
         private void TxtPresupuesto_BeforeTextChanging(TextBox sender, TextBoxBeforeTextChangingEventArgs args)
         {
             args.Cancel = args.NewText.Any(c => !char.IsDigit(c));
+        }
+
+        private async void BtnEditar_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            
         }
 
         private async void BtnAcept_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)

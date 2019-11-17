@@ -16,6 +16,9 @@ namespace LicitProd.Data.ToDbMapper
                 .Ignore();
             Set(x => x.UsuarioId)
                 .Column("Usuario_Id");
+
+            Set(x => x.Usuario)
+                .Ignore();
         }
     }
 }

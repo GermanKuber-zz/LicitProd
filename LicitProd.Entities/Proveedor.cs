@@ -1,4 +1,6 @@
-﻿namespace LicitProd.Entities
+﻿using System.Data.SqlTypes;
+
+namespace LicitProd.Entities
 {
     public class Proveedor : Entity
     {
@@ -7,16 +9,20 @@
         public string RazonSocial { get; set; }
         public ProveedorStatus Status { get; set; }
         public string Telefono { get; set; }
-        public Usuario Usuario { get; set; } = new Usuario();
-        public void SetUsuario(Usuario usuario) => Usuario = usuario;
+
         public bool Activo { get; set; }
+        public bool AceptoReglasGenerales { get; set; }
+        private int _usuarioId;
+        public Usuario Usuario { get; set; } = new Usuario();
         public int UsuarioId
         {
-            get { return Usuario.Id; }
-            set
+            get
             {
-                var a = "";
+                if (Usuario != null)
+                    return Usuario.Id;
+                return _usuarioId;
             }
+            set => _usuarioId = value;
         }
     }
 }

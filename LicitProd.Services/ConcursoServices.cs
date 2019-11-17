@@ -6,6 +6,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using LicitProd.Data.ToDbMapper;
 using static LicitProd.Data.ToDbMapper.ConcursoProveedorDbMapper;
 
 namespace LicitProd.Services
@@ -14,22 +15,34 @@ namespace LicitProd.Services
     {
         private ConcursosRepository _concursosRepository = new ConcursosRepository();
         private HitoConcursoRepository _hitoConcursoRepository = new HitoConcursoRepository();
+        private ProveedoresRepository _proveedoresRepository = new ProveedoresRepository();
 
         public async Task AceptarTerminosYCondiciones(int concursoId, int usuarioId)
         {
             var proveedor = (await new ProveedoresRepository().GetByUserId(usuarioId));
             await new SqlAccessService<ConcursoProveedor>().UpdateAsync(new Parameters()
-                                               .Add("AceptoTerminosYCondiciones", true),
-                                               new Parameters()
-                                               .Add("ProveedorId", proveedor.Result.Id)
-                                               .Add("ConcursoId", concursoId));
+                    .Add("AceptoTerminosYCondiciones", true)
+                .Add(nameof(ConcursoProveedor.Status), (int)ProveedorConcursoStatusEnum.Aceptado),
+                new Parameters()
+                    .Add("ProveedorId", proveedor.Result.Id)
+                    .Add("ConcursoId", concursoId));
 
         }
-        public async Task<Response<Oferta>> RealizarOferta(decimal monto, string detalle, Concurso concurso)
+        public async Task RechazarTerminosYCondiciones(int concursoId, int usuarioId)
         {
-            var proveedor = await new ProveedoresRepository().GetByUserId(IdentityServices.Instance.GetUserLogged().Id);
+            var proveedor = (await new ProveedoresRepository().GetByUserId(usuarioId));
+            await new SqlAccessService<ConcursoProveedor>().UpdateAsync(new Parameters()
+                    .Add("AceptoTerminosYCondiciones", false)
+                    .Add(nameof(ConcursoProveedor.Status), (int)ProveedorConcursoStatusEnum.Rechazado),
+            new Parameters()
+                    .Add("ProveedorId", proveedor.Result.Id)
+                    .Add("ConcursoId", concursoId));
 
-            var oferta = new Oferta(monto, detalle, concurso, proveedor.Result);
+        }
+        public async Task<Response<Oferta>> RealizarOferta(decimal monto, string detalle, int concursoProveedorId)
+        {
+
+            var oferta = new Oferta(monto, detalle, concursoProveedorId);
 
             return await new OfertasRepository().InsertDataAsync(oferta);
         }
@@ -67,5 +80,6 @@ namespace LicitProd.Services
             Response<Concurso> concurso = await _concursosRepository.GetByIdAsync(concursoId);
             return concurso;
         }
+
     }
 }

@@ -38,7 +38,7 @@
         <controls:DataGrid.Columns>
             <controls:DataGridTextColumn Header="Nombre" Binding="{Binding Nombre}" Tag="Rank" />
             <controls:DataGridTextColumn Header="Descripción" Binding="{Binding Descripcion}" Tag="Rank" />
-            <controls:DataGridTextColumn Header="Status" Binding="{Binding Status}" Tag="Rank" />
+                <controls:DataGridTextColumn Header="Status" Binding="{Binding Status, Converter={StaticResource ConcursoStatusEnumToStringConverter}}" Tag="Rank" />
             <controls:DataGridTextColumn Header="Presupuesto" Binding="{Binding Presupuesto}" Tag="Rank" />
             <controls:DataGridTextColumn Header="FechaInicio" Binding="{Binding FechaInicio}" Tag="Rank" />
             <controls:DataGridTextColumn Header="FechaApertura" Binding="{Binding FechaApertura}" Tag="Rank" />

@@ -3,7 +3,7 @@ using LicitProd.Entities;
 
 namespace LicitProd.Data.ToDbMapper
 {
-    public class ConcursoProveedorDbMapper : ObjectToDbMapper<ConcursoProveedorDbMapper.ConcursoProveedor>
+    public class ConcursoProveedorDbMapper : ObjectToDbMapper<ConcursoProveedor>
     {
         public ConcursoProveedorDbMapper() : base("Concurso_Proveedor")
         {
@@ -12,13 +12,11 @@ namespace LicitProd.Data.ToDbMapper
         {
             Set(x => x.Id)
                 .PrimaryKey();
+            Set(x => x.Proveedor)
+                .Ignore();
+            Set(x => x.Oferta)
+                .Ignore();
         }
-        public class ConcursoProveedor : Entity
-        {
-            public int ProveedorId { get; set; }
-            public int ConcursoId { get; set; }
-            public int Status { get; set; }
-            public bool AceptoTerminosYCondiciones { get; set; }
-        }
+        
     }
 }

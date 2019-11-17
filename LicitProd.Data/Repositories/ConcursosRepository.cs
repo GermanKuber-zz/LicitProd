@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
-using LicitProd.Data.Infrastructure.Infrastructure;
-using LicitProd.Data.ToDbMapper;
 using LicitProd.Entities;
 using LicitProd.Seguridad;
 
@@ -11,34 +9,44 @@ namespace LicitProd.Data.Repositories
 
     public class ConcursosRepository : BaseRepository<Concurso>
     {
+        private ConcursoProveedorRepository  _concursoProveedorRepository = new ConcursoProveedorRepository();
+        private CompradorRepository _compradorRepository = new CompradorRepository();
         public new async Task<Response<List<Concurso>>> Get()
         {
-            return (await GetAsync()).Success(concursos =>
+            return (await GetAsync()).Success(async concursos =>
             {
                 var finalResponse = Response<List<Concurso>>.Ok(concursos);
 
-                concursos?.ForEach(c =>
+                foreach (var concurso in concursos)
                 {
-                    if (!c.IsValid)
+                    if (!concurso.IsValid)
                         finalResponse = Response<List<Concurso>>.Error("Concursos corrompidos");
-                });
+                    else
+                        await FillConcurso(concurso);
+                }
                 return finalResponse;
             });
         }
 
-        public new async Task<Response<List<ConcursoParaOfertar>>> GetToOfertar()
+        public async Task<Response<List<Concurso>>> GetAsync()
         {
-            var loggedUserId = IdentityServices.Instance.GetUserLogged().Id;
+            var concursos = await base.GetAsync();
+            foreach (var concurso in concursos.Result)
+                await FillConcurso(concurso);
 
+            return concursos;
+        }
 
-            var result = await (GetAsync<ConcursoParaOfertar>($"SELECT C.Id, C.Status,c.Nombre,c.FechaInicio, c.FechaApertura, c.TerminosYCondiciones_Id, CP.AceptoTerminosYCondiciones FROm Concursos C" +
-                                                                         $" INNER JOIN Concurso_Proveedor CP on C.Id = CP.ConcursoId" +
-                                                                         $" INNER JOIN Proveedores P ON CP.ProveedorId = P.Id" +
-                                                                         $" WHERE" +
-                                                                         $" P.Usuario_Id = {loggedUserId}"));
-
-
-            return result;
+        private async Task FillConcurso(Concurso concurso)
+        {
+            concurso.ConcursoProveedores = (await _concursoProveedorRepository.GetByConcursoId(concurso.Id)).Result;
+            concurso.Comprador = (await _compradorRepository.GetByIdAsync(concurso.CompradorId)).Result;
+        }
+        public async Task<Response<Concurso>> GetByIdAsync(int id)
+        {
+            var concurso = await base.GetByIdAsync(id);
+            await FillConcurso(concurso.Result);
+            return concurso;
         }
 
         public async Task<Concurso> Insert(Concurso concurso)

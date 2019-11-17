@@ -12,6 +12,9 @@ namespace LicitProd.Mappers
         public TEntity Map(DataTable dataTable) =>
             dataTable.Rows.Count > 0 ? AsyncHelper.CallAsyncMethod(() => MapHelper<TEntity>.FillObjectAsync(dataTable.Rows[0])) : default;
 
+        public TEntity Map(DataRow row) =>
+            AsyncHelper.CallAsyncMethod(() => MapHelper<TEntity>.FillObjectAsync(row));
+
         public List<TEntity> MapList(DataTable dataTable) =>
             dataTable.Rows.Count >= 0 ? dataTable.Rows.ListOfRows().Select(row => AsyncHelper.CallAsyncMethod(() => MapHelper<TEntity>.FillObjectAsync(row)))
                 .ToList() : new List<TEntity>();

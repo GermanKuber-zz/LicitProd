@@ -12,14 +12,8 @@ namespace LicitProd.Data.ToDbMapper
         {
             Set(x => x.Id)
                 .PrimaryKey();
-            Set(x => x.Concurso)
-                .Ignore();
-            Set(x => x.Proveedor)
-                .Ignore();
-            Set(x => x.ConcursoId)
-                .Column("Concurso_Id");
-            Set(x => x.ProveedorId)
-                .Column("Proveedor_Id");
+            Set(x => x.ConcursoProveedorId)
+                .Column("Concurso_Proveedor_Id");
         }
     }
 }

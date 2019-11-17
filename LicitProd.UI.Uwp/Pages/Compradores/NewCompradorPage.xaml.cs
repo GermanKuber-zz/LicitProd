@@ -27,7 +27,7 @@ namespace LicitProd.UI.Uwp.Pages.Compradores
             LoadingService.LoadingStart();
 
             var rol = (await new RolRepository().Get()).Result.FirstOrDefault(x => x.Nombre == "Comprador");
-            Comprador.SetUsuario(new Usuario(Email, new HashService().Hash(Password), rol));
+            Comprador.Usuario =  (new Usuario(Email, new HashService().Hash(Password), rol));
 
             (await new CompradoresServices().Registrar(Comprador))
                 .Success(s =>

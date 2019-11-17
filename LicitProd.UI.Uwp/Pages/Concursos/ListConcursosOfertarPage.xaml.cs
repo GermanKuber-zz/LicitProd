@@ -7,10 +7,23 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Controls;
+using LicitProd.Seguridad;
 
 
 namespace LicitProd.UI.Uwp.Pages.Concursos
 {
+    public class ConcursoParaOfertar
+    {
+        public Concurso Concurso { get; set; }
+        public ConcursoProveedor ConcursoProveedor { get; set; }
+
+        public bool Oferte => ConcursoProveedor != null;
+        public ConcursoParaOfertar(Concurso concurso, ConcursoProveedor concursoProveedor)
+        {
+            Concurso = concurso;
+            ConcursoProveedor = concursoProveedor;
+        }
+    }
     public sealed partial class ListConcursosOfertarPage : Page
     {
         public ObservableCollection<ConcursoParaOfertar> Concursos { get; set; } = new ObservableCollection<ConcursoParaOfertar>();
@@ -23,10 +36,15 @@ namespace LicitProd.UI.Uwp.Pages.Concursos
         private async Task LoadDataAsync()
         {
 
-            (await new ConcursosRepository().GetToOfertar())
+            (await new ConcursosRepository().GetAsync())
            .Success(concursos =>
            {
-               concursos?.ForEach(x => Concursos.Add(x));
+
+               concursos.Where(c => c.Status == (int)ConcursoStatusEnum.Nuevo &&
+                                    c.ConcursoProveedores.Any(p => p.Proveedor.UsuarioId == IdentityServices.Instance.GetUserLogged().Id
+                                                                   &&
+                                                                   p.Status != ProveedorConcursoStatusEnum.Rechazado))?.ToList()?
+                   .ForEach(x => Concursos.Add(new ConcursoParaOfertar(x, x.ConcursoProveedores.First(f => f.Proveedor.UsuarioId == IdentityServices.Instance.GetUserLogged().Id))));
                LoadingService.LoadingStop();
            })
            .Error(async x =>
@@ -46,15 +64,22 @@ namespace LicitProd.UI.Uwp.Pages.Concursos
         {
             var concurso = (ConcursoParaOfertar)e.AddedItems.First();
 
-            if (concurso.AceptoTerminosYCondiciones)
-                if (concurso.FechaInicio < DateTime.Now)
-                    NavigationService.Navigate<OfertarConcursoPage>(new { ConcursoId = concurso.Id });
+            if (concurso.ConcursoProveedor.AceptoTerminosYCondiciones)
+                if (concurso.Concurso.FechaInicio < DateTime.Now)
+                    NavigationService.Navigate<OfertarConcursoPage>(new
+                    {
+                        ConcursoId = concurso.Concurso.Id,
+                        ConcursoProveedorId = concurso.ConcursoProveedor.Id
+                    });
                 else
                     MessageDialogService.Create("El concurso todavia no se encuentra listo para ofertar");
             else
                 MessageDialogService.Create("Usted no acepto los terminos y condiciones generales todavia. Desea acceder a los terminos y condiciones para poder aceptarlos?", c =>
                 {
-                    NavigationService.Navigate<AceptarTerminosYCondicionesPage>(new { ConcursoId = concurso.Id });
+                    NavigationService.Navigate<AceptarTerminosYCondicionesPage>(new
+                    {
+                        ConcursoId = concurso.Concurso.Id
+                    });
                 }, x => { });
 
 

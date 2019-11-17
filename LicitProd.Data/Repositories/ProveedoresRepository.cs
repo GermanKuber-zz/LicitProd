@@ -8,9 +8,16 @@ namespace LicitProd.Data.Repositories
 {
     public class ProveedoresRepository : BaseRepository<Proveedor>
     {
+        private UsuarioRepository _usuarioRepository = new UsuarioRepository();
         public new Task<Response<List<Proveedor>>> Get() =>
             GetAsync();
 
+        public new async Task<Response<Proveedor>> GetByIdAsync(int id)
+        {
+            var proveedor = await base.GetByIdAsync(id);
+            proveedor.Result.Usuario = (await _usuarioRepository.GetByIdAsync(proveedor.Result.UsuarioId)).Result;
+            return proveedor;
+        }
 
         public async Task<Response<Proveedor>> GetByRazonSocial(string razonSocial) =>
             ReturnResult((await GetAsync(new Parameters()
@@ -26,5 +33,6 @@ namespace LicitProd.Data.Repositories
                 .Map(result => Response<Proveedor>.Ok(result.First()),
                     errors => Response<Proveedor>.Error(errors))
                 .Success(p => p));
+
     }
 }

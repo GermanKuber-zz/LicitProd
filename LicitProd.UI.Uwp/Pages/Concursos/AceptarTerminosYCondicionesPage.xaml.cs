@@ -63,5 +63,20 @@ namespace LicitProd.UI.Uwp.Pages.Concursos
             }, x => { });
 
         }
+        private async void BtnRechazar_Click(object sender, RoutedEventArgs e)
+        {
+            var userId = IdentityServices.Instance.GetUserLogged().Id;
+
+            MessageDialogService.Create("Si rechaza las normas del concurso, estara rechanzado la inscripción al concurso. ¿Está seguro que desea continuar?", async c =>
+            {
+                await new ConcursoServices().RechazarTerminosYCondiciones(_concursoId, userId);
+                NavigationService.Navigate<ListConcursosOfertarPage>();
+            }, x => { });
+
+            
+
+            
+        }
+        
     }
 }

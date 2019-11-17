@@ -28,6 +28,7 @@
     <Page.BottomAppBar>
         <CommandBar IsOpen="False" >
             <controls:AppBarButtonTranslatable Icon="Save" TranslatableKey="APPBAR_BUTTON_ACEPTAR_TERMINOSYCONDICIONES"  Click="BtnAcept_Click"/>
+            <controls:AppBarButtonTranslatable Icon="Cancel" TranslatableKey="APPBAR_BUTTON_RECHAZAR_TERMINOSYCONDICIONES"  Click="BtnRechazar_Click"/>
             <controls:AppBarButtonTranslatable  Icon="Cancel" TranslatableKey="APPBAR_BUTTON_CANCELAR" />
         </CommandBar>
     </Page.BottomAppBar>

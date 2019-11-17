@@ -95,6 +95,9 @@ namespace LicitProd.UI.Uwp.Pages.Concursos
                 else
                     Concurso.Presupuesto = 0;
                 Concurso.TerminosYCondicionesId = TerminosYCondicionesSelected.Id;
+                if (chkBorrador.IsChecked.Value)
+                    Concurso.Status = (int) ConcursoStatusEnum.Borrador;
+
                 (await new ConcursoServices().Crear(Concurso, Proveedores.Where(x => x.Selected).Select(x => x.Proveedor).ToList()))
                                         .Success(s =>
                                         {

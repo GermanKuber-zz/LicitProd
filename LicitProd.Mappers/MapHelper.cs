@@ -33,9 +33,9 @@ namespace LicitProd.Mappers
                     if (row.Table.Columns[columnName] != null)
                     {
                         var value = row[columnName].ToString();
-                        if (prop.PropertyType.IsEnum)
+                        if (prop.PropertyType.IsEnum && !string.IsNullOrWhiteSpace(value))
                             prop.SetValue(entity, Enum.Parse(prop.PropertyType, value));
-                        else
+                        else if (!prop.PropertyType.IsEnum)
                             prop.SetValue(entity, Convert.ChangeType(value, prop.PropertyType), null);}
                 }
                 catch (ArgumentException ex)

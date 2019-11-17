@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Controls;
+using LicitProd.Seguridad;
 
 
 namespace LicitProd.UI.Uwp.Pages.Concursos
@@ -21,10 +22,12 @@ namespace LicitProd.UI.Uwp.Pages.Concursos
         private async Task LoadDataAsync()
         {
             
-            (await new ConcursosRepository().Get())
+            (await new ConcursosRepository().GetAsync())
            .Success(concursos =>
            {
-               concursos?.ForEach(x=> Concursos.Add(x));
+               concursos?.Where(x=> x.Comprador.UsuarioId == IdentityServices.Instance.GetUserLogged().Id)
+                   .ToList()
+                   ?.ForEach(x=> Concursos.Add(x));
                LoadingService.LoadingStop();
            })
            .Error(async x =>

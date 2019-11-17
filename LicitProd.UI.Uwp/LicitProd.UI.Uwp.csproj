@@ -124,6 +124,7 @@
     <Compile Include="Controls\DataGridTextColumnTranslatable.cs" />
     <Compile Include="Controls\DatePickerTranslatable.cs" />
     <Compile Include="Controls\TextBoxTranslatable.cs" />
+    <Compile Include="Converters\AuctionStatusEnumToStringConverter.cs" />
     <Compile Include="Converters\DateTimeToDateTimeOfSetConverter.cs" />
     <Compile Include="Converters\InverseBooleanConverter.cs" />
     <Compile Include="Pages\Backups\BackupsPage.xaml.cs">
@@ -135,11 +136,18 @@
     <Compile Include="Pages\Compradores\NewCompradorPage.xaml.cs">
       <DependentUpon>NewCompradorPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\Concursos\AceptarTerminosYCondicionesPage.xaml.cs">
+      <DependentUpon>AceptarTerminosYCondicionesPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\Concursos\CrearConcurso.cs">
       <DependentUpon>CrearConcursoPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\Concursos\DetalleConcursoPage.cs" />
     <Compile Include="Pages\Concursos\ListConcursos.xaml.cs">
       <DependentUpon>ListConcursos.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Concursos\ListConcursosOfertarPage.xaml.cs">
+      <DependentUpon>ListConcursosOfertarPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\Concursos\OfertarConcursoPage.xaml.cs">
       <DependentUpon>OfertarConcursoPage.xaml</DependentUpon>
@@ -178,6 +186,9 @@
     <Compile Include="Pages\Proveedores\NewProveedor.xaml.cs">
       <DependentUpon>NewProveedor.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\Proveedores\ValidarProveedorPage.xaml.cs">
+      <DependentUpon>ValidarProveedorPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\Settings\IdiomasNewPage.xaml.cs">
       <DependentUpon>IdiomasNewPage.xaml</DependentUpon>
     </Compile>
@@ -188,6 +199,9 @@
     <Compile Include="Pages\Settings\SettingsPage.xaml.cs">
       <DependentUpon>SettingsPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\TerminosYCondiciones\CrearTerminosYCondicionesPage.xaml.cs">
+      <DependentUpon>CrearTerminosYCondicionesPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\Usuarios\UsuariosRolesPage.xaml.cs">
       <DependentUpon>UsuariosRolesPage.xaml</DependentUpon>
     </Compile>
@@ -197,6 +211,9 @@
     <Compile Include="Services\NavigationService.cs" />
     <Compile Include="UserControls\ContentPanelUserControl.xaml.cs">
       <DependentUpon>ContentPanelUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ProveedoresToSelectUserControl.xaml.cs">
+      <DependentUpon>ProveedoresToSelectUserControl.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -267,13 +284,25 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Pages\Concursos\AceptarTerminosYCondicionesPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Pages\Concursos\CrearConcursoPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Pages\Concursos\DetalleConcursoPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Pages\Concursos\ListConcursos.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Concursos\ListConcursosOfertarPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Pages\Concursos\OfertarConcursoPage.xaml">
       <SubType>Designer</SubType>
@@ -319,6 +348,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Pages\Proveedores\ValidarProveedorPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\Settings\IdiomasNewPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -331,11 +364,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Pages\TerminosYCondiciones\CrearTerminosYCondicionesPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Pages\Usuarios\UsuariosRolesPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Page Include="UserControls\ContentPanelUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\ProveedoresToSelectUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

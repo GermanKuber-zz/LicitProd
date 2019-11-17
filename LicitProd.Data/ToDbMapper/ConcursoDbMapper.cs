@@ -16,6 +16,12 @@ namespace LicitProd.Data.ToDbMapper
                .PrimaryKey();
             Set(x => x.IsValid)
                 .Ignore();
+            Set(x => x.Comprador)
+                .Ignore();
+            Set(x => x.Status)
+             .Column("Status");
+            Set(x => x.ConcursoProveedores)
+                .Ignore();
             Set(x => x.TerminosYCondicionesId)
                     .Column("TerminosYCondiciones_Id");
             Set(x => x.CompradorId)
