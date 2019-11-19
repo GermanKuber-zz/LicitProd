@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using LicitProd.Services;
@@ -9,6 +10,7 @@ using LicitProd.UI.Uwp.Services;
 using System.Threading.Tasks;
 using Windows.UI.Core;
 using Windows.UI.Xaml.Media.Animation;
+using LicitProd.Data;
 using LicitProd.Data.Repositories;
 using LicitProd.Entities;
 
@@ -65,6 +67,7 @@ namespace LicitProd.UI.Uwp.Pages
         {
             InitializeComponent();
             //Task.Run(async () => await ValidateConsistency()).Wait();
+            LocalDb.CreateLocalDb("LicitProd2", new List<string> { "Creation.sql" }, true);
             LoadData();
         }
         private void CheckIfIfEnableToLogin()

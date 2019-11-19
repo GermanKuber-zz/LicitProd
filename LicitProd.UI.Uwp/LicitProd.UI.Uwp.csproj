@@ -8,7 +8,7 @@
     <OutputType>AppContainerExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>LicitProd.UI.Uwp</RootNamespace>
-    <AssemblyName>LicitProd.UI.Uwp</AssemblyName>
+    <AssemblyName>ok</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.18362.0</TargetPlatformVersion>
@@ -17,7 +17,7 @@
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WindowsXamlEnableOverview>true</WindowsXamlEnableOverview>
-    <AppxPackageSigningEnabled>false</AppxPackageSigningEnabled>
+    <AppxPackageSigningEnabled>True</AppxPackageSigningEnabled>
     <GenerateAppInstallerFile>False</GenerateAppInstallerFile>
     <AppxPackageSigningTimestampDigestAlgorithm>SHA256</AppxPackageSigningTimestampDigestAlgorithm>
     <AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
@@ -25,6 +25,7 @@
     <AppxBundle>Always</AppxBundle>
     <AppxBundlePlatforms>x86</AppxBundlePlatforms>
     <HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
+    <PackageCertificateThumbprint>783EFF5948EC010DA5C24E6A72D14639059D5854</PackageCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
@@ -138,9 +139,6 @@
     <Compile Include="Pages\Backups\BackupsPage.xaml.cs">
       <DependentUpon>BackupsPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\CentrosOperativos\CrearCentrosOperativoPage.xaml.cs">
-      <DependentUpon>CrearCentrosOperativoPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Pages\Compradores\ListCompradoresPage.xaml.cs">
       <DependentUpon>ListCompradoresPage.xaml</DependentUpon>
     </Compile>
@@ -239,10 +237,10 @@
     </AppxManifest>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="..\Data\Creation.sql">
+    <None Include="..\Data\Creation.sql">
       <Link>Data\Creation.sql</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    </None>
     <Content Include="Assets\backgrup-login.jpg" />
     <Content Include="Assets\backgrup-login.scale-100.jpg" />
     <Content Include="Assets\backgrup-login.scale-125.jpg" />
@@ -290,10 +288,6 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Page Include="Pages\Backups\BackupsPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Pages\CentrosOperativos\CrearCentrosOperativoPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -463,6 +457,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Pages\CentrosOperativos\" />
     <Folder Include="Services\Events\" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">

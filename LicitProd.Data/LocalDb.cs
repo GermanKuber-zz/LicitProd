@@ -6,23 +6,17 @@ using System.Reflection;
 using LicitProd.Data.Infrastructure.DataBase;
 using LicitProd.Infrastructure;
 
-namespace LicitProd.Services.Integration.Tests
+namespace LicitProd.Data
 {
     public static class LocalDb
     {
         public const string DbDirectory = "Data";
-        private static string ConnectionString;
+        private static string _connectionString;
 
-        private static readonly DataBaseManager _dataBaseManager = new DataBaseManager();
-
-        public static void SetConnectionString(string connectionString)
-        {
-            ConnectionString = connectionString;
-        }
+        private static readonly DataBaseManager DataBaseManager = new DataBaseManager();
         public static void CreateLocalDb(string databaseName, List<string> scriptsName, bool deleteIfExists = false)
         {
-            if (string.IsNullOrWhiteSpace(ConnectionString))
-                ConnectionString = ConfigurationManagerKeys.Configuration().ConnectionString;
+            _connectionString =  ConfigurationManagerKeys.Configuration().ConnectionString;
 
             string codeBase = Assembly.GetExecutingAssembly().CodeBase;
             UriBuilder uri = new UriBuilder(codeBase);
@@ -38,17 +32,7 @@ namespace LicitProd.Services.Integration.Tests
             {
                 Directory.CreateDirectory(outputFolder);
             }
-
-            if (CheckDatabaseExists(databaseName) && deleteIfExists)
-            {
-                DropDatabaseObjects();
-            }
-            else if (!CheckDatabaseExists(databaseName))
-            {
-                // If the database does not already exist, create it.
-                CreateDatabase(databaseName, databaseFileName);
-            }
-            if (deleteIfExists)
+            if (!CheckDatabaseExists(databaseName))
             {
                 ExecuteScript(databaseName, scriptsName);
             }
@@ -83,12 +67,11 @@ namespace LicitProd.Services.Integration.Tests
             }
         }
 
-        private static string CreateConnectionstring(string databaseName) => string.Format(ConnectionString, databaseName);
+        private static string CreateConnectionstring(string databaseName) => string.Format(_connectionString, databaseName);
 
         private static bool CheckDatabaseExists(string databaseName)
         {
-            string connectionString = string.Format(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=master;Integrated Security=True;Connection Timeout=300");
-            using (var connection = new SqlConnection(connectionString))
+            using (var connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
                 SqlCommand cmd = connection.CreateCommand();
@@ -104,10 +87,10 @@ namespace LicitProd.Services.Integration.Tests
             return false;
         }
 
-
+      
         public static bool DropDatabase(string databaseName)
         {
-            return _dataBaseManager.CallDataBase(cmd =>
+            return DataBaseManager.CallDataBase(cmd =>
             {
                 cmd.CommandText = string.Format("USE master;ALTER DATABASE {0} SET SINGLE_USER WITH ROLLBACK IMMEDIATE;DROP DATABASE {0} ;", databaseName);
                 object result = cmd.ExecuteScalar();
@@ -118,8 +101,8 @@ namespace LicitProd.Services.Integration.Tests
                 return false;
             });
         }
-        private static void DropDatabaseObjects() =>
-            _dataBaseManager.CallDataBase(cmd =>
+        private static void DropDatabaseObjects()=>
+            DataBaseManager.CallDataBase(cmd =>
                 {
                     cmd.CommandText = @"declare @ord int, @cmd varchar(8000)
 
@@ -170,7 +153,7 @@ namespace LicitProd.Services.Integration.Tests
 
         private static void CreateDatabase(string databaseName, string databaseFileName)
         {
-            string connectionString = CreateConnectionstring("master").Replace("TestDb", "master");
+            string connectionString = CreateConnectionstring("master").Replace("TestDb","master");
             using (var connection = new SqlConnection(connectionString))
             {
                 connection.Open();
