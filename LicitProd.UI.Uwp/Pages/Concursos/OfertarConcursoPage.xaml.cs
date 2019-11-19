@@ -16,19 +16,37 @@ namespace LicitProd.UI.Uwp.Pages.Concursos
     {
         private int _concursoId;
         private int _concursoProveedorId;
+        private ConcursoProveedor _concursoProveedor;
 
         public Concurso Concurso { get; set; }
         public string Oferta { get; set; }
+        public string Pregunta { get; set; }
+        public string Respuesta { get; set; }
+
+        public bool HasRespuesta => !string.IsNullOrWhiteSpace(Respuesta);
+        public bool HasPregunta => string.IsNullOrWhiteSpace(Pregunta) && string.IsNullOrWhiteSpace(Oferta);
+
+
         public string Detalle { get; set; }
         public DateTimeOffset FechaInicio
         {
-            get => DateTime.SpecifyKind((DateTime)Concurso.FechaInicio, DateTimeKind.Local);
+            get
+            {
+                if (Concurso != null)
+                    return DateTime.SpecifyKind((DateTime)Concurso.FechaInicio, DateTimeKind.Local);
+                return DateTimeOffset.Now;
+            }
             set => Concurso.FechaInicio = value.DateTime;
         }
 
         public DateTimeOffset FechaApertura
         {
-            get => DateTime.SpecifyKind((DateTime)Concurso.FechaApertura, DateTimeKind.Local);
+            get
+            {
+                if (Concurso != null)
+                    return DateTime.SpecifyKind((DateTime)Concurso.FechaApertura, DateTimeKind.Local);
+                return DateTimeOffset.Now;
+            }
             set => Concurso.FechaApertura = ((DateTimeOffset)value).DateTime;
         }
         public OfertarConcursoPage()
@@ -50,9 +68,12 @@ namespace LicitProd.UI.Uwp.Pages.Concursos
             {
                 AsyncHelper.CallAsyncMethod(() => concursoService.GetConcursoParaOfertarAsync(concursoId)).Success(t =>
                 {
-                    Concurso = t;
-                    var oferta = Concurso.ConcursoProveedores.First(x => x.Id == _concursoProveedorId).Oferta;
-                    if ( oferta!= null)
+                    Concurso = t; 
+                    _concursoProveedor = Concurso.ConcursoProveedores.First(x => x.Id == _concursoProveedorId);
+                    var oferta = _concursoProveedor.Oferta;
+                    Pregunta = _concursoProveedor?.Pregunta?.Pregunta;
+                    Respuesta = _concursoProveedor?.Pregunta?.Respuesta;
+                    if (oferta != null)
                     {
                         MessageDialogService.Create("Ya tiene una oferta realizada. Solo podrá ver su detalle, pero no podrá realizar ninguna modificación en la misma.");
 
@@ -68,11 +89,9 @@ namespace LicitProd.UI.Uwp.Pages.Concursos
         }
         private async void BtnAcept_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(Oferta)
-                ||
-                string.IsNullOrWhiteSpace(Detalle))
-                MessageDialogService.Create("Debe indicar una oferta valida");
-            else
+            if ((!string.IsNullOrWhiteSpace(Oferta)
+                &&
+                !string.IsNullOrWhiteSpace(Detalle)))
             {
                 LoadingService.LoadingStart();
                 var concurso = await new ConcursosRepository().GetByIdAsync(_concursoId);
@@ -86,7 +105,19 @@ namespace LicitProd.UI.Uwp.Pages.Concursos
                         NavigationService.Navigate<ListConcursosOfertarPage>();
                     }, null);
                 });
-
+            }
+            else if (!string.IsNullOrWhiteSpace(Pregunta) && string.IsNullOrWhiteSpace(Respuesta))
+            {
+                LoadingService.LoadingStart();
+                var result = await new ConcursoServices().HacerPregunta(_concursoProveedor, Pregunta);
+                result.Success(x =>
+                {
+                    MessageDialogService.Create("Acaba de realizar una pregunta, sera notificado cuando el comprador le de una respuesta", c =>
+                    {
+                        LoadingService.LoadingStop();
+                        NavigationService.Navigate<ListConcursosOfertarPage>();
+                    }, null);
+                });
 
             }
         }

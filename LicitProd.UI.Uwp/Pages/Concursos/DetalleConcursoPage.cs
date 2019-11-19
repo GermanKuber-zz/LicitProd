@@ -17,12 +17,13 @@ namespace LicitProd.UI.Uwp.Pages.Concursos
 
     public sealed partial class DetalleConcursoPage : Page
     {
-        private int  _concursoId;
+        private int _concursoId;
 
         public ObservableCollection<ProveedorSelectionViewModel> Proveedores { get; set; } = new ObservableCollection<ProveedorSelectionViewModel>();
         public ObservableCollection<Entities.TerminosYCondiciones> TerminosYCondiciones { get; set; } = new ObservableCollection<Entities.TerminosYCondiciones>();
         public Entities.TerminosYCondiciones TerminosYCondicionesSelected { get; set; }
-        private List<Proveedor> ProveedoresToShow { get; set; } = new List<Proveedor>();
+        private ObservableCollection<ProveedorSelectionViewModel> ProveedoresToShow { get; set; } = new ObservableCollection<ProveedorSelectionViewModel>();
+        private ObservableCollection<PreguntaConcurso> Preguntas { get; set; } = new ObservableCollection<PreguntaConcurso>();
 
         public string Presupuesto { get; set; }
         public Concurso Concurso { get; set; } = new Concurso();
@@ -62,7 +63,12 @@ namespace LicitProd.UI.Uwp.Pages.Concursos
             (await concursoService.GetConcursoParaOfertarAsync(concursoId)).Success(x =>
             {
                 Concurso = x;
-                x?.ConcursoProveedores.ForEach(c=> ConcursoProveedores.Add(c));
+                x?.ConcursoProveedores.ForEach(c => ConcursoProveedores.Add(c));
+
+                x?.ConcursoProveedores?.Where(w => w.Pregunta != null)
+                                       .Select(s => s?.Pregunta)
+                                       .ToList()
+                                       ?.ForEach(f => Preguntas.Add(f));
             });
         }
 
@@ -71,10 +77,12 @@ namespace LicitProd.UI.Uwp.Pages.Concursos
             (await new ProveedoresRepository().Get())
            .Success(proveedores =>
            {
-               proveedores?.ForEach(x => ProveedoresToShow.Add(x));
-
-               proveedores?.Where(p=> !Concurso.ConcursoProveedores.Any(c=> c.ProveedorId == p.Id)).ToList()?
+               proveedores?.Where(p => !Concurso.ConcursoProveedores.Any(c => c.ProveedorId == p.Id)).ToList()?
                    .ForEach(x => Proveedores.Add(new ProveedorSelectionViewModel(x)));
+
+               proveedores?.Where(x => Proveedores.Any(s => x.Id == s.Proveedor.Id)).ToList().ForEach(x => ProveedoresToShow.Add(new ProveedorSelectionViewModel(x)));
+
+
            })
            .Error(async x =>
            {
@@ -99,45 +107,37 @@ namespace LicitProd.UI.Uwp.Pages.Concursos
 
         private async void BtnEditar_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-            
+            dataGridProveedoresParaInvitar.IsEnabled = true;
+            dtPreguntas.IsEnabled = true;
         }
 
         private async void BtnAcept_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(Concurso.Nombre)
-                ||
-                TerminosYCondicionesSelected == null)
+            var proveedoresParaInvitar = ProveedoresToShow.Where(x => x.Selected).Select(x => x.Proveedor).ToList();
+            if (proveedoresParaInvitar != null
+                &&
+                proveedoresParaInvitar.Any())
+                MessageDialogService.Create("Una vez invitado los proveedores no podra editarlo, esta seguro que desea continuar?", async c =>
+                {
+                    if (proveedoresParaInvitar != null
+                        &&
+                        proveedoresParaInvitar.Any())
+                    {
+                        await new ConcursoServices().InvitarProveedores(Concurso, proveedoresParaInvitar);
+                        LoadingService.LoadingStop();
+                    }
+                });
+            var concursoServices = new ConcursoServices();
+
+            foreach (var preguntaConcurso in Preguntas)
+                await concursoServices.ResponderPregunta(preguntaConcurso);
+
+
+            MessageDialogService.Create("El concurso fue actualziado.", async c =>
             {
-                MessageDialogService.Create("Debe completar los campos requeridos");
-            }
-            else
-            {
-                LoadingService.LoadingStart();
-                if (decimal.TryParse(Presupuesto, out var parsed))
-                    Concurso.Presupuesto = parsed;
-                else
-                    Concurso.Presupuesto = 0;
-                Concurso.TerminosYCondicionesId = TerminosYCondicionesSelected.Id;
-                (await new ConcursoServices().Crear(Concurso, Proveedores.Where(x => x.Selected).Select(x => x.Proveedor).ToList()))
-                                        .Success(s =>
-                                        {
-                                            MessageDialogService.Create("Concurso Creado Existosamente", c =>
-                                            {
-                                                LoadingService.LoadingStop();
-                                                NavigationService.NavigatePop<Dashboard>();
-                                            }, null);
-
-                                        })
-                                        .Error(erros =>
-                                        {
-
-                                            MessageDialogService.Create("Error al Crear el Concoruso", c =>
-                                            {
-                                                LoadingService.LoadingStop();
-
-                                            }, null);
-                                        });
-            }
+                    LoadingService.LoadingStop();
+                    NavigationService.NavigatePop<Dashboard>();
+            });
         }
     }
 }

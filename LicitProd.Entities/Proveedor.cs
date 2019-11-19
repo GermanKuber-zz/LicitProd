@@ -10,8 +10,6 @@ namespace LicitProd.Entities
         public ProveedorStatus Status { get; set; }
         public string Telefono { get; set; }
 
-        public bool Activo { get; set; }
-        public bool AceptoReglasGenerales { get; set; }
         private int _usuarioId;
         public Usuario Usuario { get; set; } = new Usuario();
         public int UsuarioId

@@ -18,7 +18,6 @@
         <StackPanel>
 
             <controls:TextBoxTranslatable  TranslatableKey="CONCURSO_CREAR_NOMBRE" IsEnabled="False" x:Name="Nombre"   Text="{x:Bind Mode=TwoWay, Path=Concurso.Nombre}" TextWrapping="Wrap"   Margin="10"/>
-            <controls:TextBoxTranslatable TranslatableKey="CONCURSO_CREAR_PRESUPUESTO" IsEnabled="False"  x:Name="txtPresupuesto" Text="{x:Bind Mode=TwoWay, Path=Concurso.Presupuesto}"  TextWrapping="Wrap" Margin="10" />
             <controls:DatePickerTranslatable TranslatableKey="CONCURSO_CREAR_FECHA_INICIO" IsEnabled="False"  x:Name="dtpInicio" Date="{x:Bind Path=FechaInicio}"    Margin="10"/>
             <controls:DatePickerTranslatable TranslatableKey="CONCURSO_CREAR_FECHA_APERTURA" IsEnabled="False"  x:Name="dtpApertura" Date="{x:Bind Path=FechaApertura}"     Margin="10"/>
 
@@ -37,6 +36,15 @@
             <controls:TextBoxTranslatable x:Name="txtDescripcionOferta" TranslatableKey="CONCURSO_CREAR_DESCRIPCION"  
                     AcceptsReturn="True"
                                          Text="{x:Bind Mode=TwoWay, Path=Detalle}"  TextWrapping="Wrap"  Margin="10,10,10,10" Height="200" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto"/>
+
+            <controls:TextBoxTranslatable x:Name="txtPregunta" TranslatableKey="CONCURSO_OFERTAR_PREGUNTA"  
+                                          IsEnabled="{x:Bind Path=HasPregunta}"
+                                          AcceptsReturn="True"
+                                          Text="{x:Bind Mode=TwoWay, Path=Pregunta}"  TextWrapping="Wrap"  Margin="10,10,10,10" Height="200" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto"/>
+            <controls:TextBoxTranslatable  TranslatableKey="CONCURSO_OFERTAR_RESPUESTA"  
+                                          AcceptsReturn="True"
+                                          IsEnabled="false"
+                                          Text="{x:Bind Mode=TwoWay, Path=Respuesta}"  TextWrapping="Wrap"  Margin="10,10,10,10" Height="200" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto"/>
         </StackPanel>
 
     </Grid>

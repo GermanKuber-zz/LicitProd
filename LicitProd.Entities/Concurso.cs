@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace LicitProd.Entities
 {
@@ -24,6 +25,8 @@ namespace LicitProd.Entities
         public int TerminosYCondicionesId { get; set; }
         public int CompradorId { get; set; }
         public Comprador Comprador { get; set; }
+        public CentroOperativo CentroOperativo { get; set; }
+        public int CentroOperativoId { get; set; }
         public List<ConcursoProveedor> ConcursoProveedores { get; set; } =new List<ConcursoProveedor>();
         public Concurso(decimal presupuesto,
             string nombre,
@@ -57,6 +60,28 @@ namespace LicitProd.Entities
                              FechaApertura.ToShortDateString() +
                              AdjudicacionDirecta +
                              Descripcion);
+        }
+
+        private Response<bool> ValidateFecha()
+        {
+            if (FechaInicio < DateTime.Now)
+                return Response<bool>.Error();
+            return  Response<bool>.Ok(true);
+        }
+
+        public Response<bool> Validar()
+        {
+            if (FechaApertura < FechaInicio && !ValidateFecha().SuccessResult)
+                return Response<bool>.Error();
+            return Response<bool>.Ok(true);
+        }
+
+        public void AgregarProveedores(List<Proveedor> proveedores)
+        {
+            ConcursoProveedores.AddRange(proveedores.Select(x => new ConcursoProveedor
+            {
+                Proveedor = x
+            }));
         }
     }
 }

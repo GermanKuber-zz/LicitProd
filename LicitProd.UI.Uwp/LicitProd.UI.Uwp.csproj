@@ -18,6 +18,13 @@
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WindowsXamlEnableOverview>true</WindowsXamlEnableOverview>
     <AppxPackageSigningEnabled>false</AppxPackageSigningEnabled>
+    <GenerateAppInstallerFile>False</GenerateAppInstallerFile>
+    <AppxPackageSigningTimestampDigestAlgorithm>SHA256</AppxPackageSigningTimestampDigestAlgorithm>
+    <AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
+    <GenerateTestArtifacts>True</GenerateTestArtifacts>
+    <AppxBundle>Always</AppxBundle>
+    <AppxBundlePlatforms>x86</AppxBundlePlatforms>
+    <HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
@@ -127,8 +134,12 @@
     <Compile Include="Converters\AuctionStatusEnumToStringConverter.cs" />
     <Compile Include="Converters\DateTimeToDateTimeOfSetConverter.cs" />
     <Compile Include="Converters\InverseBooleanConverter.cs" />
+    <Compile Include="Converters\ProveedorStatusEnumToStringConverter.cs" />
     <Compile Include="Pages\Backups\BackupsPage.xaml.cs">
       <DependentUpon>BackupsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\CentrosOperativos\CrearCentrosOperativoPage.xaml.cs">
+      <DependentUpon>CrearCentrosOperativoPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\Compradores\ListCompradoresPage.xaml.cs">
       <DependentUpon>ListCompradoresPage.xaml</DependentUpon>
@@ -138,6 +149,12 @@
     </Compile>
     <Compile Include="Pages\Concursos\AceptarTerminosYCondicionesPage.xaml.cs">
       <DependentUpon>AceptarTerminosYCondicionesPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Concursos\ConcursoAbiertoPage.xaml.cs">
+      <DependentUpon>ConcursoAbiertoPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Concursos\ConfirmacionGanadorPage.xaml.cs">
+      <DependentUpon>ConfirmacionGanadorPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\Concursos\CrearConcurso.cs">
       <DependentUpon>CrearConcursoPage.xaml</DependentUpon>
@@ -276,6 +293,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Pages\CentrosOperativos\CrearCentrosOperativoPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\Compradores\ListCompradoresPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -287,6 +308,14 @@
     <Page Include="Pages\Concursos\AceptarTerminosYCondicionesPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\Concursos\ConcursoAbiertoPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Concursos\ConfirmacionGanadorPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\Concursos\CrearConcursoPage.xaml">
       <SubType>Designer</SubType>

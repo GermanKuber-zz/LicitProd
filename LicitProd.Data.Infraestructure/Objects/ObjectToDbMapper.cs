@@ -35,11 +35,8 @@ namespace LicitProd.Data.Infrastructure.Objects
         protected virtual void Map() { }
         private MemberInfo GetMemberInfo<TObject, TProperty>(Expression<Func<TObject, TProperty>> expression)
         {
-            var member = expression.Body as MemberExpression;
-            if (member != null)
-            {
+            if (expression.Body is MemberExpression member)
                 return member.Member;
-            }
             throw new ArgumentException("Member does not exist.");
         }
 

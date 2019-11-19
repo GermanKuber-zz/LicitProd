@@ -9,7 +9,7 @@
   <Identity
     Name="24eb661f-0a0f-4520-ae77-a5bb9246f097"
     Publisher="CN=germa"
-    Version="1.0.0.0" />
+    Version="1.0.14.0" />
 
   <mp:PhoneIdentity PhoneProductId="24eb661f-0a0f-4520-ae77-a5bb9246f097" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 

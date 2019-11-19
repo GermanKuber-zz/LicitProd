@@ -40,11 +40,17 @@ namespace LicitProd.UI.Uwp.Pages.Concursos
            .Success(concursos =>
            {
 
-               concursos.Where(c => c.Status == (int)ConcursoStatusEnum.Nuevo &&
-                                    c.ConcursoProveedores.Any(p => p.Proveedor.UsuarioId == IdentityServices.Instance.GetUserLogged().Id
-                                                                   &&
-                                                                   p.Status != ProveedorConcursoStatusEnum.Rechazado))?.ToList()?
-                   .ForEach(x => Concursos.Add(new ConcursoParaOfertar(x, x.ConcursoProveedores.First(f => f.Proveedor.UsuarioId == IdentityServices.Instance.GetUserLogged().Id))));
+               var oncursosToCheck = concursos.Where(c => (c.Status == (int)ConcursoStatusEnum.Nuevo || c.Status == (int)ConcursoStatusEnum.Cerrado) &&
+                                     c.ConcursoProveedores.Any(p => p.Proveedor.UsuarioId == IdentityServices.Instance.GetUserLogged().Id
+                                                                    &&
+                                                                    p.Status != (int)ProveedorConcursoStatusEnum.Rechazado))?.ToList();
+
+               foreach (var item in oncursosToCheck)
+               {
+                   var concursoProveedor = item.ConcursoProveedores.First(f => f.Proveedor.UsuarioId == IdentityServices.Instance.GetUserLogged().Id);
+                   Concursos.Add(new ConcursoParaOfertar(item, concursoProveedor));
+               }
+
                LoadingService.LoadingStop();
            })
            .Error(async x =>
@@ -63,8 +69,13 @@ namespace LicitProd.UI.Uwp.Pages.Concursos
         private void dataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var concurso = (ConcursoParaOfertar)e.AddedItems.First();
-
-            if (concurso.ConcursoProveedor.AceptoTerminosYCondiciones)
+            if (concurso.ConcursoProveedor.Ganador)
+                NavigationService.Navigate<ConfirmacionGanadorPage>(new
+                {
+                    Concurso = concurso.Concurso,
+                    ConcursoProveedor = concurso.ConcursoProveedor
+                });
+            else if (concurso.ConcursoProveedor.AceptoTerminosYCondiciones)
                 if (concurso.Concurso.FechaInicio < DateTime.Now)
                     NavigationService.Navigate<OfertarConcursoPage>(new
                     {

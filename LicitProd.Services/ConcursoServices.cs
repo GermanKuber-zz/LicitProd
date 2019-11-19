@@ -5,6 +5,7 @@ using LicitProd.Seguridad;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using LicitProd.Data.ToDbMapper;
 using static LicitProd.Data.ToDbMapper.ConcursoProveedorDbMapper;
@@ -38,6 +39,51 @@ namespace LicitProd.Services
                     .Add("ProveedorId", proveedor.Result.Id)
                     .Add("ConcursoId", concursoId));
 
+        }
+
+        public async Task InvitarProveedores(Concurso concurso, List<Proveedor> proveedores)
+        {
+            concurso.AgregarProveedores(proveedores);
+             
+
+            var notificationManager = new NotificationManager();
+            var concursoProveedorRepository = new ConcursoProveedorRepository();
+            foreach (var proveedor in proveedores)
+            {
+                await concursoProveedorRepository.InsertDataAsync(new ConcursoProveedor
+                {
+                    ProveedorId = proveedor.Id,
+                    ConcursoId = concurso.Id
+                });
+            }
+            var hitoConcurso = new HitoConcurso
+            {
+                ConcursoId = concurso.Id,
+                Hito = JsonConvert.SerializeObject(concurso)
+            };
+            await _hitoConcursoRepository.InsertDataAsync(hitoConcurso);
+
+            notificationManager.Notificar(IdentityServices.Instance.GetUserLogged().Email, $"Nuevos proveedores invitados");
+
+        }
+        public async Task<Response<PreguntaConcurso>> HacerPregunta(ConcursoProveedor concursoProveedor, string pregunta)
+        {
+            var usuarioId = IdentityServices.Instance.GetUserLogged().Id;
+
+            var preguntaConcurso = new PreguntaConcurso
+            {
+                Pregunta = pregunta,
+                ConcursoProveedorId = concursoProveedor.Id
+            };
+            var response = await new PreguntaRepository().InsertDataAsync(preguntaConcurso);
+            new NotificationManager().Notificar(IdentityServices.Instance.GetUserLogged().Email, $"Nuevos proveedores invitados");
+            return response;
+        }
+
+        public async Task<Response<PreguntaConcurso>> ResponderPregunta(PreguntaConcurso pregunta)
+        {
+            var response = await new PreguntaRepository().UpdateDataAsync(pregunta);
+            return response;
         }
         public async Task<Response<Oferta>> RealizarOferta(decimal monto, string detalle, int concursoProveedorId)
         {
@@ -75,6 +121,19 @@ namespace LicitProd.Services
             return Response<string>.Ok("");
         }
 
+        public async Task EstablecerGanador(Concurso concurso, ConcursoProveedor concursoProveedor)
+        {
+            concursoProveedor.Ganador = true;
+            await new ConcursoProveedorRepository().UpdateDataAsync(concursoProveedor);
+
+            concurso.Status = (int) ConcursoStatusEnum.Cerrado;
+            await _concursosRepository.UpdateDataAsync(concurso);
+            await _hitoConcursoRepository.InsertDataAsync(new HitoConcurso
+            {
+                ConcursoId = concurso.Id,
+                Hito = JsonConvert.SerializeObject(concurso)
+            });
+        }
         public async Task<Response<Concurso>> GetConcursoParaOfertarAsync(int concursoId)
         {
             Response<Concurso> concurso = await _concursosRepository.GetByIdAsync(concursoId);

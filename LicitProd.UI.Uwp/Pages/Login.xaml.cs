@@ -102,7 +102,7 @@ namespace LicitProd.UI.Uwp.Pages
 
         private async void BtnLogin_Click(object sender, RoutedEventArgs e)
         {
-            Loading.IsLoading = true;
+            //Loading.IsLoading = true;
             var consistency = await ValidateConsistency();
 
             if (consistency.SuccessResult)
@@ -122,7 +122,7 @@ namespace LicitProd.UI.Uwp.Pages
                 else
                 {
                     MessageDialogService.Create("Verifique los datos ingresados!!");
-                    Loading.IsLoading = false;
+                    //Loading.IsLoading = false;
 
                 }
 

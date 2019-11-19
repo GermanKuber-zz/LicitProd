@@ -29,20 +29,24 @@
         FrozenColumnCount="0"
         GridLinesVisibility="None"
         HeadersVisibility="Column"
-        IsReadOnly="True"            
         RowDetailsTemplate="{StaticResource RowDetailsTemplate}"
         RowDetailsVisibilityMode="Collapsed"
         SelectionMode="Extended"
             SelectionChanged="dataGrid_SelectionChanged"
         RowGroupHeaderPropertyNameAlternative="Range">
         <controls:DataGrid.Columns>
-            <controls:DataGridTextColumn Header="Nombre" Binding="{Binding Nombre}" Tag="Rank" />
-            <controls:DataGridTextColumn Header="Descripción" Binding="{Binding Descripcion}" Tag="Rank" />
-                <controls:DataGridTextColumn Header="Status" Binding="{Binding Status, Converter={StaticResource ConcursoStatusEnumToStringConverter}}" Tag="Rank" />
-            <controls:DataGridTextColumn Header="Presupuesto" Binding="{Binding Presupuesto}" Tag="Rank" />
-            <controls:DataGridTextColumn Header="FechaInicio" Binding="{Binding FechaInicio}" Tag="Rank" />
-            <controls:DataGridTextColumn Header="FechaApertura" Binding="{Binding FechaApertura}" Tag="Rank" />
-            <controls:DataGridCheckBoxColumn Header="AdjudicacionDirecta" Binding="{Binding AdjudicacionDirecta}" Tag="Rank" />
+            <controls:DataGridTextColumn Header="Nombre" Binding="{Binding Concurso.Nombre}" Tag="Rank" />
+                <controls:DataGridTextColumn Header="Descripción" Binding="{Binding Concurso.Descripcion}" Tag="Rank" />
+                <controls:DataGridTextColumn Header="Status" Binding="{Binding Concurso.Status, Converter={StaticResource ConcursoStatusEnumToStringConverter}}" Tag="Rank" />
+                <controls:DataGridTextColumn Header="Presupuesto" Binding="{Binding Concurso.Presupuesto}" Tag="Rank" />
+                <controls:DataGridTextColumn Header="FechaInicio" Binding="{Binding Concurso.FechaInicio}" Tag="Rank" />
+                <controls:DataGridTextColumn Header="FechaApertura" Binding="{Binding Concurso.FechaApertura}" Tag="Rank" />
+                <controls:DataGridCheckBoxColumn Header="AdjudicacionDirecta" Binding="{Binding Concurso.AdjudicacionDirecta}" Tag="Rank" />
+                <controls:DataGridTextColumn Header="Listo para Abrir" Binding="{Binding ListoParaAbrir}" Tag="Rank" />
+                <controls:DataGridTextColumn Header="Preguntas Sin Respuesta" Binding="{Binding PreguntasSinRespuesta}" Tag="Rank" />
+                <controls:DataGridTextColumn Header="Preguntas Respondidas" Binding="{Binding PreguntasRespondidas}" Tag="Rank" />
+                <controls:DataGridTextColumn Header="Preguntas Totales" Binding="{Binding Preguntas}" Tag="Rank" />
+                <controls:DataGridTextColumn Header="Ofertas" Binding="{Binding Ofertas}" Tag="Rank" />
         </controls:DataGrid.Columns>
     </controls:DataGrid>
     </Grid>

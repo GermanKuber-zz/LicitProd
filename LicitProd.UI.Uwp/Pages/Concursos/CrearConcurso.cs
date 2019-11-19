@@ -14,10 +14,19 @@ namespace LicitProd.UI.Uwp.Pages.Concursos
     public class ProveedorSelectionViewModel
     {
         public Proveedor Proveedor { get; set; }
+        public ConcursoProveedor ConcursoProveedor { get; }
+
         public bool Selected { get; set; }
+        public ProveedorSelectionViewModel(Proveedor proveedor, ConcursoProveedor concursoProveedor)
+        {
+            Proveedor = proveedor;
+            ConcursoProveedor = concursoProveedor;
+
+        }
         public ProveedorSelectionViewModel(Proveedor proveedor)
         {
             Proveedor = proveedor;
+
         }
     }
     public sealed partial class CrearConcurso : Page
@@ -96,29 +105,34 @@ namespace LicitProd.UI.Uwp.Pages.Concursos
                     Concurso.Presupuesto = 0;
                 Concurso.TerminosYCondicionesId = TerminosYCondicionesSelected.Id;
                 if (chkBorrador.IsChecked.Value)
-                    Concurso.Status = (int) ConcursoStatusEnum.Borrador;
+                    Concurso.Status = (int)ConcursoStatusEnum.Borrador;
 
-                Concurso.FechaApertura = FechaApertura.Date;
-                Concurso.FechaInicio = FechaInicio.Date;
-                (await new ConcursoServices().Crear(Concurso, Proveedores.Where(x => x.Selected).Select(x => x.Proveedor).ToList()))
-                                        .Success(s =>
-                                        {
-                                            MessageDialogService.Create("Concurso Creado Existosamente", c =>
+                Concurso.FechaApertura = dtpApertura.Date.Date;
+                Concurso.FechaInicio = dtpInicio.Date.Date;
+
+                var response = Concurso.Validar();
+                if (!response.SuccessResult)
+                {
+                    (await new ConcursoServices().Crear(Concurso, Proveedores.Where(x => x.Selected).Select(x => x.Proveedor).ToList()))
+                                            .Success(s =>
                                             {
-                                                LoadingService.LoadingStop();
-                                                NavigationService.NavigatePop<Dashboard>();
-                                            }, null);
+                                                MessageDialogService.Create("Concurso Creado Existosamente", c =>
+                                                {
+                                                    LoadingService.LoadingStop();
+                                                    NavigationService.NavigatePop<Dashboard>();
+                                                }, null);
 
-                                        })
-                                        .Error(erros =>
-                                        {
-
-                                            MessageDialogService.Create("Error al Crear el Concoruso", c =>
+                                            })
+                                            .Error(erros =>
                                             {
-                                                LoadingService.LoadingStop();
 
-                                            }, null);
-                                        });
+                                                MessageDialogService.Create("Error al Crear el Concoruso", c =>
+                                                {
+                                                    LoadingService.LoadingStop();
+
+                                                }, null);
+                                            });
+                }
             }
         }
     }

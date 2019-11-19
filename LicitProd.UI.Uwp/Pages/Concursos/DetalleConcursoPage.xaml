@@ -38,41 +38,6 @@
             <controls1:DataGrid
                 ItemsSource="{x:Bind ConcursoProveedores }"
                 Grid.Row="1"
-                x:Name="dataGrid"
-                Margin="12"
-                IsEnabled="False"
-                Height="300px"
-                VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
-                HorizontalScrollBarVisibility="Visible"
-                VerticalScrollBarVisibility="Visible"
-                AlternatingRowBackground="Transparent"
-                AlternatingRowForeground="Gray"
-                AreRowDetailsFrozen="False"
-                AreRowGroupHeadersFrozen="True"
-                AutoGenerateColumns="False"
-                CanUserSortColumns="False"
-                CanUserReorderColumns="True"
-                CanUserResizeColumns="True"
-                ColumnHeaderHeight="32"
-                MaxColumnWidth="400"
-                FrozenColumnCount="0"
-                GridLinesVisibility="None"
-                HeadersVisibility="Column"
-                IsReadOnly="True"            
-                RowDetailsTemplate="{StaticResource RowDetailsTemplate}"
-                RowDetailsVisibilityMode="Collapsed"
-                SelectionMode="Extended"
-                RowGroupHeaderPropertyNameAlternative="Range">
-                <controls1:DataGrid.Columns>
-                    <controls1:DataGridTextColumn Header="RazonSocial" Binding="{Binding Proveedor.RazonSocial}" Tag="Rank" />
-                        <controls1:DataGridTextColumn Header="Status" Binding="{Binding Status, Converter={StaticResource DefaultEnumToStringConverter}}" Tag="Rank" />
-                        <controls1:DataGridTextColumn Header="Acepto Terminos Y Condiciones" Binding="{Binding AceptoTerminosYCondiciones}" Tag="Rank" />
-                </controls1:DataGrid.Columns>
-            </controls1:DataGrid>
-
-            <controls1:DataGrid
-                ItemsSource="{x:Bind Proveedores }"
-                Grid.Row="1"
                 x:Name="dataGridProveedores"
                 Margin="12"
                 IsEnabled="False"
@@ -99,11 +64,87 @@
                 SelectionMode="Extended"
                 RowGroupHeaderPropertyNameAlternative="Range">
                 <controls1:DataGrid.Columns>
-                    <controls1:DataGridTextColumn Header="RazonSocial" Binding="{Binding RazonSocial}" Tag="Rank" />
-                    <controls1:DataGridTextColumn Header="Status" Binding="{Binding Status, Converter={StaticResource DefaultEnumToStringConverter}}" Tag="Rank" />
+                    <controls1:DataGridTextColumn Header="RazonSocial" Binding="{Binding Proveedor.RazonSocial}" Tag="Rank" />
+                        <controls1:DataGridTextColumn Header="Status" Binding="{Binding Status, Converter={StaticResource ProveedorStatusEnumToStringConverter}}" Tag="Rank" />
+                        <controls1:DataGridTextColumn Header="Acepto Terminos Y Condiciones" Binding="{Binding AceptoTerminosYCondiciones}" Tag="Rank" />
                 </controls1:DataGrid.Columns>
             </controls1:DataGrid>
-        </StackPanel>
+
+                <controls1:DataGrid
+                ItemsSource="{x:Bind ProveedoresToShow }"
+                Grid.Row="1"
+                x:Name="dataGridProveedoresParaInvitar"
+                Margin="12"
+                IsEnabled="False"
+                Height="300px"
+                VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
+                HorizontalScrollBarVisibility="Visible"
+                VerticalScrollBarVisibility="Visible"
+                AlternatingRowBackground="Transparent"
+                AlternatingRowForeground="Gray"
+                AreRowDetailsFrozen="False"
+                AreRowGroupHeadersFrozen="True"
+                AutoGenerateColumns="False"
+                CanUserSortColumns="False"
+                CanUserReorderColumns="True"
+                CanUserResizeColumns="True"
+                ColumnHeaderHeight="32"
+                MaxColumnWidth="400"
+                FrozenColumnCount="0"
+                GridLinesVisibility="None"
+                HeadersVisibility="Column"
+                IsReadOnly="True"            
+                RowDetailsTemplate="{StaticResource RowDetailsTemplate}"
+                RowDetailsVisibilityMode="Collapsed"
+                SelectionMode="Extended"
+                RowGroupHeaderPropertyNameAlternative="Range">
+                    <controls1:DataGrid.Columns>
+                        <controls1:DataGridTextColumn Header="RazonSocial" Binding="{Binding Proveedor.RazonSocial}" Tag="Rank" />
+
+                        <controls1:DataGridTemplateColumn>
+                            <controls1:DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <CheckBox IsChecked="{Binding Path=Selected, Mode=TwoWay}" Name="theCheckbox" />
+                                </DataTemplate>
+                            </controls1:DataGridTemplateColumn.CellTemplate>
+                        </controls1:DataGridTemplateColumn>
+                    </controls1:DataGrid.Columns>
+                </controls1:DataGrid>
+
+                <controls1:DataGrid
+                ItemsSource="{x:Bind Preguntas}"
+                Grid.Row="1"
+                Margin="12"
+                x:Name="dtPreguntas"
+                IsEnabled="False"
+                Height="300px"
+                VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
+                HorizontalScrollBarVisibility="Visible"
+                VerticalScrollBarVisibility="Visible"
+                AlternatingRowBackground="Transparent"
+                AlternatingRowForeground="Gray"
+                AreRowDetailsFrozen="False"
+                AreRowGroupHeadersFrozen="True"
+                AutoGenerateColumns="False"
+                CanUserSortColumns="False"
+                CanUserReorderColumns="True"
+                CanUserResizeColumns="True"
+                ColumnHeaderHeight="32"
+                MaxColumnWidth="400"
+                FrozenColumnCount="0"
+                GridLinesVisibility="None"
+                HeadersVisibility="Column"
+                RowDetailsTemplate="{StaticResource RowDetailsTemplate}"
+                RowDetailsVisibilityMode="Collapsed"
+                SelectionMode="Extended"
+                RowGroupHeaderPropertyNameAlternative="Range">
+                    <controls1:DataGrid.Columns>
+                        <controls1:DataGridTextColumn IsReadOnly="True" Header="Pregunta" Binding="{Binding Pregunta}" Tag="Rank" />
+                        <controls1:DataGridTextColumn Header="Respuesta" Binding="{Binding Respuesta}" Tag="Rank" />
+
+                  </controls1:DataGrid.Columns>
+                </controls1:DataGrid>
+            </StackPanel>
     </Grid>
     </ScrollViewer>
     <Page.BottomAppBar>

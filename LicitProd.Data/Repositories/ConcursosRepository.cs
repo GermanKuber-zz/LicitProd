@@ -36,7 +36,8 @@ namespace LicitProd.Data.Repositories
             {
 
                 await FillConcurso(concurso);
-                if (concurso.FechaApertura < DateTime.Now && concurso.Status != (int)ConcursoStatusEnum.Abierto)
+                if (concurso.FechaApertura < DateTime.Now && concurso.Status != (int)ConcursoStatusEnum.Abierto
+                                                          && concurso.Status != (int)ConcursoStatusEnum.Cerrado)
                 {
                     concurso.Status = (int)ConcursoStatusEnum.Abierto;
                     await UpdateDataAsync(concurso);

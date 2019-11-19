@@ -40,7 +40,7 @@
                 <controls:DataGridTextColumn Header="Direccion" Binding="{Binding Direccion}" Tag="Rank" />
                 <controls:DataGridTextColumn Header="Celular" Binding="{Binding Celular}" Tag="Rank" />
                 <controls:DataGridTextColumn Header="Telefono" Binding="{Binding Telefono}" Tag="Rank" />
-                <controls:DataGridTextColumn Header="Status" Binding="{Binding Status}" Tag="Rank" />
+                <controls:DataGridTextColumn Header="Status" Binding="{Binding Status, Converter={StaticResource ProveedorStatusEnumToStringConverter}}" Tag="Rank" />
         </controls:DataGrid.Columns>
     </controls:DataGrid>
     </Grid>

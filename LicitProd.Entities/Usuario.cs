@@ -11,7 +11,12 @@ namespace LicitProd.Entities
         private int _rolId;
         public int RolId
         {
-            get => Rol.Id;
+            get
+            {
+                if (Rol == null)
+                    return _rolId;
+                return Rol.Id;
+            }
             protected set => _rolId = value;
         }
 

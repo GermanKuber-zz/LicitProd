@@ -40,7 +40,9 @@
                 <controls:DataGridTextColumn Header="FechaInicio" Binding="{Binding Concurso.FechaInicio}" Tag="Rank" />
                 <controls:DataGridTextColumn Header="FechaApertura" Binding="{Binding Concurso.FechaApertura}" Tag="Rank" />
                 <controls:DataGridCheckBoxColumn Header="Acepto Terminos Y Condiciones" Binding="{Binding ConcursoProveedor.AceptoTerminosYCondiciones}" Tag="Rank" />
-                <controls:DataGridTextColumn Header="Estado Proveedor" Binding="{Binding ConcursoProveedor.Status, Converter={StaticResource DefaultEnumToStringConverter}}" Tag="Rank" />
+                <controls:DataGridCheckBoxColumn Header="Ganador" Binding="{Binding ConcursoProveedor.Ganador}" Tag="Rank" />
+
+<controls:DataGridTextColumn Header="Estado Proveedor" Binding="{Binding ConcursoProveedor.Status, Converter={StaticResource ConcursoProveedorStatusEnumToStringConverter}}" Tag="Rank" />
                 <controls:DataGridTextColumn Header="Estado Concurso" Binding="{Binding Concurso.Status, Converter={StaticResource ConcursoStatusEnumToStringConverter}}" Tag="Rank" />
                 <controls:DataGridCheckBoxColumn Header="Oferte" Binding="{Binding Oferte}" Tag="Rank" />
             </controls:DataGrid.Columns>

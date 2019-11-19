@@ -16,7 +16,9 @@ namespace LicitProd.Data.ToDbMapper
                 .Ignore();
             Set(x => x.Oferta)
                 .Ignore();
+            Set(x => x.Pregunta)
+                .Ignore();
         }
-        
+
     }
 }

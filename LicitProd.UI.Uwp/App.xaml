@@ -51,7 +51,9 @@
             <converters:InverseBooleanConverter x:Key="InverseBooleanConverter"/>
             <proveedores:EnumToStringConverter x:Key="DefaultEnumToStringConverter"/>
             <converters:ConcursoStatusEnumToStringConverter x:Key="ConcursoStatusEnumToStringConverter"></converters:ConcursoStatusEnumToStringConverter>
-
+            <converters:ProveedorStatusEnumToStringConverter x:Key="ProveedorStatusEnumToStringConverter"></converters:ProveedorStatusEnumToStringConverter>
+            <converters:ConcursoProveedorStatusEnumToStringConverter x:Key="ConcursoProveedorStatusEnumToStringConverter"></converters:ConcursoProveedorStatusEnumToStringConverter>
+            
         </ResourceDictionary>
     </Application.Resources>
 </Application>
