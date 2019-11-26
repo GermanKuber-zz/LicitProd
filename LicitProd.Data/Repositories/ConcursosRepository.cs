@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using LicitProd.Entities;
-using LicitProd.Seguridad;
 
 namespace LicitProd.Data.Repositories
 {

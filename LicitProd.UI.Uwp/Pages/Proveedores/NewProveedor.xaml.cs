@@ -1,9 +1,6 @@
-﻿using System.Linq;
-using Windows.UI.Xaml;
+﻿using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using LicitProd.Data.Repositories;
 using LicitProd.Entities;
-using LicitProd.Seguridad;
 using LicitProd.Services;
 using LicitProd.UI.Uwp.Services;
 

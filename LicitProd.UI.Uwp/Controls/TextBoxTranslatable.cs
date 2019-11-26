@@ -1,6 +1,4 @@
-﻿using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using LicitProd.Services;
+﻿using Windows.UI.Xaml.Controls;
 
 namespace LicitProd.UI.Uwp.Controls
 {

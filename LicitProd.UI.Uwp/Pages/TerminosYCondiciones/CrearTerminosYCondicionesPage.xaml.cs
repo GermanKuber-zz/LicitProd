@@ -1,6 +1,5 @@
 ﻿using LicitProd.Data.Repositories;
 using LicitProd.UI.Uwp.Services;
-using System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 

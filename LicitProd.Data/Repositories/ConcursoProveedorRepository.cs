@@ -1,9 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 using LicitProd.Data.Infrastructure.Infrastructure;
-using LicitProd.Data.ToDbMapper;
 using LicitProd.Entities;
 
 namespace LicitProd.Data.Repositories

@@ -2,11 +2,11 @@
 
 namespace LicitProd.UI.Uwp.Controls
 {
-    public class DatePickerTranslatable : DatePicker
+    public class ComboBoxTranslatable : ComboBox
     {
         private readonly ControlsTranslatable _controlsTranslatable;
 
-        public DatePickerTranslatable()
+        public ComboBoxTranslatable()
         {
             _controlsTranslatable = new ControlsTranslatable(ChangeLanguage);
         }

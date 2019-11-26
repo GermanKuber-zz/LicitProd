@@ -1,6 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
-using LicitProd.Entities;
+﻿using LicitProd.Entities;
 
 namespace LicitProd.Data.Repositories
 {

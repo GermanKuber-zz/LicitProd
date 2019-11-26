@@ -4,14 +4,6 @@ using System.Linq;
 
 namespace LicitProd.Entities
 {
-    public enum ConcursoStatusEnum
-    {
-        Borrador = 0,
-        Nuevo = 1,
-        Abierto = 2,
-        Cancelado = 3,
-        Cerrado = 4
-    }
     public class Concurso : Verificable
     {
         public int Status { get; set; }
@@ -26,7 +18,6 @@ namespace LicitProd.Entities
         public int CompradorId { get; set; }
         public Comprador Comprador { get; set; }
         public CentroOperativo CentroOperativo { get; set; }
-        public int CentroOperativoId { get; set; }
         public List<ConcursoProveedor> ConcursoProveedores { get; set; } =new List<ConcursoProveedor>();
         public Concurso(decimal presupuesto,
             string nombre,

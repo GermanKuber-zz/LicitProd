@@ -1,11 +1,8 @@
 ﻿using LicitProd.Entities;
 using LicitProd.Seguridad;
 using System;
-using System.Linq;
 using LicitProd.Data.Repositories;
 using System.Threading.Tasks;
-using LicitProd.Data.Infrastructure.Infrastructure;
-using LicitProd.Data.ToDbMapper;
 using LicitProd.Mappers;
 
 namespace LicitProd.Services

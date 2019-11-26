@@ -3,7 +3,6 @@ using System.IO;
 using System.Threading.Tasks;
 using LicitProd.Data.Infrastructure.Infrastructure;
 using LicitProd.Entities;
-using LicitProd.Infrastructure;
 
 namespace LicitProd.Data.Repositories
 {

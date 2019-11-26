@@ -48,4 +48,9 @@
             </controls:DataGrid.Columns>
         </controls:DataGrid>
     </Grid>
+    <Page.BottomAppBar>
+        <CommandBar IsOpen="False" >
+            <controls1:AppBarButtonTranslatable  Icon="SaveLocal" TranslatableKey="APPBAR_BUTTON_EXPORT_PDF" Click="ButtonBase_OnClick" />
+        </CommandBar>
+    </Page.BottomAppBar>
 </Page>

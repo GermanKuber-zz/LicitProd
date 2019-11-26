@@ -1,5 +1,4 @@
 ﻿using LicitProd.Data.Repositories;
-using LicitProd.Data.ToDbMapper;
 using LicitProd.Entities;
 using LicitProd.UI.Uwp.Services;
 using System;
@@ -12,18 +11,6 @@ using LicitProd.Seguridad;
 
 namespace LicitProd.UI.Uwp.Pages.Concursos
 {
-    public class ConcursoParaOfertar
-    {
-        public Concurso Concurso { get; set; }
-        public ConcursoProveedor ConcursoProveedor { get; set; }
-
-        public bool Oferte => ConcursoProveedor?.Oferta != null;
-        public ConcursoParaOfertar(Concurso concurso, ConcursoProveedor concursoProveedor)
-        {
-            Concurso = concurso;
-            ConcursoProveedor = concursoProveedor;
-        }
-    }
     public sealed partial class ListConcursosOfertarPage : Page
     {
         public ObservableCollection<ConcursoParaOfertar> Concursos { get; set; } = new ObservableCollection<ConcursoParaOfertar>();

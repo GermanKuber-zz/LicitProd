@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using LicitProd.Data.Repositories;
+﻿using LicitProd.Data.Repositories;
 using System.Collections.ObjectModel;
 using System.Linq;
 using Windows.UI.Xaml;

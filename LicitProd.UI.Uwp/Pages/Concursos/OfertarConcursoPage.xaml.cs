@@ -1,5 +1,4 @@
-﻿using LicitProd.Data.Repositories;
-using LicitProd.Entities;
+﻿using LicitProd.Entities;
 using LicitProd.Mappers;
 using LicitProd.Services;
 using LicitProd.UI.Uwp.Services;
@@ -94,7 +93,6 @@ namespace LicitProd.UI.Uwp.Pages.Concursos
                 !string.IsNullOrWhiteSpace(Detalle)))
             {
                 LoadingService.LoadingStart();
-                var concurso = await new ConcursosRepository().GetByIdAsync(_concursoId);
                 Response<Oferta> result = await new ConcursoServices().RealizarOferta(decimal.Parse(Oferta), Detalle, _concursoProveedorId);
 
                 result.Success(x =>

@@ -2,18 +2,17 @@
 
 namespace LicitProd.UI.Uwp.Controls
 {
-    public class DatePickerTranslatable : DatePicker
+    public class RadioButtonCustom : RadioButton
     {
         private readonly ControlsTranslatable _controlsTranslatable;
 
-        public DatePickerTranslatable()
+        public RadioButtonCustom()
         {
             _controlsTranslatable = new ControlsTranslatable(ChangeLanguage);
         }
-
         private void ChangeLanguage(string value)
         {
-            Header = value;
+            Content = value;
         }
 
         public string TranslatableKey

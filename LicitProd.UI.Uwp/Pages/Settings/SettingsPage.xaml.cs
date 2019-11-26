@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Input;
 using LicitProd.Data.Repositories;
 using LicitProd.Entities;
 using LicitProd.Seguridad;

@@ -3,12 +3,8 @@ using LicitProd.Data.Repositories;
 using LicitProd.Entities;
 using LicitProd.Seguridad;
 using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using LicitProd.Data.ToDbMapper;
-using static LicitProd.Data.ToDbMapper.ConcursoProveedorDbMapper;
 
 namespace LicitProd.Services
 {
@@ -68,7 +64,7 @@ namespace LicitProd.Services
         }
         public async Task<Response<PreguntaConcurso>> HacerPregunta(ConcursoProveedor concursoProveedor, string pregunta)
         {
-            var usuarioId = IdentityServices.Instance.GetUserLogged().Id;
+         
 
             var preguntaConcurso = new PreguntaConcurso
             {

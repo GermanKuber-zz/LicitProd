@@ -22,12 +22,13 @@ namespace LicitProd.Data.ToDbMapper
              .Column("Status");
             Set(x => x.ConcursoProveedores)
                 .Ignore();
+            Set(x => x.CentroOperativo)
+                .Ignore();
             Set(x => x.TerminosYCondicionesId)
                     .Column("TerminosYCondiciones_Id");
             Set(x => x.CompradorId)
                 .Column("Comprador_Id");
-            Set(x => x.CentroOperativoId)
-                .Column("CentroOperativo_Id");
+    
 
         }
         

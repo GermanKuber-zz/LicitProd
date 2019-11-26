@@ -1,13 +1,8 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Threading.Tasks;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
-using LicitProd.Data.Repositories;
 using LicitProd.Entities;
-using LicitProd.Mappers;
-using LicitProd.Services;
 using LicitProd.UI.Uwp.Services;
 
 namespace LicitProd.UI.Uwp.Pages.Concursos

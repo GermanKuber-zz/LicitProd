@@ -129,10 +129,15 @@
     </Compile>
     <Compile Include="Controls\AppBarButtonTranslatable.cs" />
     <Compile Include="Controls\ButtonTranslatable.cs" />
+    <Compile Include="Controls\ComboBoxTranslatable.cs" />
+    <Compile Include="Controls\ControlsPermissionsVisible.cs" />
+    <Compile Include="Controls\ControlsTranslatable.cs" />
     <Compile Include="Controls\DataGridTextColumnTranslatable.cs" />
     <Compile Include="Controls\DatePickerTranslatable.cs" />
+    <Compile Include="Controls\RadioButtonCustom.cs" />
     <Compile Include="Controls\TextBoxTranslatable.cs" />
-    <Compile Include="Converters\AuctionStatusEnumToStringConverter.cs" />
+    <Compile Include="Converters\ConcursoStatusEnumToStringConverter.cs" />
+    <Compile Include="Converters\ConcursoProveedorStatusEnumToStringConverter.cs" />
     <Compile Include="Converters\DateTimeToDateTimeOfSetConverter.cs" />
     <Compile Include="Converters\InverseBooleanConverter.cs" />
     <Compile Include="Converters\ProveedorStatusEnumToStringConverter.cs" />
@@ -151,6 +156,8 @@
     <Compile Include="Pages\Concursos\ConcursoAbiertoPage.xaml.cs">
       <DependentUpon>ConcursoAbiertoPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\Concursos\ConcursoParaOfertar.cs" />
+    <Compile Include="Pages\Concursos\ConcursoViewModel.cs" />
     <Compile Include="Pages\Concursos\ConfirmacionGanadorPage.xaml.cs">
       <DependentUpon>ConfirmacionGanadorPage.xaml</DependentUpon>
     </Compile>
@@ -167,6 +174,8 @@
     <Compile Include="Pages\Concursos\OfertarConcursoPage.xaml.cs">
       <DependentUpon>OfertarConcursoPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\Concursos\OfertaViewModel.cs" />
+    <Compile Include="Pages\Concursos\ProveedorSelectionViewModel.cs" />
     <Compile Include="Pages\Dashboard.xaml.cs">
       <DependentUpon>Dashboard.xaml</DependentUpon>
     </Compile>
@@ -217,6 +226,7 @@
     <Compile Include="Pages\TerminosYCondiciones\CrearTerminosYCondicionesPage.xaml.cs">
       <DependentUpon>CrearTerminosYCondicionesPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\Usuarios\PageUtilities.cs" />
     <Compile Include="Pages\Usuarios\UsuariosRolesPage.xaml.cs">
       <DependentUpon>UsuariosRolesPage.xaml</DependentUpon>
     </Compile>
@@ -405,6 +415,9 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="iTextSharp">
+      <Version>5.5.13.1</Version>
+    </PackageReference>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.2.8</Version>
     </PackageReference>

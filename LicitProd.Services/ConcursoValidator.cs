@@ -4,10 +4,6 @@ using LicitProd.Entities;
 
 namespace LicitProd.Services
 {
-    public class NotificationManager {
-        public void Notificar(string email, string message) { 
-        }
-    }
     public class ConcursoValidator : IDitigoVerificadorVerticalValidator
     {
         protected IDitigoVerificadorVerticalValidator Next { get; }

@@ -1,6 +1,4 @@
-﻿using System.Data.SqlTypes;
-
-namespace LicitProd.Entities
+﻿namespace LicitProd.Entities
 {
     public class Proveedor : Entity
     {

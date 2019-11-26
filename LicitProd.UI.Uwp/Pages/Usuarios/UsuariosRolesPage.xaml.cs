@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
@@ -15,17 +14,6 @@ using TreeViewNode = Microsoft.UI.Xaml.Controls.TreeViewNode;
 
 namespace LicitProd.UI.Uwp.Pages.Usuarios
 {
-    public class PageUtilities
-    {
-        public void ShowMessageDialog(string message, Action callBackSuccess = null)
-        {
-            MessageDialogService.Create(message, c =>
-            {
-                callBackSuccess?.Invoke();
-                LoadingService.LoadingStop();
-            }, null);
-        }
-    }
     public sealed partial class UsuariosRolesPage : Page
     {
         public bool EditModeEnable { get; set; } = false;

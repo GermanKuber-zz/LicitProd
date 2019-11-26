@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using LicitProd.Entities;
 
 namespace LicitProd.Services
