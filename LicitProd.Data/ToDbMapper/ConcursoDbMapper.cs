@@ -28,10 +28,7 @@ namespace LicitProd.Data.ToDbMapper
                     .Column("TerminosYCondiciones_Id");
             Set(x => x.CompradorId)
                 .Column("Comprador_Id");
-    
-
         }
-        
     }
 }
 

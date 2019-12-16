@@ -9,7 +9,7 @@
   <Identity
     Name="11583GermanKuber.LicitProd"
     Publisher="CN=32712793-D176-492F-89E6-81151DCA04FA"
-    Version="1.0.16.0" />
+    Version="1.0.31.0" />
 
   <mp:PhoneIdentity PhoneProductId="962c1a01-6095-4868-99f3-e89014b1c22c" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 

@@ -7,6 +7,9 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using LicitProd.Data.Infrastructure.DataBase;
+using Microsoft.AppCenter;
+using Microsoft.AppCenter.Analytics;
+using Microsoft.AppCenter.Crashes;
 
 namespace LicitProd.UI.Uwp
 {
@@ -17,6 +20,10 @@ namespace LicitProd.UI.Uwp
 
             InitializeComponent();
             Suspending += OnSuspending;
+            AppCenter.Start("1fbb0789-1f0f-4157-8181-9b52ef1846e7",
+                typeof(Analytics), typeof(Crashes));
+            AppCenter.Start("1fbb0789-1f0f-4157-8181-9b52ef1846e7",
+                typeof(Analytics), typeof(Crashes));
         }
 
         protected override void OnLaunched(LaunchActivatedEventArgs e)

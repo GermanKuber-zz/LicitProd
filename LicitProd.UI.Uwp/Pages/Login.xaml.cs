@@ -65,8 +65,8 @@ namespace LicitProd.UI.Uwp.Pages
         public Login()
         {
             InitializeComponent();
-            //Task.Run(async () => await ValidateConsistency()).Wait();
-            LocalDb.CreateLocalDb("LicitProd2", new List<string> { "Creation.sql" }, true);
+            Task.Run(async () => await ValidateConsistency()).Wait();
+            //LocalDb.CreateLocalDb("LicitProd", new List<string> { "Creation.sql" }, true);
             LoadData();
         }
         private void CheckIfIfEnableToLogin()
